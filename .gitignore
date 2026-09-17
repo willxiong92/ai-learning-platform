@@ -47,3 +47,6 @@ next-env.d.ts
 
 # Local temp files
 temp/
+
+# Stray scraped lesson pages at repo root (not referenced by src)
+/courses_*.html

@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./vibehub.css";
+@import "./technology.css";
+@import "./backend.css";
+@import "./ai.css";
+@import "./git.css";
+@import "./design.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -126,5 +132,94 @@
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* --- Our own additions on top of the ported vibe-hub.org stylesheet ---
+   These UI bits (theme-color popover, mobile nav drawer, empty states)
+   weren't in the 12 downloaded CSS chunks (likely code-split / portal-
+   rendered on the source site), so they're built fresh using the same
+   design tokens (var(--bg), var(--border), var(--shadow-float), ...). */
+
+.theme-dot-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+}
+
+.theme-dot-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  outline: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.15s var(--ease);
+}
+
+.theme-dot-swatch:hover {
+  transform: scale(1.12);
+}
+
+.nav-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-mobile-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+}
+
+.nav-mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px 16px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.nav-mobile-menu a {
+  padding: 10px 4px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.catalog-empty {
+  padding: 64px 16px;
+  text-align: center;
+  color: var(--text-3);
+}
+
+@media (max-width: 860px) {
+  .nav-primary {
+    display: none;
+  }
+  .nav-mobile-toggle {
+    display: flex;
+  }
+  .nav-mobile-menu {
+    width: 100%;
   }
 }
