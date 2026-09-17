@@ -1,3 +1,8 @@
+> **本机说明（Will）**：从 JCodesMore/ai-website-cloner-template @92872bc 导入（2026-09-17），已断开上游 git、独立成本地库。
+> 用法：在本目录开 Claude Code（建议 `claude --chrome`），输入 `/clone-website <网址>`。产物写入 `src/app`、`src/components/sites`、`public/sites`、`docs/research`。
+> 为什么不装成全局 Skill：指令依赖本项目的 Next.js 脚手架和 `npm run build`，离开本目录会失败。卸载 = 删除本目录。
+> 注意：只克隆有权使用的网站；默认会并行派子 agent + worktree，额度消耗大。
+
 <div align="center">
 
 # AI Website Cloner Template
