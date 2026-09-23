@@ -11,7 +11,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 
 export const RENDER_SCHEMA_VERSION = 1
 export const SOURCE_SCHEMA_VERSION = 1
-export const DEFAULT_VITEPRESS_DIR = '/Users/will/code/AI学习站/node_modules/vitepress'
+export const DEFAULT_VITEPRESS_DIR = '/Users/will/code/AI学习平台/教材引擎/node_modules/vitepress'
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const DEFAULT_INPUT = path.join(repoRoot, 'src/lib/ai-learning/generated.json')

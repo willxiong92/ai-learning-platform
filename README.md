@@ -243,7 +243,7 @@ MIT
 - **页面组成**：概览页写学什么、学完能做什么、先修、章节卡；“开始学习”按钮直达第一章，不显示进度或成绩。章节页有返回目录、本章目录、上一章/下一章。AI 课程分组下的二级入口是“AI 术语图鉴”“AI 练习”。路由工具在 `src/lib/ai-learning/course-routes.ts`，页面组件在 `src/components/ai-learning/ai-course-*.tsx`，课程配图 `public/assets/ai-course-blueprints.svg`（原创示意图）。
 - **正文归谁管**：教材母源在 `/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources`（course.yaml、glossary.yaml、lessons/）。本仓库**不存第二份教材**，`src/lib/ai-learning/generated.json` 和 `rendered.json` 都是生成文件，不要手改；改正文请改母源。
 - **章节版式（2026-09-19 起）**：AI 章节页照搬 Web Coding 课程章节页的排版——标题 + 一句导语 + 可折叠「本章信息」，小节标题不编号，右侧本章目录随滚动高亮，最后是浅灰“本章总结”框。示意图只有五种写法（flow / compare / before-after / chat / checklist），作者在 lesson.md 里用 `::: figure 类型 标题 | 副标题` 纯文字书写，由 `scripts/render-ai-learning.mjs` 转成统一样式；写错格式时 `npm run content:ai` 会报出第几行。完整写法见母源 `sources/course-materials.md` 的「章节版式模板」。样板章是 l01；l02–l04 正文未改写，只是跟着换了排版。
-- **本机依赖（不在本仓库安装）**：读取和校验母源用 `/Users/will/code/AI学习站/scripts/content-lib.mjs`；Markdown 编译用该仓库已安装的 VitePress（`/Users/will/code/AI学习站/node_modules/vitepress` 的 `createMarkdownRenderer`）。换机器时可用绝对路径环境变量覆盖：`AI_LEARNING_SOURCE_DIR`、`AI_LEARNING_CONTENT_LIB`、`AI_LEARNING_VITEPRESS_DIR`。
+- **本机依赖（不在本仓库安装）**：读取和校验母源用 `/Users/will/code/AI学习平台/教材引擎/scripts/content-lib.mjs`；Markdown 编译用该仓库已安装的 VitePress（`/Users/will/code/AI学习平台/教材引擎/node_modules/vitepress` 的 `createMarkdownRenderer`）。换机器时可用绝对路径环境变量覆盖：`AI_LEARNING_SOURCE_DIR`、`AI_LEARNING_CONTENT_LIB`、`AI_LEARNING_VITEPRESS_DIR`。
 - **课程 / 术语 / 练习分开（2026-09-19 起，第 1 章已拆分）**：照克隆站结构，课程页只放正文、示意图和演示；正文里的关键词（母源写 `[文字](term:id)`）渲染成 `.course-term-ref` 按钮，点开在侧栏显示术语图鉴卡片（`src/components/ai-learning/ai-term-workspace.tsx`）。术语进术语图鉴 AI 组（`/topics/ai`，新增大语言模型、上下文、训练、推理、记忆 5 张卡），题目进练习页（`/practice?scope=ai`：6 道判断题 + 2 张「写一写」卡，写完看解析对照要点，不计分、不保存）。转换逻辑在 `scripts/ai-site-catalog.mjs`，生成 `src/lib/ai-learning/site-catalog.json`，由 `src/lib/vibehub/data.ts` 合并进图鉴和练习数据；写错字段时 `npm run content:ai` 报错。题目编号（`ai-l01-q1` 等）固定，留给以后的登录与学习记录。网站定位是自愿学习通道：进度记录已下线，`/learning/me` 跳到练习页（浏览器里的旧记录没删）；课程列表和概览不再显示进度。l02–l04 还没拆分，章内暂留旧测验块。写法见母源 `sources/course-materials.md`「课程 / 术语 / 练习分开」。
 - **命令**：`npm run content:ai` 先跑 `scripts/generate-ai-learning.mjs`（生成 generated.json），再跑 `scripts/render-ai-learning.mjs`（生成 rendered.json）。`npm run dev`、`npm run build`、`npm run check` 之前会自动先跑一次，避免悄悄用旧数据。测试：`node --test scripts/*.test.mjs`。
 - **为什么这样做**：Markdown 在 Next 之外预先编译，浏览器不加载 VitePress/Vue；正文只放行这几章实际用到的结构标签，遇到脚本、事件属性、未知组件直接失败并保留上一次的输出（这不是通用 HTML 净化器）。
@@ -262,7 +262,7 @@ MIT
 ### GPT Sites 私有试学部署（2026-09-20）
 
 - 已发布版本 1：[AI 学习站](https://ai-learning-practice.willxiong92.chatgpt.site)，仅站点所有者可访问，需使用对应 ChatGPT 账号登录。团队开放仍为 `not_open`，本人试学待验收。
-- 原站保留 Next standalone；Sites 静态构建快照在 `/Users/will/code/网站克隆工作台-sites-build`，发布仓库在 `/Users/will/Documents/Codex/2026-09-19/ke-yi/work/sites-release`。后者的 `.openai/hosting.json` 指向 `out`，是实际发布配置。
+- 原站保留 Next standalone；Sites 静态构建快照在 `/Users/will/code/AI学习平台/发布快照`，发布仓库在 `/Users/will/Documents/Codex/2026-09-19/ke-yi/work/sites-release`。后者的 `.openai/hosting.json` 指向 `out`，是实际发布配置。
 - 静态适配将目录搜索放到浏览器端，并为使用查询参数的页面添加 Suspense；沿用现有已生成内容，不运行 `content:ai`，不推广 L03 待审母源。后续修改须同步新快照、验证导出、提交并推送准确版本，再保存和部署至同一 project_id；不要直接重发旧 out。
 - 发布回执：`/Users/will/Documents/Codex/2026-09-19/ke-yi/work/sites-deploy/deployment.json`。本地静态搜索、练习跳转与产物检查通过，线上已确认登录门禁；登录后的线上内容尚未验证。
 - 技术词典新增 32 个术语（2026-09-23 同步参考站 2026-09-20 的更新）：只同步术语卡片、详情页、词典分类和更新日志，参考站的练习、小测验、课程和广告不跟进，参考站删掉的内容本站也不删。`agent-memory` 改名为“Agent 记忆”，避免和 AI 课程里的“记忆”重名。已放进快照，并在发布仓库提交 `7ed1526`；**尚未部署**，由 Codex 发布到同一 project_id。
@@ -272,7 +272,7 @@ MIT
 
 课程按基础与按需进阶组织，实践含 L01–L04 四个教学模拟试做与其余23个任务框架；Skill栏目只承载已核验团队资产，当前显示待上架。新实践母源为 `/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/practice/curriculum.json`，单独运行 `python3 scripts/generate-practice-curriculum.py` 生成展示JSON，不运行旧课程生成器，保持L03冻结。
 
-Sites导出目录为 `/Users/will/code/网站克隆工作台-sites-build`，使用 `node node_modules/next/dist/bin/next build --webpack` 避开Turbopack中文路径异常；本轮检查138项通过，桌面/390px页面人工核验。旧教材和历史练习记录保留，不新增账号、计分或真实数据上传。材料尚未构成Accio Work实跑或业务效果验证。
+Sites导出目录为 `/Users/will/code/AI学习平台/发布快照`，使用 `node node_modules/next/dist/bin/next build --webpack` 避开Turbopack中文路径异常；本轮检查138项通过，桌面/390px页面人工核验。旧教材和历史练习记录保留，不新增账号、计分或真实数据上传。材料尚未构成Accio Work实跑或业务效果验证。
 
 
 ### 实践改为业务案例（2026-09-20）

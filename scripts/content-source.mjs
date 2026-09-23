@@ -1,5 +1,5 @@
 // 教材母源的读取与校验（生成器默认用这一份）。
-// 迁入来源：/Users/will/code/AI学习站/scripts/content-lib.mjs 的 loadContent / validateContent /
+// 迁入来源：/Users/will/code/AI学习平台/教材引擎/scripts/content-lib.mjs 的 loadContent / validateContent /
 // splitSections / toPlainText，原规则逐条保留；旧站文件不改，旧站自己的构建仍用它自己那份。
 // 本站新增一个整课状态 reading_ready：正文已写好可以读，但练习、测验、演示还没编。
 // 它不是“免评估”：只是暂时没有评估内容，所以评估字段必须完全不出现（空的也不行），
@@ -25,7 +25,7 @@ const ASSESSMENT_COMPONENTS = ['ContrastDemo', 'GuidedPractice', 'ReadMark']
 const PRACTICE_LINK = /\]\(\s*\/practice(?![\w-])|href="\/practice(?![\w-])/
 const SECTION_LINE = /^##\s+(.+?)\s*\{#([a-z0-9-]+)\}\s*$/
 
-export const YAML_FROM = '/Users/will/code/AI学习站/package.json'
+export const YAML_FROM = '/Users/will/code/AI学习平台/教材引擎/package.json'
 let yaml
 // 只在真正读文件时才加载 yaml，单测只用校验函数时不依赖旧站仓库
 function parseYaml(text) {
