@@ -1,0 +1,90 @@
+/* AI 课程接进练习页后多出的两样东西：“写一写”卡和页底的延伸练习入口。
+   颜色、圆角都用站点已有变量，深浅色主题跟随全站。 */
+
+.practice-write {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+/* 动手任务的操作步骤：编号清单，放在输入框上方 */
+.practice-write-steps {
+  margin: 0;
+  padding-left: 1.4em;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.practice-write-steps li + li {
+  margin-top: 6px;
+}
+
+.practice-write-input {
+  width: 100%;
+  min-height: 132px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.practice-write-input:focus {
+  outline: 2px solid color-mix(in oklab, var(--brand) 40%, transparent);
+  outline-offset: 1px;
+}
+
+.practice-write-hint {
+  margin: 0;
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.practice-write .practice-primary-action {
+  justify-self: start;
+}
+
+.practice-write-answer ul {
+  margin: 6px 0 0;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.practice-write-answer li + li {
+  margin-top: 4px;
+}
+
+.practice-write-answer .practice-write-points-title {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.practice-more-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+.practice-more-links a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@media (max-width: 760px) {
+  .practice-more-links {
+    padding: 0 16px 32px;
+  }
+}

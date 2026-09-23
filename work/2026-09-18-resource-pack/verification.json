@@ -1,0 +1,19 @@
+{
+  "status": "partial",
+  "checks": [
+    "24 lesson briefs",
+    "24 unique source cards",
+    "all source references resolve",
+    "10 curriculum bodies/catalog/glossary files unchanged",
+    "reading-list pointer only",
+    "clone git status unchanged"
+  ],
+  "files_changed": [
+    "/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/course-materials.md",
+    "/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/reading-list.md",
+    "/Users/will/Desktop/业务主线/A-部门项目/AI学习站/PROJECT.md"
+  ],
+  "remaining": "17 search-only sources require original reading; 2 prior-verified repository cards have limited scope; Codex teaching cautions need resolution before adoption",
+  "claude_called": false,
+  "grok_session": "01a0b4f9-8487-7c12-9645-330e3bcdf059"
+}

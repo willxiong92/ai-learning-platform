@@ -1,0 +1,60 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { PRACTICE_EXERCISE } from "@/lib/ai-learning/practice-draft.mjs";
+import { PracticeDraft } from "@/components/ai-learning/practice-draft";
+import "../learning.css";
+
+export const metadata: Metadata = {
+  title: "模拟练习草稿｜AI 学习站",
+  description: "按案例模板写一份本机练习草稿：模拟情境，不是客户案例，不提交。",
+};
+
+export default function PracticeDraftPage() {
+  const ex = PRACTICE_EXERCISE;
+  return (
+    <div className="ai-learning-page">
+      <p className="ai-learning-breadcrumb">
+        <Link href="/practice">实践</Link> / <Link href="/learning/cases">模拟案例与作业</Link> / 练习草稿
+      </p>
+      <header className="ai-learning-header">
+        <p className="ai-learning-kicker">模拟练习</p>
+        <h1>练习草稿：按案例模板写一遍</h1>
+        <div className="ai-learning-warning ai-learning-case-banner">
+          <p>
+            <strong>这是模拟练习，不是客户案例，也不是业务成果。</strong>
+            请只写模拟或已去掉客户信息的内容：不要填客户名称、联系人、邮箱电话、订单金额等真实客户资料。
+          </p>
+        </div>
+        <p className="ai-learning-note">
+          草稿只保存在当前浏览器（点“保存草稿”才会保存）：不上传、不提交给任何人；换浏览器或设备看不到，清除浏览器数据会丢失。复制出来的内容标有“模拟练习草稿 / 未验收 / 未提交”。
+        </p>
+      </header>
+
+      <section className="ai-learning-case-card" aria-labelledby="exercise-title">
+        <p className="ai-learning-kicker">练习情境（固定，模拟）</p>
+        <h2 id="exercise-title">{ex.title}</h2>
+        <p>{ex.scenario}</p>
+        {ex.sources.map((source) => (
+          <div key={source.label} className="ai-learning-source-block">
+            <p className="ai-learning-source-label">{source.label}</p>
+            <ul>
+              {source.lines.map((line) => (
+                <li key={line}>{line}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <p className="ai-learning-note">
+          完整的来源/缺失对照和相关章节见 <Link href="/learning/cases">模拟案例与作业</Link>。下面的草稿是空白的，需要你自己写。
+        </p>
+      </section>
+
+      <section aria-labelledby="draft-title">
+        <h2 id="draft-title" className="ai-learning-section-title">
+          我的练习草稿
+        </h2>
+        <PracticeDraft />
+      </section>
+    </div>
+  );
+}

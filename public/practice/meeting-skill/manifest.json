@@ -1,0 +1,20 @@
+{
+  "version": "2026-09-20.1",
+  "files": {
+    "starter/README.md": "4e21be38bc6ea7362137d71e3cf3970b053911c544d892f69ff7179d21e6a9a5",
+    "starter/brief.md": "abd8f989387e71b71774099a178334c86a75bfad21e93d8b98ef53cdbd98974a",
+    "starter/config-a.json": "36bc69fe375bfeca9e6ee03d5e61d20ccadef1de5b8dcfc2a572c05fe8f151c2",
+    "starter/config-mismatch.json": "4dc2af691e020e6009f7f68d713fa2ff4509a843d9379d3596dea63a2fbcf344",
+    "starter/customer-a.md": "dadab42539fec372917c52f515e67967f0a28693bd8a6d764ef8805a9a76ec5d",
+    "starter/customer-meeting-actions/SKILL.md": "bcb8ac2f2dc94ff0281599b7e323c8a0d2fcde11d093fb15d0d934aabee5305b",
+    "starter/first-run.md": "bca67571bed7af5ac6e465f9287de0c9704c21bb7ed2753fdef1ad796d27e6db",
+    "starter/handover.md": "4bdc2e54496914c108a48fc6f59cfb5c6fcd0ca5afa957efeaf91c1162eaaac1",
+    "starter/test-record.md": "729adefcc4cb00767607d974a02b5cb05fd7e6b9e1580a320aaee1e5481c6945",
+    "reference/README.md": "7c1c4aba95390092157b068e239492f613165573e88fe41ddef52bcc89f0c901",
+    "reference/customer-meeting-actions/SKILL.md": "ac4bd501e1a6e9a662a44a77371aadfa29bca20417f08d43dbb22eba51eff972",
+    "transfer/README.md": "d6f41c68ae58b3731cc6634575d3ea1b2d234e357e5bbe61d3a64c5e0fd1a07b",
+    "transfer/config-b.json": "80b1afdef784d269377e832232d5b5c876501d83a1a4da1d538a220ba22621cd",
+    "transfer/customer-b-result.md": "abfd616a6d106556427e270504785f9422925f8922f6ea40592c5230268181e6",
+    "transfer/customer-b.md": "560cd74b0b4e57e51c1774d52f52a13e9babb009c16a3c5c9d299d8748543b9c"
+  }
+}

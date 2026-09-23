@@ -1,0 +1,159 @@
+"use client";
+
+// "我的学习": one overview of the local study state for the available lessons.
+// Everything shown is derived by deriveLessonStatus from browser-local
+// progress; nothing is uploaded, reset, exported or re-graded here. The
+// learner's short-answer text is never shown on this overview.
+import Link from "next/link";
+import {
+  deriveLessonStatus,
+  type AssessmentActivities,
+  type LessonAssessmentStatus,
+  type QuizGrade,
+} from "@/lib/ai-learning/assessment.mjs";
+import { ProgressStorageNotice } from "./learning-progress";
+import { useProgress } from "./progress-store";
+
+export interface MyLearningLesson {
+  id: string;
+  order: number;
+  title: string;
+  /** Lesson page inside its course, e.g. /courses/ai-m1/l01 (built on the server). */
+  href: string;
+  activities: AssessmentActivities;
+  /** Only the sections quiz questions point at: id -> title. */
+  sections: { id: string; title: string }[];
+}
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+function gradeText(grade: QuizGrade | null): string {
+  if (!grade) return "—";
+  const result = grade.passed ? "达到本课标准" : "未达到本课标准";
+  const critical = grade.criticalOk ? "" : "，关键题有错";
+  return `答对 ${grade.correctCount}/${grade.total}（${result}${critical}）`;
+}
+
+function shortText(status: LessonAssessmentStatus): string {
+  const short = status.latest.short;
+  if (!short || !short.written) return "还没写";
+  if (short.done) return "已写，已按要点自查";
+  return `已写，自查未完成（已勾 ${short.checked}/${short.total} 条）`;
+}
+
+/** Where to go next for this lesson, and why, in plain words. */
+function nextStep(lesson: MyLearningLesson, status: LessonAssessmentStatus): { href: string; text: string } {
+  const base = lesson.href;
+  const firstWrong = status.reviewSections[0];
+  if (status.key === "quiz_not_passed" && firstWrong) {
+    const title = lesson.sections.find((s) => s.id === firstWrong)?.title ?? firstWrong;
+    return { href: `${base}#${firstWrong}`, text: `先回看「${title}」，再重测` };
+  }
+  switch (status.key) {
+    case "not_started":
+      return { href: base, text: "开始读这一课" };
+    case "short_pending":
+      return { href: `${base}#assessment`, text: "去完成简答自查" };
+    case "read_pending":
+      return { href: `${base}#assessment`, text: "去标记已读当前版本" };
+    case "self_check_complete":
+      return { href: `${base}#assessment`, text: "查看本课测验记录" };
+    default:
+      return { href: `${base}#assessment`, text: "去做本课测验" };
+  }
+}
+
+function LessonSummaryCard({ lesson, status }: { lesson: MyLearningLesson; status: LessonAssessmentStatus }) {
+  const step = nextStep(lesson, status);
+  const hasAttempts = status.currentAttempts > 0;
+  const reviewTitles = status.reviewSections.map((id) => lesson.sections.find((s) => s.id === id)?.title ?? id);
+  return (
+    <li className={`ai-learning-lesson-card ai-learning-me-card is-${status.key}`}>
+      <p className="ai-learning-lesson-title">
+        <Link href={lesson.href}>
+          第 {pad(lesson.order)} 课 · {lesson.title}
+        </Link>
+        <span className={`ai-learning-badge is-progress is-${status.key}`}>本机：{status.label}</span>
+      </p>
+      <dl className="ai-learning-meta-list">
+        <dt>已读</dt>
+        <dd>{status.readCurrent ? "已标记当前版本" : status.staleRead ? "只标记过旧版本，当前版本待重新标记" : "未标记"}</dd>
+        <dt>首次测验</dt>
+        <dd>
+          {status.first.attempt
+            ? status.first.isCurrent
+              ? gradeText(status.first.grade)
+              : "首次作答是旧版本，不计入当前成绩"
+            : "还没做"}
+        </dd>
+        <dt>最近测验</dt>
+        <dd>{hasAttempts ? gradeText(status.latest.grade) : "当前版本还没做"}</dd>
+        <dt>作答次数</dt>
+        <dd>
+          当前版本 {status.currentAttempts} 次（重测 {status.retakeCount} 次，其中借助笔记或 AI 的 {status.aidedCount} 次）
+          {status.staleAttempts > 0 && `；另有旧版本 ${status.staleAttempts} 次，不计入`}
+        </dd>
+        <dt>简答</dt>
+        <dd>{hasAttempts ? shortText(status) : "—"}</dd>
+        {reviewTitles.length > 0 && (
+          <>
+            <dt>建议回看</dt>
+            <dd>{reviewTitles.join("、")}</dd>
+          </>
+        )}
+      </dl>
+      <p className="ai-learning-me-next">
+        <Link href={step.href}>{step.text}</Link>
+      </p>
+    </li>
+  );
+}
+
+export function MyLearning({ lessons, plannedCount }: { lessons: MyLearningLesson[]; plannedCount: number }) {
+  const state = useProgress();
+  if (!state.loaded) {
+    return <p className="ai-learning-note">正在读取本浏览器里的学习记录…</p>;
+  }
+  const rows = lessons.map((lesson) => ({
+    lesson,
+    status: deriveLessonStatus(state.progress.lessons[lesson.id], lesson.activities),
+  }));
+  const hasAnyRecord = lessons.some((l) => {
+    const p = state.progress.lessons[l.id];
+    return !!p && (p.readVersion !== null || p.attempts.length > 0);
+  });
+  const completed = rows.filter((r) => r.status.key === "self_check_complete").length;
+  const first = lessons[0];
+
+  return (
+    <>
+      <ProgressStorageNotice state={state} />
+      {!hasAnyRecord ? (
+        <div className="ai-learning-empty">
+          <p>本浏览器里还没有学习记录：没有标记过已读，也没有做过测验。</p>
+          {first && (
+            <p>
+              <Link href={first.href}>
+                从第 {pad(first.order)} 课 · {first.title} 开始
+              </Link>
+            </p>
+          )}
+        </div>
+      ) : (
+        <>
+          <p className="ai-learning-badges">
+            <span className="ai-learning-badge">
+              本机已完成自测 {completed}/{lessons.length} 课（只算可试读的课）
+            </span>
+            <span className="ai-learning-badge is-planned">另有 {plannedCount} 课待编写，不算未完成</span>
+          </p>
+          <ol className="ai-learning-lesson-list">
+            {rows.map(({ lesson, status }) => (
+              <LessonSummaryCard key={lesson.id} lesson={lesson} status={status} />
+            ))}
+          </ol>
+        </>
+      )}
+    </>
+  );
+}

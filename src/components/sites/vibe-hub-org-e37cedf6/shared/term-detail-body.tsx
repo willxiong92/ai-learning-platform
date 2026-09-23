@@ -3,9 +3,9 @@ import type { Term } from "@/lib/vibehub/types";
 import { QuizBlock } from "@/components/sites/vibe-hub-org-e37cedf6/shared/quiz-block";
 import { PronunciationButton } from "@/components/sites/vibe-hub-org-e37cedf6/shared/pronunciation-button";
 
-/** Full term write-up: hero, AI prompt, quiz, distinctions, anatomy, variants,
+/** Full term write-up: hero, AI course article (if any), AI prompt, quiz, distinctions, anatomy, variants,
  * scenarios, references. Shared between the standalone /[id] page and the
- * embedded reveal panel on /practice (which skips the cat breadcrumb and ad banner). */
+ * embedded reveal panel on /practice (which skips the cat breadcrumb). */
 export function TermDetailBody({ term, embedded = false }: { term: Term; embedded?: boolean }) {
   return (
     <div className={embedded ? "detail is-embedded" : undefined}>
@@ -44,6 +44,10 @@ export function TermDetailBody({ term, embedded = false }: { term: Term; embedde
             </p>
           )}
         </section>
+
+        {term.article && (
+          <section className="term-article" aria-label={`${term.cn}详解`} dangerouslySetInnerHTML={{ __html: term.article }} />
+        )}
 
         {term.aiPrompt && (
           <section className="lesson-agent-prompt" aria-labelledby="lesson-agent-title">
@@ -122,26 +126,6 @@ export function TermDetailBody({ term, embedded = false }: { term: Term; embedde
                 </div>
               ))}
             </div>
-          </section>
-        )}
-
-        {!embedded && (
-          <section id="gpt-support" className="gpt-recommendation" aria-label="工具与支持">
-            <a
-              className="gpt-original-banner"
-              href="https://oil-gpt.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="打开 GPT 补给站，查看订阅与账号服务"
-            >
-              <img
-                src="/sites/vibe-hub-org-e37cedf6/shared/images/gpt-account-banner-original.webp"
-                alt="想用 GPT、Codex？GPT-6 Astra，能建模，更能替你操作电脑。账号这一步，我们帮你。了解账号服务。"
-                width={1600}
-                height={560}
-                loading="lazy"
-              />
-            </a>
           </section>
         )}
 

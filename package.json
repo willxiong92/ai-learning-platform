@@ -27,11 +27,15 @@
     "node": ">=24"
   },
   "scripts": {
+    "content:ai": "node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs",
+    "predev": "npm run content:ai",
     "dev": "next dev",
+    "prebuild": "npm run content:ai",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "precheck": "npm run content:ai",
     "check": "npm run lint && npm run typecheck && npm run build"
   },
   "dependencies": {

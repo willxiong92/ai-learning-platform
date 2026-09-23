@@ -19,7 +19,7 @@ export async function generateMetadata({
   const term = getTerm(id);
   if (!term) return {};
   return {
-    title: `${term.cn}（${term.name}）是什么｜${term.cat} · Web Coding 学习站`,
+    title: `${term.cn}（${term.name}）是什么｜${term.cat} · AI 学习站`,
     description: term.desc,
   };
 }
@@ -35,7 +35,7 @@ export default async function TermDetailPage({
   const { prev, next } = getAdjacentTerms(id);
 
   return (
-    <div className="detail-shell">
+    <div className="detail detail-shell">
       <div className="detail-topbar">
         <nav className="detail-breadcrumb" aria-label="面包屑">
           <Link className="detail-back-button" href="/" aria-label="返回术语图鉴" title="返回术语图鉴">

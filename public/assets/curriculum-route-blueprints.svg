@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg"><symbol id="ai-course-m1-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m1-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m1-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m1-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m1-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">基础学习</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">认识模型 · 组织材料 · 核验成果</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">10课</text>
+      <g transform="translate(88, 278)"><rect x="0" y="0" width="300" height="70" rx="18" fill="var(--brand-light, #dbeafe)" /><rect x="20" y="22" width="200" height="12" rx="3" fill="var(--brand, #2563eb)" /><rect x="20" y="44" width="140" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="164" y="94" width="300" height="110" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="184" y="116" width="220" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="184" y="140" width="250" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="184" y="160" width="190" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M410 176l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="0" y="228" width="220" height="70" rx="18" fill="var(--green-light, #dcfce7)" /><rect x="20" y="252" width="150" height="12" rx="3" fill="var(--green, #16a34a)" /><rect x="20" y="274" width="100" height="10" rx="3" fill="var(--text-3, #94a3b8)" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-m2-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m2-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m2-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m2-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m2-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">对客交付</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">演示 · 评估 · 团队复制</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">3课</text>
+      <g transform="translate(88, 278)"><rect x="0" y="0" width="464" height="230" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="20" y="22" width="80" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="130" y="22" width="80" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="240" y="22" width="80" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="350" y="22" width="80" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="16" y="50" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="126" y="50" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="236" y="50" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="346" y="50" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="16" y="92" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="126" y="92" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="236" y="92" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="346" y="92" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="16" y="134" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="126" y="134" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="236" y="134" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="346" y="134" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="16" y="176" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="126" y="176" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="236" y="176" width="94" height="30" rx="8" fill="var(--bg-hover, #f1f5f9)" /><rect x="346" y="176" width="94" height="30" rx="8" fill="var(--brand-light, #dbeafe)" /><rect x="0" y="250" width="200" height="56" rx="16" fill="var(--warning-light, #fef3c7)" /><rect x="20" y="272" width="130" height="12" rx="3" fill="var(--warning, #d97706)" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-m3-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m3-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m3-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m3-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m3-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">数据与知识问答</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">按需检索 · 引用证据</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">3课</text>
+      <g transform="translate(88, 278)"><rect x="40" y="10" width="260" height="190" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="64" y="32" width="260" height="190" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="88" y="54" width="260" height="190" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="112" y="80" width="160" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="112" y="108" width="200" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="112" y="128" width="170" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="112" y="148" width="190" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="340" y="20" width="124" height="124" rx="24" fill="var(--brand-light, #dbeafe)" /><circle cx="402" cy="72" r="22" fill="none" stroke="var(--brand, #2563eb)" stroke-width="4" /><path d="M418 88l18 18" stroke="var(--brand, #2563eb)" stroke-width="5" stroke-linecap="round" /><rect x="0" y="250" width="464" height="56" rx="16" fill="var(--bg-hover, #f1f5f9)" /><rect x="20" y="272" width="260" height="12" rx="3" fill="var(--text-2, #64748b)" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-m4-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m4-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m4-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m4-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m4-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">可复用 Skill</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">封装方法 · 测试 · 复用</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">3课</text>
+      <g transform="translate(88, 278)"><rect x="0" y="0" width="220" height="52" rx="14" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><circle cx="26" cy="26" r="10" fill="var(--brand-light, #dbeafe)" /><rect x="48" y="20" width="140" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="0" y="66" width="220" height="52" rx="14" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><circle cx="26" cy="92" r="10" fill="var(--brand-light, #dbeafe)" /><rect x="48" y="86" width="140" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="0" y="132" width="220" height="52" rx="14" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><circle cx="26" cy="158" r="10" fill="var(--brand-light, #dbeafe)" /><rect x="48" y="152" width="140" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="0" y="198" width="220" height="52" rx="14" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><circle cx="26" cy="224" r="10" fill="var(--brand-light, #dbeafe)" /><rect x="48" y="218" width="140" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M236 130L290 130" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M282 123L290 130L282 137" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="304" y="40" width="160" height="180" rx="24" fill="var(--brand-light, #dbeafe)" /><path d="M344 104l40-22 40 22v52l-40 22-40-22z" fill="var(--bg-soft, #ffffff)" stroke="var(--brand, #2563eb)" stroke-width="4" stroke-linejoin="round" /><text x="384" y="208" font-size="18" font-weight="800" fill="var(--brand, #2563eb)" text-anchor="middle">Skill</text></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-m5-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m5-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m5-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m5-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m5-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">工具与 Agent</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">连接工具 · 控制流程</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">4课</text>
+      <g transform="translate(88, 278)"><rect x="0" y="40" width="120" height="84" rx="16" fill="var(--bg-hover, #f1f5f9)" stroke="var(--border, #e2e8f0)" /><rect x="20" y="64" width="70" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="20" y="88" width="50" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M128 82L162 82" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M154 75L162 82L154 89" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="172" y="40" width="120" height="84" rx="16" fill="var(--brand-light, #dbeafe)" /><rect x="192" y="64" width="70" height="12" rx="3" fill="var(--brand, #2563eb)" /><rect x="192" y="88" width="50" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M300 82L334 82" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M326 75L334 82L326 89" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="344" y="40" width="120" height="84" rx="16" fill="var(--green-light, #dcfce7)" /><rect x="364" y="64" width="70" height="12" rx="3" fill="var(--green, #16a34a)" /><rect x="364" y="88" width="50" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M404 132v48H60v-48" fill="none" stroke="var(--border, #e2e8f0)" stroke-width="3" stroke-dasharray="8 8" /><rect x="0" y="200" width="464" height="100" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="20" y="226" width="90" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="20" y="250" width="70" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M20 274l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="132" y="226" width="90" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="132" y="250" width="70" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M132 274l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="244" y="226" width="90" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="244" y="250" width="70" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M244 274l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="356" y="226" width="90" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="356" y="250" width="70" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M356 274l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-m6-route-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-m6-route-v1-card-shadow" x="-30%" y="-30%" width="160%" height="160%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#0f172a" flood-opacity="0.14" />
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.06" />
+    </filter>
+    <clipPath id="ai-course-m6-route-v1-card-clip"><rect x="65" y="60" width="510" height="565" rx="28" /></clipPath>
+  </defs>
+  <g transform="rotate(-3 320 345)" filter="url(#ai-course-m6-route-v1-card-shadow)">
+    <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-m6-route-v1-card-clip)">
+      <rect x="88" y="100" width="464" height="150" rx="24" fill="var(--bg-hover, #f1f5f9)" />
+      <text x="112" y="162" font-size="34" font-weight="900" fill="var(--text, #0f172a)">Web Coding</text>
+      <text x="112" y="202" font-size="18" font-weight="700" fill="var(--text-2, #64748b)">页面 · 接口 · 工程交付</text>
+      <rect x="436" y="128" width="92" height="36" rx="18" fill="var(--brand, #2563eb)" />
+      <text x="482" y="152" font-size="16" font-weight="800" fill="var(--on-status, #ffffff)" text-anchor="middle">4课</text>
+      <g transform="translate(88, 278)"><rect x="0" y="0" width="464" height="140" rx="20" fill="var(--bg-hover, #f1f5f9)" /><text x="24" y="44" font-size="18" font-weight="800" fill="var(--text-2, #64748b)" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">$ npm run check</text><path d="M24 80l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="58" y="78" width="180" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M24 112l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="58" y="110" width="140" height="12" rx="3" fill="var(--text, #0f172a)" /><circle cx="70" cy="196" r="22" fill="var(--brand-light, #dbeafe)" /><path d="M34 272c0-26 16-40 36-40s36 14 36 40z" fill="var(--brand-light, #dbeafe)" /><circle cx="232" cy="196" r="22" fill="var(--green-light, #dcfce7)" /><path d="M196 272c0-26 16-40 36-40s36 14 36 40z" fill="var(--green-light, #dcfce7)" /><circle cx="394" cy="196" r="22" fill="var(--warning-light, #fef3c7)" /><path d="M358 272c0-26 16-40 36-40s36 14 36 40z" fill="var(--warning-light, #fef3c7)" /><path d="M124 230L170 230" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M162 223L170 230L162 237" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><path d="M286 230L332 230" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M324 223L332 230L324 237" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-l01-chapter-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-l01-chapter-v1-wide-card-shadow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <clipPath id="ai-course-l01-chapter-v1-wide-card-clip"><rect x="24" y="48" width="592" height="420" rx="22" /></clipPath>
+  </defs>
+  <g transform="rotate(-2 320 258)" filter="url(#ai-course-l01-chapter-v1-wide-card-shadow)">
+    <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-l01-chapter-v1-wide-card-clip)">
+      <text x="56" y="104" font-size="26" font-weight="900" fill="var(--text, #0f172a)">输入 → 模型 → 输出</text>
+      <g transform="translate(56, 136)"><rect x="0" y="40" width="140" height="120" rx="16" fill="var(--bg-hover, #f1f5f9)" stroke="var(--border, #e2e8f0)" /><rect x="20" y="66" width="90" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="20" y="90" width="100" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="20" y="110" width="70" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><text x="20" y="190" font-size="16" font-weight="700" fill="var(--text-2, #64748b)">输入</text><path d="M152 100L186 100" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M178 93L186 100L178 107" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="196" y="20" width="136" height="160" rx="20" fill="var(--brand-light, #dbeafe)" /><circle cx="264" cy="84" r="34" fill="none" stroke="var(--brand, #2563eb)" stroke-width="5" /><circle cx="264" cy="84" r="10" fill="var(--brand, #2563eb)" /><rect x="224" y="140" width="80" height="12" rx="3" fill="var(--brand, #2563eb)" /><text x="216" y="210" font-size="16" font-weight="700" fill="var(--text-2, #64748b)">模型</text><path d="M344 100L378 100" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M370 93L378 100L370 107" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="388" y="40" width="140" height="120" rx="16" fill="var(--green-light, #dcfce7)" /><rect x="408" y="66" width="90" height="12" rx="3" fill="var(--green, #16a34a)" /><rect x="408" y="90" width="100" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M408 120l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><text x="408" y="190" font-size="16" font-weight="700" fill="var(--text-2, #64748b)">输出</text></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-l02-chapter-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-l02-chapter-v1-wide-card-shadow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <clipPath id="ai-course-l02-chapter-v1-wide-card-clip"><rect x="24" y="48" width="592" height="420" rx="22" /></clipPath>
+  </defs>
+  <g transform="rotate(-2 320 258)" filter="url(#ai-course-l02-chapter-v1-wide-card-shadow)">
+    <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-l02-chapter-v1-wide-card-clip)">
+      <text x="56" y="104" font-size="26" font-weight="900" fill="var(--text, #0f172a)">把任务说清楚</text>
+      <g transform="translate(56, 136)"><rect x="0" y="0" width="528" height="280" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><text x="24" y="44" font-size="17" font-weight="800" fill="var(--brand, #2563eb)">任务</text><rect x="110" y="32" width="300" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="110" y="54" width="240" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><text x="24" y="106" font-size="17" font-weight="800" fill="var(--brand, #2563eb)">背景</text><rect x="110" y="94" width="360" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="110" y="116" width="300" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><text x="24" y="168" font-size="17" font-weight="800" fill="var(--brand, #2563eb)">要求</text><rect x="110" y="156" width="260" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="110" y="178" width="200" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><text x="24" y="230" font-size="17" font-weight="800" fill="var(--brand, #2563eb)">格式</text><rect x="110" y="218" width="320" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="110" y="240" width="260" height="10" rx="3" fill="var(--text-3, #94a3b8)" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-l03-chapter-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-l03-chapter-v1-wide-card-shadow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <clipPath id="ai-course-l03-chapter-v1-wide-card-clip"><rect x="24" y="48" width="592" height="420" rx="22" /></clipPath>
+  </defs>
+  <g transform="rotate(-2 320 258)" filter="url(#ai-course-l03-chapter-v1-wide-card-shadow)">
+    <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-l03-chapter-v1-wide-card-clip)">
+      <text x="56" y="104" font-size="26" font-weight="900" fill="var(--text, #0f172a)">材料、上下文与示例</text>
+      <g transform="translate(56, 136)"><rect x="0" y="20" width="240" height="170" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="30" y="46" width="240" height="170" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="60" y="72" width="240" height="170" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><rect x="84" y="96" width="150" height="14" rx="3" fill="var(--text, #0f172a)" /><rect x="84" y="124" width="170" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="84" y="144" width="130" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><path d="M330 140L370 140" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M362 133L370 140L362 147" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="384" y="50" width="144" height="180" rx="20" fill="var(--warning-light, #fef3c7)" /><text x="456" y="100" font-size="17" font-weight="800" fill="var(--warning, #d97706)" text-anchor="middle">示例</text><rect x="408" y="124" width="96" height="12" rx="3" fill="var(--text, #0f172a)" /><rect x="408" y="148" width="80" height="10" rx="3" fill="var(--text-3, #94a3b8)" /><rect x="408" y="168" width="90" height="10" rx="3" fill="var(--text-3, #94a3b8)" /></g>
+    </g>
+  </g>
+</symbol><symbol id="ai-course-l04-chapter-v1" viewBox="0 0 640 640" style="font-family:system-ui, -apple-system, BlinkMacSystemFont, sans-serif">
+  <defs>
+    <filter id="ai-course-l04-chapter-v1-wide-card-shadow" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.12" />
+    </filter>
+    <clipPath id="ai-course-l04-chapter-v1-wide-card-clip"><rect x="24" y="48" width="592" height="420" rx="22" /></clipPath>
+  </defs>
+  <g transform="rotate(-2 320 258)" filter="url(#ai-course-l04-chapter-v1-wide-card-shadow)">
+    <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
+    <g clip-path="url(#ai-course-l04-chapter-v1-wide-card-clip)">
+      <text x="56" y="104" font-size="26" font-weight="900" fill="var(--text, #0f172a)">核验并改进</text>
+      <g transform="translate(56, 136)"><rect x="0" y="0" width="300" height="280" rx="16" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" /><path d="M24 42l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="64" y="34" width="200" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M24 98l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="64" y="90" width="200" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M26 144l16 16m0-16l-16 16" stroke="var(--warning, #d97706)" stroke-width="4" stroke-linecap="round" /><rect x="64" y="146" width="200" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M24 210l7 7 13-14" fill="none" stroke="var(--green, #16a34a)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><rect x="64" y="202" width="200" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M26 256l16 16m0-16l-16 16" stroke="var(--warning, #d97706)" stroke-width="4" stroke-linecap="round" /><rect x="64" y="258" width="200" height="12" rx="3" fill="var(--text, #0f172a)" /><path d="M316 140L356 140" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" /><path d="M348 133L356 140L348 147" fill="none" stroke="var(--text-3, #94a3b8)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /><rect x="370" y="40" width="158" height="200" rx="20" fill="var(--brand-light, #dbeafe)" /><path d="M449 96a32 32 0 1 1-30 20" fill="none" stroke="var(--brand, #2563eb)" stroke-width="5" stroke-linecap="round" /><path d="M412 104l7 13 13-6" fill="none" stroke="var(--brand, #2563eb)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" /><text x="449" y="200" font-size="17" font-weight="800" fill="var(--brand, #2563eb)" text-anchor="middle">改进再试</text></g>
+    </g>
+  </g>
+</symbol></svg>

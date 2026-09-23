@@ -1,5 +1,5 @@
-import { getTopicCards, searchTerms } from "@/lib/vibehub/data";
-import { CatalogView, CatalogFullView } from "@/components/sites/vibe-hub-org-e37cedf6/shared/catalog-view";
+import { getTopic, getTopicCards, HOME_TOPIC_SLUG, searchTerms } from "@/lib/vibehub/data";
+import { CatalogView, CatalogFullView, TopicNote, topicHeading } from "@/components/sites/vibe-hub-org-e37cedf6/shared/catalog-view";
 
 export default async function Home({
   searchParams,
@@ -25,6 +25,8 @@ export default async function Home({
     );
   }
 
-  const sections = getTopicCards("");
-  return <CatalogView activeSlug="" heading="前端 VibeCoding 术语" sections={sections} />;
+  // 首页默认显示学习路线模块 1（AI 基本功）
+  const topic = getTopic(HOME_TOPIC_SLUG)!;
+  const sections = getTopicCards(HOME_TOPIC_SLUG);
+  return <CatalogView activeSlug={HOME_TOPIC_SLUG} heading={topicHeading(topic)} sections={sections} note={<TopicNote topic={topic} />} />;
 }

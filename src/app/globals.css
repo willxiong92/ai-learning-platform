@@ -7,6 +7,7 @@
 @import "./ai.css";
 @import "./git.css";
 @import "./design.css";
+@import "./term-article.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -222,4 +223,65 @@
   .nav-mobile-menu {
     width: 100%;
   }
+}
+/* 术语卡标题：英文名当成一个整体。一行放得下就跟在中文名右边；放不下就整个换到下一行，
+   不会把 "Stateless Request" 拆成两行。英文名本身比一整行还长时才在内部折行。 */
+.card-head h3 span {
+  display: inline-block;
+  max-width: 100%;
+}
+
+
+/* 抬头站名改为「AI 学习站」（2026-09-19 Will 定）：按新文字宽度调整底部短横线位置和悬停展开宽度 */
+.nav .vh-logo { --vh-logo-rest: 61px; --vh-logo-hover: 124px; }
+.nav .vh-logo-stage::after { left: 15px; }
+
+/* 术语页两排筛选（学习路线 / 技术词典）：行首小标签、模块序号，以及模块说明行 */
+.catalog-finder .catalog-finder-row + .catalog-finder-row { border-top: 1px dashed color-mix(in srgb, var(--border) 80%, transparent); }
+.catalog-finder-label { flex: none; width: 60px; margin-right: 6px; color: var(--text-3); font-size: 12px; font-weight: 650; }
+.catalog-filter-chip em { font-style: normal; font-size: 11px; font-weight: 700; color: var(--text-3); }
+.catalog-filter-chip[aria-pressed="true"] em { color: inherit; }
+.catalog-route-note { margin: 10px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; color: var(--text-2); font-size: 13.5px; line-height: 1.6; }
+.catalog-route-note a { color: var(--brand); font-weight: 600; }
+.catalog-route-badge { padding: 2px 8px; border-radius: 999px; background: var(--bg-soft); color: var(--text-2); font-size: 12px; }
+@media (max-width: 720px) { .catalog-finder-label { width: auto; font-size: 11.5px; } }
+/* 学习路线的左侧目录只放课号 + 短名，和技术词典分类一样一行放下；万一超长也换行，不压到卡片上 */
+.catalog-sidebar .cat-chips .catalog-filter-chip { max-width: 100%; white-space: normal; text-align: left; }
+.catalog-directory-layout .catalog-heading:has(.catalog-route-note) { margin-bottom: 26px; }
+
+/* Skill 页新起点（原 VibeHub Skill 介绍已移除）：标题区 + “整理中”空状态 */
+.own-skill-intro { max-width: 720px; margin: 40px 0 28px; }
+.own-skill-label { margin-bottom: 10px; color: var(--brand); font-size: 12px; font-weight: 750; letter-spacing: .08em; }
+.own-skill-intro h1 { margin: 0; color: var(--text); font-size: clamp(30px, 4vw, 44px); font-weight: 760; letter-spacing: -.04em; line-height: 1.1; }
+.own-skill-intro p { margin: 16px 0 0; color: var(--text-2); font-size: 16px; line-height: 1.8; }
+.own-skill-empty { max-width: 720px; padding: 32px 28px; border: 1px dashed color-mix(in srgb, var(--border) 70%, var(--text-3)); border-radius: 14px; background: var(--bg-soft); }
+.own-skill-empty > i { color: var(--brand); font-size: 24px; }
+.own-skill-empty h2 { margin: 10px 0 6px; color: var(--text); font-size: 19px; font-weight: 700; }
+.own-skill-empty p { margin: 0; color: var(--text-2); font-size: 14.5px; line-height: 1.7; }
+.own-skill-links { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.own-skill-links a { color: var(--brand); font-size: 14px; font-weight: 600; }
+
+/* 术语目录页防重叠（2026-09-19）：
+   - 原样式里吸顶筛选背景透明、只在 .is-stuck 时才显示底色，但本站没有加 .is-stuck 的脚本，
+     正文滚上去会透过筛选和半透明顶栏露出来。这里让目录页的顶栏和筛选始终不透明，筛选下方加一条分隔线。
+   - 左侧目录的吸顶位置、点目录跳转后的停靠位置原来写死 130px / 132px / 168px，两排筛选一换行就对不上。
+     改为「顶栏高度 + 筛选实际高度 + 间距」统一计算；筛选实际高度由 CatalogFinder 量出来写到
+     --catalog-finder-h，脚本没跑之前用 112px 兜底（略大于两排不换行的高度，宁可多留点空也不挡标题）。
+   - 窄屏（≤960px）筛选不再吸顶、回到正常排版，免得顶栏加两排筛选占掉半屏；此时只需避开顶栏。 */
+body:has(.catalog-directory-page) .nav { background: var(--bg); }
+.catalog-directory-page .catalog-directory-layout {
+  --catalog-sticky-gap: 16px;
+  --catalog-anchor-offset: calc(var(--site-nav-height, 64px) + var(--catalog-finder-h, 112px) + var(--catalog-sticky-gap));
+}
+/* 搜索结果 / 收藏页没有筛选，只避开顶栏 */
+.catalog-directory-page .catalog-directory-layout.catalog-layout-full { --catalog-anchor-offset: calc(var(--site-nav-height, 64px) + var(--catalog-sticky-gap)); }
+.catalog-directory-page .catalog-directory-layout .catalog-finder {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.catalog-directory-page .catalog-directory-layout .catalog-sidebar { top: var(--catalog-anchor-offset); }
+.catalog-directory-page .catalog-directory-layout .cat-section { scroll-margin-top: var(--catalog-anchor-offset); }
+@media (max-width: 960px) {
+  .catalog-directory-page .catalog-directory-layout { --catalog-anchor-offset: calc(var(--site-nav-height, 64px) + var(--catalog-sticky-gap)); }
+  .catalog-directory-page .catalog-directory-layout .catalog-finder { position: static; }
 }

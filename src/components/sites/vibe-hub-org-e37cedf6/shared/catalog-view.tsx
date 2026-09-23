@@ -1,10 +1,32 @@
-import { CatalogFinder } from "./catalog-finder";
+import { CatalogFinder, type CatalogFinderChip } from "./catalog-finder";
 import { CategorySidebar } from "./category-sidebar";
 import { TermCard } from "./term-card";
-import type { Term } from "@/lib/vibehub/types";
+import Link from "next/link";
+import type { ReactNode } from "react";
+import { HOME_TOPIC_SLUG, ROUTE_TOPICS, TOPICS } from "@/lib/vibehub/data";
+import type { Term, Topic, TopicSection } from "@/lib/vibehub/types";
+
+const topicHref = (slug: string) => (slug === HOME_TOPIC_SLUG ? "/" : `/topics/${slug}`);
+
+// 筛选按钮在这里（server 端）算好再交给 CatalogFinder，浏览器端只拿到按钮需要的几个字段。
+const ROUTE_CHIPS: CatalogFinderChip[] = ROUTE_TOPICS.map((t) => ({
+  slug: t.slug,
+  href: topicHref(t.slug),
+  label: t.label,
+  count: t.count,
+  order: t.route!.order,
+  title: `模块 ${t.route!.order} · ${t.route!.title}${t.route!.writing ? "（课程编写中）" : ""}`,
+}));
+const TOPIC_CHIPS: CatalogFinderChip[] = TOPICS.map((t) => ({
+  slug: t.slug,
+  href: topicHref(t.slug),
+  label: t.label,
+  count: t.count,
+}));
 
 interface Section {
   cat: string;
+  nav?: TopicSection["nav"];
   terms: Term[];
 }
 
@@ -13,20 +35,22 @@ export function CatalogView({
   activeSlug,
   heading,
   sections,
+  note,
 }: {
   activeSlug: string;
   heading: string;
   sections: Section[];
+  note?: ReactNode;
 }) {
   return (
     <div className="catalog-page catalog-directory-page">
       <div className="catalog-layout catalog-directory-layout">
-        <span className="catalog-finder-sentinel" aria-hidden="true" />
-        <CatalogFinder activeSlug={activeSlug} />
-        <CategorySidebar cats={sections.map((s) => s.cat)} />
+        <CatalogFinder activeSlug={activeSlug} routes={ROUTE_CHIPS} topics={TOPIC_CHIPS} />
+        <CategorySidebar items={sections} />
         <div className="grid-wrap">
           <header className="catalog-heading">
             <h1>{heading}</h1>
+            {note}
           </header>
           {sections.map((s) => (
             <section className="cat-section" key={s.cat} id={`cat-${s.cat}`}>
@@ -44,6 +68,27 @@ export function CatalogView({
         </div>
       </div>
     </div>
+  );
+}
+
+/** 术语页标题：学习路线写“模块 N · 模块名”，技术词典写“技术词典 · 方向”。 */
+export function topicHeading(topic: Topic): string {
+  return topic.route ? `模块 ${topic.route.order} · ${topic.route.title}` : `技术词典 · ${topic.label}`;
+}
+
+/** 学习路线模块的说明：对应哪几课、课程是否在写，以及去课程和练习的入口。技术词典不显示。 */
+export function TopicNote({ topic }: { topic: Topic }) {
+  const r = topic.route;
+  if (!r) return null;
+  return (
+    <p className="catalog-route-note">
+      <span>对应 AI 课程{r.lessonRange}</span>
+      {r.writing ? (
+        <span className="catalog-route-badge">课程编写中 · 先放已有术语卡，课程写好后按教材调整</span>
+      ) : null}
+      <Link href={r.courseHref}>去学课程</Link>
+      <Link href={`/practice?scope=${topic.slug}`}>练这个模块</Link>
+    </p>
   );
 }
 

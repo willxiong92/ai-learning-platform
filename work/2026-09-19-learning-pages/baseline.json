@@ -1,0 +1,14 @@
+{
+  "files": {
+    "scripts/render-ai-learning.mjs": null,
+    "scripts/render-ai-learning.test.mjs": null,
+    "src/app/learning/page.tsx": null,
+    "src/app/learning/[lesson]/page.tsx": null,
+    "src/app/learning/learning.css": null,
+    "src/lib/ai-learning/catalog.ts": "dfeff63e7b20c504c4c82680a12e6beb3536c7d3a39dd5f163433c586f489bc0",
+    "package.json": "d725e5b1a1dd7304656fdefa38925a33e6ee9597408f310015cccef18848e513",
+    "src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx": "52d68509bd547e1631f7b763d1f95eab43151af1f47bc776abc8a3445df1cec6",
+    "README.md": "712fd79d1904f7f425245fe8bbc2e22ab4be0817baf9880af5921d49806c7573"
+  },
+  "status": " M README.md\nD  src/components/sites/vibe-hub-org-e37cedf6/shared/language-switch.tsx\n M src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx\n?? \"docs/AI\\345\\255\\246\\344\\271\\240\\345\\206\\205\\345\\256\\271\\345\\210\\206\\347\\261\\273-v1.md\"\n?? \"docs/AI\\345\\255\\246\\344\\271\\240\\345\\206\\205\\345\\256\\271\\350\\277\\255\\344\\273\\243-\\350\\220\\275\\345\\234\\260\\346\\226\\271\\346\\241\\210.md\"\n?? \"docs/AI\\345\\255\\246\\344\\271\\240\\351\\241\\271\\347\\233\\256-\\345\\272\\225\\345\\261\\202\\346\\226\\271\\346\\241\\210.md\"\n?? \"docs/AI\\345\\255\\246\\344\\271\\240\\351\\241\\271\\347\\233\\256-\\346\\241\\206\\346\\236\\266\\345\\233\\276.html\"\n?? scripts/generate-ai-learning.mjs\n?? scripts/generate-ai-learning.test.mjs\n?? src/lib/ai-learning/\n?? work/\n"
+}

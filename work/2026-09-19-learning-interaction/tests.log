@@ -1,0 +1,66 @@
+✔ all correct passes (0.548375ms)
+✔ missing answers fail and never count as correct (0.084ms)
+✔ wrong critical question fails even when min_correct is met (0.101333ms)
+✔ malformed and out-of-range answers are unanswered (0.105791ms)
+✔ empty question list never passes (0.074417ms)
+✔ short answer is never auto-marked (0.931625ms)
+✔ full current-version record reaches self_check_complete only (0.389417ms)
+✔ forged passed/score fields in storage are ignored (0.301458ms)
+✔ stale read and stale attempts never complete the current version (0.244583ms)
+✔ first attempt and retakes stay distinct (0.193ms)
+✔ updates do not mutate the input progress (0.191666ms)
+✔ corrupt and unsupported data return notice and empty data (0.068ms)
+✔ unknown lessons are preserved but show nothing completed for known ones (0.067583ms)
+✔ corrupt raw is backed up once and not destroyed (0.753541ms)
+✔ unsupported schema is backed up before overwrite (0.075458ms)
+✔ backup failure blocks overwrite (0.178709ms)
+✔ storage unavailable returns warning instead of throwing (0.111666ms)
+✔ write failure is reported (0.048542ms)
+✔ uses its own storage key, not the old site's (0.052667ms)
+✔ prototype pollution keys are dropped (0.080667ms)
+▶ generate-ai-learning（模拟教材）
+  ✔ 有效母源生成完整数据，计数从母源推导 (3.804625ms)
+  ✔ 计数跟随母源变化，不写死四课 (1.759416ms)
+  ✔ planned 章节没有正文，也不带审核通过之类的字段 (1.595458ms)
+  ✔ 重复生成字节完全一致 (2.756666ms)
+  ✔ 无效母源失败，且不改动已有生成文件 (2.828375ms)
+  ✔ 缺少母源时失败，不创建输出文件 (0.374916ms)
+  ✔ 本机路径漏进数据时失败 (0.570834ms)
+  ✔ 环境变量只接受绝对路径 (0.117ms)
+✔ generate-ai-learning（模拟教材） (15.287333ms)
+▶ generate-ai-learning（真实母源，只读）
+  ✔ 当前为 6 个模块 / 24 课，4 课 available、20 课 planned，状态为 draft / not_open (32.970833ms)
+✔ generate-ai-learning（真实母源，只读） (33.083291ms)
+▶ resolveRenderOptions
+  ✔ 只接受绝对路径 (0.697375ms)
+✔ resolveRenderOptions (93.431583ms)
+▶ renderLearningData（模拟教材）
+  ✔ 保留表格、图示、代码块和提示框，展开全部组件 (32.134542ms)
+  ✔ 引用、术语、锚点和状态说明照实输出 (4.158291ms)
+  ✔ 同样输入两次渲染结果完全一致 (3.379667ms)
+  ✔ 拒绝恶意或不认识的正文：script 标签 (0.362125ms)
+  ✔ 拒绝恶意或不认识的正文：iframe (0.271208ms)
+  ✔ 拒绝恶意或不认识的正文：事件属性 (0.395708ms)
+  ✔ 拒绝恶意或不认识的正文：javascript 链接 (0.085625ms)
+  ✔ 拒绝恶意或不认识的正文：img 标签 (0.099458ms)
+  ✔ 拒绝恶意或不认识的正文：无引号属性 (0.271333ms)
+  ✔ 拒绝恶意或不认识的正文：Vue 插值 (0.054833ms)
+  ✔ 拒绝恶意或不认识的正文：style 属性 (0.198125ms)
+  ✔ 拒绝未知组件、写错的 lesson 属性和不存在的来源 (1.173416ms)
+  ✔ 回归：代码块上的 v-pre 只在渲染器输出阶段去掉，正文里的 Vue 指令仍被拒绝 (1.145458ms)
+  ✔ 小节锚点缺失时失败 (1.022333ms)
+✔ renderLearningData（模拟教材） (45.420791ms)
+▶ writeRendered
+  ✔ 输入不合格时保留上一次的输出，不留临时文件 (5.261125ms)
+✔ writeRendered (5.330166ms)
+▶ 真实教材（只读 generated.json，不写文件）
+  ✔ 四章全部渲染，小节锚点齐全，没有残留组件 (27.6945ms)
+✔ 真实教材（只读 generated.json，不写文件） (27.798291ms)
+ℹ tests 46
+ℹ suites 6
+ℹ pass 46
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 281.799791

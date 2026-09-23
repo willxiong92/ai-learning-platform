@@ -1,0 +1,29 @@
+{
+  "protected_file_drift": [],
+  "links": {
+    "/Users/will/code/网站克隆工作台/README.md": {
+      "new_missing": [],
+      "preexisting_missing": []
+    },
+    "/Users/will/code/网站克隆工作台/docs/AI学习项目-底层方案.md": {
+      "new_missing": [],
+      "preexisting_missing": []
+    },
+    "/Users/will/Desktop/业务主线/A-部门项目/AI学习站/PROJECT.md": {
+      "new_missing": [],
+      "preexisting_missing": []
+    }
+  },
+  "required": {
+    "project_has_next_action": true,
+    "project_preserves_id": true,
+    "no_invented_active_status": true,
+    "readme_links_control": true,
+    "receipt_exists": true
+  },
+  "target_hashes": {
+    "/Users/will/code/网站克隆工作台/README.md": "712fd79d1904f7f425245fe8bbc2e22ab4be0817baf9880af5921d49806c7573",
+    "/Users/will/code/网站克隆工作台/docs/AI学习项目-底层方案.md": "29679f3f2815f48ea7a407c1724eea410befbc7e9c35f93ec9f790bc9d0f935b",
+    "/Users/will/Desktop/业务主线/A-部门项目/AI学习站/PROJECT.md": "eb35222858469c719a5e5d972af19ef25bcc8527d8d9916244a05f5fb694623e"
+  }
+}

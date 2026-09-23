@@ -1,40 +1,45 @@
+// 页脚渠道：版式沿用原站，作者换成 will（2026-09-19）。
+// href 留空的渠道暂不可点；拿到真实地址后填进 href，并把 sub 换成账号名。
 const SOCIALS = [
   {
     key: "website",
-    href: "https://oiloil.org/",
-    icon: <img src="/sites/vibe-hub-org-e37cedf6/shared/images/oil-favicon.png" alt="" width={20} height={20} />,
-    title: "oil 欧呦",
-    sub: "oiloil.org",
+    href: "",
+    icon: <i className="ti ti-user" aria-hidden="true" />,
+    title: "will",
+    sub: "个人主页待补充",
   },
   {
     key: "github",
-    href: "https://github.com/oil-oil",
+    href: "https://github.com/willxiong92",
     icon: <i className="ti ti-brand-github" aria-hidden="true" />,
     title: "GitHub",
-    sub: "@oil-oil",
+    sub: "@willxiong92",
   },
   {
     key: "x",
-    href: "https://x.com/I_am_oil_oil",
+    href: "https://x.com/willxiong92",
     icon: <i className="ti ti-brand-x" aria-hidden="true" />,
     title: "X",
-    sub: "x.com/I_am_oil_oil",
+    sub: "x.com/willxiong92",
   },
   {
     key: "xiaohongshu",
-    href: "https://www.xiaohongshu.com/user/profile/5f4dfecb000000000100571d",
+    href: "",
     icon: <b className="footer-social-glyph">RED</b>,
     title: "小红书",
-    sub: "oil 的小红书主页",
+    sub: "will 的小红书主页",
   },
   {
     key: "email",
-    href: "mailto:zhihuang.oiloil@gmail.com",
+    href: "mailto:willxiong92@gmail.com",
     icon: <i className="ti ti-mail" aria-hidden="true" />,
     title: "Email",
-    sub: "zhihuang.oiloil@gmail.com",
+    sub: "willxiong92@gmail.com",
   },
 ];
+
+// 术语投稿表单地址待补充（原站指向原作者的飞书表单，已去掉）
+const CONTRIBUTE_HREF = "";
 
 export function SiteFooter() {
   return (
@@ -42,7 +47,7 @@ export function SiteFooter() {
       <div className="site-footer-shell">
         <div className="site-footer-content">
           <div className="footer-wordmark" aria-hidden="true">
-            oil
+            will
           </div>
           <nav className="footer-socials" aria-label="联系方式和投稿">
             {SOCIALS.map((s, i) => (
@@ -50,9 +55,9 @@ export function SiteFooter() {
                 key={s.key}
                 className="footer-social-link"
                 data-social={s.key}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
+                href={s.href || undefined}
+                target={s.href ? "_blank" : undefined}
+                rel={s.href ? "noreferrer" : undefined}
               >
                 <span className="footer-social-index" aria-hidden="true">
                   {String(i + 1).padStart(2, "0")}
@@ -69,9 +74,9 @@ export function SiteFooter() {
             ))}
             <a
               className="footer-social-link footer-contribute-card"
-              href="https://my.feishu.cn/share/base/shrcnxcYfvOPpNtF0c1Vv3oBXGb"
-              target="_blank"
-              rel="noreferrer"
+              href={CONTRIBUTE_HREF || undefined}
+              target={CONTRIBUTE_HREF ? "_blank" : undefined}
+              rel={CONTRIBUTE_HREF ? "noreferrer" : undefined}
             >
               <span className="footer-social-icon" aria-hidden="true">
                 <i className="ti ti-pencil-plus" aria-hidden="true" />

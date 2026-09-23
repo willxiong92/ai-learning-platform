@@ -50,3 +50,6 @@ temp/
 
 # Stray scraped lesson pages at repo root (not referenced by src)
 /courses_*.html
+
+# Turbopack cache snapshots kept for debugging; rebuildable, never commit
+work/*turbopack-cache*/

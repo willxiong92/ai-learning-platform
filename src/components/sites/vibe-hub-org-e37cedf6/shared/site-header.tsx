@@ -5,12 +5,11 @@ import { usePathname } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SearchBox } from "./search-box";
 import { ThemeControls } from "./theme-controls";
-import { LanguageSwitch } from "./language-switch";
 
 const NAV_ITEMS = [
   { href: "/", label: "术语" },
-  { href: "/practice", label: "练习" },
   { href: "/courses", label: "课程" },
+  { href: "/practice", label: "实践" },
   { href: "/anti-ai-flavor", label: "防止 AI 味儿" },
   { href: "/changelog", label: "更新" },
 ] as const;
@@ -23,24 +22,24 @@ function isNavItemCurrent(pathname: string, href: string) {
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() ?? "";
-  const isSkillCurrent = isNavItemCurrent(pathname, "/vibehub-skill");
+  const isSkillCurrent = isNavItemCurrent(pathname, "/skill");
 
   return (
     <nav className="nav">
       <div className="nav-left">
-        <Link className="vh-logo" href="/" aria-label="VibeHub">
+        <Link className="vh-logo" href="/" aria-label="AI 学习站">
           <img
             className="vh-logo-mark"
-            src="/sites/vibe-hub-org-e37cedf6/shared/images/vh-logo-v4-tight.png"
+            src="/brand/ai-learning-mark.svg"
             alt=""
             width={20}
             height={20}
           />
           <span className="vh-logo-stage" aria-hidden="true">
             <span className="vh-word vh-word-brand">
-              Vibe<b>Hub</b>
+              AI<b>学习站</b>
             </span>
-            <span className="vh-word vh-word-tagline">Web Coding 学习站</span>
+            <span className="vh-word vh-word-tagline">团队 AI 实战通道</span>
           </span>
         </Link>
         <div className="nav-primary">
@@ -59,7 +58,7 @@ export function SiteHeader() {
           })}
           <Link
             className={`nav-skill-link${isSkillCurrent ? " is-current" : ""}`}
-            href="/vibehub-skill"
+            href="/skill"
             aria-label="Skill"
             aria-current={isSkillCurrent ? "page" : undefined}
           >
@@ -72,7 +71,6 @@ export function SiteHeader() {
         <Suspense fallback={<div className="nav-search" />}>
           <SearchBox />
         </Suspense>
-        <LanguageSwitch />
         <ThemeControls />
       </div>
       <button
@@ -89,11 +87,11 @@ export function SiteHeader() {
       {menuOpen && (
         <div className="nav-mobile-menu">
           <Link href="/" onClick={() => setMenuOpen(false)}>术语</Link>
-          <Link href="/practice" onClick={() => setMenuOpen(false)}>练习</Link>
           <Link href="/courses" onClick={() => setMenuOpen(false)}>课程</Link>
+          <Link href="/practice" onClick={() => setMenuOpen(false)}>实践</Link>
           <Link href="/anti-ai-flavor" onClick={() => setMenuOpen(false)}>防止 AI 味儿</Link>
           <Link href="/changelog" onClick={() => setMenuOpen(false)}>更新</Link>
-          <Link href="/vibehub-skill" onClick={() => setMenuOpen(false)}>Skill</Link>
+          <Link href="/skill" onClick={() => setMenuOpen(false)}>Skill</Link>
           <Link href="/favorites" onClick={() => setMenuOpen(false)}>收藏</Link>
         </div>
       )}

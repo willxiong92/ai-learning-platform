@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { getTopic, getTopicCards, searchTerms, TOPICS } from "@/lib/vibehub/data";
-import { CatalogView, CatalogFullView } from "@/components/sites/vibe-hub-org-e37cedf6/shared/catalog-view";
+import { getTopic, getTopicCards, HOME_TOPIC_SLUG, ROUTE_TOPICS, searchTerms, TOPICS } from "@/lib/vibehub/data";
+import { CatalogView, CatalogFullView, TopicNote, topicHeading } from "@/components/sites/vibe-hub-org-e37cedf6/shared/catalog-view";
 
 export function generateStaticParams() {
-  return TOPICS.filter((t) => t.slug).map((t) => ({ topic: t.slug }));
+  return [...ROUTE_TOPICS, ...TOPICS].filter((t) => t.slug && t.slug !== HOME_TOPIC_SLUG).map((t) => ({ topic: t.slug }));
 }
 
 export default async function TopicPage({
@@ -36,5 +36,5 @@ export default async function TopicPage({
   }
 
   const sections = getTopicCards(slug);
-  return <CatalogView activeSlug={slug} heading={`${topic.label} VibeCoding 术语`} sections={sections} />;
+  return <CatalogView activeSlug={slug} heading={topicHeading(topic)} sections={sections} note={<TopicNote topic={topic} />} />;
 }

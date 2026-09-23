@@ -1,0 +1,14 @@
+{
+  "head_unchanged": true,
+  "original_git_status_entries_preserved": true,
+  "status_removed": [],
+  "status_added": [
+    "?? work/"
+  ],
+  "only_task_work_added_to_status": true,
+  "readme_original_body_preserved": true,
+  "protected_file_drift": [],
+  "all_local_links_resolve": true,
+  "check_docs_exit_code": 0,
+  "scope_limit": "Git状态和91项受保护文件哈希；非全机文件审计。"
+}

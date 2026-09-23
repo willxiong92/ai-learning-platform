@@ -1,0 +1,32 @@
+{
+  "cwd": "/Users/will/code/网站克隆工作台",
+  "command": [
+    "/Users/will/.local/bin/claude",
+    "-p",
+    "--model",
+    "claude-opus-5",
+    "--output-format",
+    "json",
+    "--permission-mode",
+    "dontAsk",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--tools",
+    "Read,Edit,Write",
+    "--allowedTools",
+    "Edit(//Users/will/code/网站克隆工作台/scripts/generate-ai-learning.mjs)",
+    "Edit(//Users/will/code/网站克隆工作台/scripts/generate-ai-learning.test.mjs)",
+    "Edit(//Users/will/code/网站克隆工作台/src/lib/ai-learning/catalog.ts)",
+    "Edit(//Users/will/code/网站克隆工作台/work/2026-09-19-learning-adapter/claude-receipt.md)",
+    "Read(//Users/will/code/网站克隆工作台/AGENTS.md)",
+    "Read(//Users/will/code/网站克隆工作台/package.json)",
+    "Read(//Users/will/code/网站克隆工作台/tsconfig.json)",
+    "Read(//Users/will/code/AI学习站/scripts/content-lib.mjs)",
+    "Read(//Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/course.yaml)",
+    "Read(//Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/glossary.yaml)",
+    "Read(//Users/will/code/网站克隆工作台/scripts/generate-ai-learning.mjs)",
+    "Read(//Users/will/code/网站克隆工作台/scripts/generate-ai-learning.test.mjs)",
+    "Read(//Users/will/code/网站克隆工作台/src/lib/ai-learning/catalog.ts)"
+  ]
+}

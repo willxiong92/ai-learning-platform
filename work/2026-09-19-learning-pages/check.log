@@ -1,0 +1,98 @@
+
+> ai-website-clone-template@0.4.0 precheck
+> npm run content:ai
+
+
+> ai-website-clone-template@0.4.0 content:ai
+> node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs
+
+已生成 src/lib/ai-learning/generated.json：课程版本 2026-09-18.4，6 个模块 / 24 课（available 4，planned 20）
+已生成 src/lib/ai-learning/rendered.json：课程版本 2026-09-18.4，渲染 4 课（l01、l02、l03、l04）
+
+> ai-website-clone-template@0.4.0 check
+> npm run lint && npm run typecheck && npm run build
+
+
+> ai-website-clone-template@0.4.0 lint
+> eslint
+
+
+/Users/will/code/网站克隆工作台/src/components/sites/vibe-hub-org-e37cedf6/shared/site-footer.tsx
+  5:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/will/code/网站克隆工作台/src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx
+  32:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/will/code/网站克隆工作台/src/components/sites/vibe-hub-org-e37cedf6/shared/term-detail-body.tsx
+  137:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+✖ 3 problems (0 errors, 3 warnings)
+
+
+> ai-website-clone-template@0.4.0 typecheck
+> tsc --noEmit
+
+
+> ai-website-clone-template@0.4.0 prebuild
+> npm run content:ai
+
+
+> ai-website-clone-template@0.4.0 content:ai
+> node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs
+
+已生成 src/lib/ai-learning/generated.json：课程版本 2026-09-18.4，6 个模块 / 24 课（available 4，planned 20）
+已生成 src/lib/ai-learning/rendered.json：课程版本 2026-09-18.4，渲染 4 课（l01、l02、l03、l04）
+
+> ai-website-clone-template@0.4.0 build
+> next build
+
+▲ Next.js 16.3.0 (Turbopack)
+✓ Running next.config.ts took 25ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 969ms
+  Running TypeScript ...
+  Finished TypeScript in 1181ms ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/381) ...
+  Generating static pages using 9 workers (95/381) 
+  Generating static pages using 9 workers (190/381) 
+  Generating static pages using 9 workers (285/381) 
+✓ Generating static pages using 9 workers (381/381) in 815ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├   /[id]
+│ ├ ● /button
+│ ├ ● /link
+│ ├ ● /typography
+│ └ ● [+319 more paths]
+├ ○ /anti-ai-flavor
+├ ○ /changelog
+├ ○ /courses
+├   /courses/[course]
+│ ├ ● /courses/product-website
+│ └ ● /courses/git-workflow
+├   /courses/[course]/[lesson]
+│ ├ ● /courses/product-website/01-page-structure
+│ ├ ● /courses/product-website/02-visual-direction
+│ ├ ● /courses/product-website/03-hero-cta
+│ └ ● [+12 more paths]
+├ ○ /favorites
+├ ○ /learning
+├   /learning/[lesson]
+│ ├ ● /learning/l01
+│ ├ ● /learning/l02
+│ ├ ● /learning/l03
+│ └ ● [+21 more paths]
+├ ○ /practice
+├ ƒ /topics/[topic]
+└ ○ /vibehub-skill
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -85,18 +85,31 @@ export interface Term {
   quiz: TermQuiz | null;
   references: TermReference[] | null;
   distinctionsDetail: TermDistinctionDetail[] | null;
+  /** AI 课程写的长篇讲解（已渲染的 HTML），只有部分术语有 */
+  article?: string;
 }
 
 export interface TopicSection {
   cat: string;
   ids: string[];
+  /** 学习路线才有：左侧目录显示的课号和短名（cat 是完整的“第 0X 课 · 课名”） */
+  nav?: { num: string; label: string };
 }
 
 export interface Topic {
-  slug: string; // "" for the default/frontend tab, served at "/"
+  slug: string; // 技术词典：topics.json 里前端是 ""，data.ts 统一改成 "frontend"；学习路线：m1–m6，首页 / 显示 HOME_TOPIC_SLUG
   label: string;
   count: number;
   sections: TopicSection[];
+  /** 只有学习路线模块有：对应的课程模块信息 */
+  route?: {
+    order: number;
+    title: string;
+    writing: boolean;
+    courseHref: string;
+    lessonRange: string;
+    lessonIds: string[];
+  };
 }
 
 export interface AifCard {
@@ -170,6 +183,18 @@ export interface PracticeQuestion {
   termId: string;
   title: string;
   options: PracticeOption[];
+  /** "write" = AI 课程的“写一写”卡：写几句话，再看解析、对照要点；不计分、不保存。缺省为选择题。 */
+  kind?: "choice" | "write";
+  write?: PracticeWrite;
+}
+
+export interface PracticeWrite {
+  /** 动手任务的操作步骤，显示在输入框上方；没有步骤时为空数组。 */
+  steps: string[];
+  placeholder: string | null;
+  hint: string | null;
+  answer: string | null;
+  points: string[];
 }
 
 export interface CourseChapter {

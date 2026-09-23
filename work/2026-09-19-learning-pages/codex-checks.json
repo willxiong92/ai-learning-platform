@@ -1,0 +1,25 @@
+{
+  "npm_run_check": "passed exit0",
+  "log": "check.log",
+  "browser": {
+    "l01": "rendered revised labels; practice details opens actual explanation",
+    "width_1280": {
+      "client": 1280,
+      "scroll": 1280
+    },
+    "width_390": {
+      "client": 390,
+      "scroll": 390
+    },
+    "l05": "explicit planned no body/quiz",
+    "l99": "404 shown",
+    "viewport": "reset"
+  },
+  "not_verified": [
+    "dark mode visual",
+    "all four pages visual",
+    "quiz/progress not implemented"
+  ],
+  "human_accepted": false,
+  "published": false
+}

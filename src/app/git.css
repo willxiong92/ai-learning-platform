@@ -560,3 +560,29 @@
   .git-story.is-card .git-ignore-visual { grid-template-columns: 1fr 105px; gap: 8px; }
   .git-ignore-rule small { display: none; }
 }
+
+
+/* 2026-09-20 技术词典新增 32 个术语：卡片示意图与 Git 详情页用到的样式（取自参考站 vibe-hub.org） */
+.git-remote-visual { width: min(100%, 560px); display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 16px; }
+.git-remote-side { min-width: 0; }
+.git-remote-side .git-repo-card,
+.git-remote-side .git-device-card { min-height: 76px; }
+.git-remote-arrows { display: grid; gap: 8px; justify-items: center; }
+.git-remote-arrow { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid #c7d1df; border-radius: 999px; background: var(--bg-soft); color: var(--text-2); font-size: 10.5px; font-weight: 650; white-space: nowrap; }
+.git-remote-arrow.up { color: var(--git-blue); }
+.git-remote-arrow.down { color: var(--git-green); }
+.git-remote-anat { width: 100%; display: flex; justify-content: center; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-soft); }
+.git-remote-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--text-2); overflow-wrap: anywhere; }
+@media (max-width: 720px) {
+  .git-remote-visual { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 10px; }
+}
+@media (max-width: 720px) {
+  .git-remote-arrows { grid-auto-flow: column; }
+}
+@media (max-width: 720px) {
+  .git-remote-side { width: min(100%, 260px); }
+}
+.git-reset-visual { position: relative; width: min(100%, 500px); padding: 6px 6px 30px 92px; }
+.git-reset-back { position: absolute; left: 92px; bottom: 2px; display: flex; align-items: center; gap: 6px; color: var(--git-blue); font-size: 10.5px; font-weight: 650; }
+.git-reset-back i { width: 22px; height: 22px; display: grid; place-items: center; border: 1.5px dashed var(--git-blue); border-radius: 50%; background: var(--git-blue-soft); }
+.git-reset-back i::before { content: "↩"; font-size: 11px; font-style: normal; }

@@ -1,0 +1,11 @@
+{
+  "origin": "http://localhost:3301",
+  "synthetic_only": true,
+  "empty_initial_fields": "passed",
+  "save_reload": "passed",
+  "other_tab_conflict": "passed: B save; A blocked and input preserved; reload shows B",
+  "copy_ui": "success displayed",
+  "clipboard_actual_text": "not_verified: browser virtual clipboard empty; paste unavailable",
+  "daily_origin": "http://localhost:3000 untouched by test saves",
+  "test_server_stopped": true
+}

@@ -4,11 +4,11 @@ import { THEME_INIT_SCRIPT } from "@/lib/vibehub/theme";
 import { SiteShell } from "@/components/sites/vibe-hub-org-e37cedf6/shared/site-shell";
 
 export const metadata: Metadata = {
-  title: "Web Coding 学习站 · 基于 VibeHub 术语图鉴",
+  title: "AI 学习站 · 团队 AI 实战通道",
   description:
-    "个人 Web coding 学习网站：VibeHub 前端/后端/产品/测试/技术栈/AI/Git/设计风格术语图鉴 + 自建小课与练习。",
+    "团队自愿学习 AI 的通道：AI 课程、术语图鉴与业务情境练习，不考核、不计分。",
   icons: {
-    icon: "/sites/vibe-hub-org-e37cedf6/shared/images/vh-logo-v4-tight.png",
+    icon: "/brand/ai-learning-mark.svg",
   },
 };
 

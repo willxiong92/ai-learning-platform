@@ -1,0 +1,28 @@
+✔ all correct passes (0.646166ms)
+✔ missing answers fail and never count as correct (0.087125ms)
+✔ wrong critical question fails even when min_correct is met (0.062333ms)
+✔ malformed and out-of-range answers are unanswered (0.079541ms)
+✔ empty question list never passes (0.048875ms)
+✔ short answer is never auto-marked (0.729041ms)
+✔ full current-version record reaches self_check_complete only (0.150333ms)
+✔ forged passed/score fields in storage are ignored (0.774083ms)
+✔ stale read and stale attempts never complete the current version (0.215792ms)
+✔ first attempt and retakes stay distinct (0.125ms)
+✔ updates do not mutate the input progress (0.175458ms)
+✔ corrupt and unsupported data return notice and empty data (0.080958ms)
+✔ unknown lessons are preserved but show nothing completed for known ones (0.053625ms)
+✔ corrupt raw is backed up once and not destroyed (0.661ms)
+✔ unsupported schema is backed up before overwrite (0.093375ms)
+✔ backup failure blocks overwrite (0.104083ms)
+✔ storage unavailable returns warning instead of throwing (0.068583ms)
+✔ write failure is reported (0.044625ms)
+✔ uses its own storage key, not the old site's (0.056584ms)
+✔ prototype pollution keys are dropped (0.06975ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 47.386333

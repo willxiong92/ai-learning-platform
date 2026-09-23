@@ -1,12 +1,18 @@
-import type { Metadata } from "next";
-import { PRACTICE_QUESTIONS } from "@/lib/vibehub/data";
-import { PracticeView } from "@/components/sites/vibe-hub-org-e37cedf6/practice/practice-view";
-
-export const metadata: Metadata = {
-  title: "Vibe Coding 术语判断练习｜VibeHub",
-  description: "通过真实场景练习前端、后端、产品等术语：先观察场景、作出判断，再用即时反馈理解对应概念。",
-};
-
-export default function PracticePage() {
-  return <PracticeView questions={PRACTICE_QUESTIONS} />;
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { practiceCases } from '@/lib/ai-learning/practice-cases';
+import '../learning-paths.css';
+import './practice-cases.css';
+import '@/app/courses/ai-courses.css';
+export const metadata: Metadata = { title: '实践｜AI 学习站', description: '把关键知识串成真实工作的完整流程，用一个业务案例检验多项能力。' };
+export default function PracticePage() { const ready = practiceCases.filter(c => c.status === 'pilot'); const planned = practiceCases.filter(c => c.status === 'planned');
+ return <div className="course-app course-index-app"><div className="course-index-main learning-index">
+ <header className="course-index-heading learning-index-heading"><h1>实践</h1><p>选一个业务场景，串起几项关键能力，完成一份可核验的成果。课程用来补知识，实践用来跑通工作流。</p><div className="learning-actions"><Link href="/courses">按需回课程补课</Link><Link href="/">查术语</Link></div></header>
+ <div className="case-intro"><span>一个场景</span><span aria-hidden="true">→</span><span>3–4 项关键能力</span><span aria-hidden="true">→</span><span>一份业务成果</span></div>
+ <section aria-labelledby="ready-cases"><div className="course-group-heading"><h2 id="ready-cases">先跑通一个案例</h2><span className="course-status is-review">方案预览 · 待实跑</span></div><p className="case-caption">不用每学一课再交一份作业。先用现成的客户背调 Agent，为一个潜在买家做好开发准备。后续基础课沿用同一案例。当前为方案预览，固定示范买家和实跑参照待补齐。</p>
+ {ready.map(c => <article className="practice-case-card" key={c.id}><div className="case-card-heading"><span className="curriculum-level">{c.level}</span><h2><Link href={`/practice/cases/${c.id}`}>{c.title}</Link></h2></div><p>{c.scene}</p><div className="case-outcome"><span>完成后留下</span><strong>{c.outcome}</strong></div><ul className="case-points">{c.points.map(p=><li key={p}>{p}</li>)}</ul><Link className="case-start" href={`/practice/cases/${c.id}`}>进入案例，查看材料与流程 →</Link></article>)}
+ </section>
+ <details className="case-future"><summary>按工作需要选择后续场景 · {planned.length} 个方向待完善</summary><p className="case-caption">这些是可选案例规划，不是当前必交任务；有完整材料和检验参照后再开放。</p><div className="case-planned-grid">{planned.map(c=><article className="practice-case-card" key={c.id}><span className="curriculum-level">{c.level} · 待完善</span><h2><Link href={`/practice/cases/${c.id}`}>{c.title}</Link></h2><p>{c.scene}</p><p><strong>成果：</strong>{c.outcome}</p><Link href={`/practice/cases/${c.id}`}>看案例框架 →</Link></article>)}</div></details>
+ <details className="learning-archive"><summary>补充单点练习与历史记录</summary><p>需要专项补练时再打开；这些材料不作为逐课必交作业。</p>{['l01','l02','l03','l04'].map((id,i)=><Link key={id} href={`/practice/${id}`}>原基础练习 {i+1}</Link>)}<Link href="/practice/meeting-skill">旧会议样板</Link><Link href="/learning/practice">原练习与草稿</Link><Link href="/learning/me">原学习记录</Link></details>
+ </div></div>;
 }

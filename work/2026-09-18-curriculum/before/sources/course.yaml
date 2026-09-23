@@ -1,0 +1,227 @@
+# 课程地图母源。网站构建时读取本文件；修改后运行 npm run content 校验。
+# status: available = 已有正文可学习；planned = 待编写，网站不显示正文。
+# estimate 为估计学时，编写该章时核定。
+version: "2026-09-16.1"
+title: AI 学习站
+audience: 非技术背景的 SaaS 客户成功、主管与交付人员
+review:
+  content: draft          # draft = 草稿未复核；reviewed = 已完成内容复核
+  team_access: not_open   # not_open = 未向团队开放
+depth_note: M1 能解释机制与边界；M2–M3 能解释并完成小练习；M4–M6 能判断、核验并逐步交付。不要求底层算法实现深度。
+modules:
+  - id: m1
+    title: AI 基础认知
+    purpose: 理解 AI 系统由什么组成，避免把产品功能当成模型天生的能力。
+    lessons:
+      - id: l01
+        title: 看懂一个 AI 应用
+        status: available
+        outcome: 分清模型、应用、上下文、工具和人工核验各负责什么。
+        why: 客户说“AI 看不到我的数据”时，能先定位是哪个环节出了问题。
+        verify: 6 道客观题（含 2 道关键题）+ 1 道简答按要点自查。
+        prerequisites: []
+        estimate: 45–60 分钟
+      - id: l02
+        title: 模型怎样学习与生成
+        status: planned
+        outcome: 区分训练与推理，解释 Token 与生成的不确定性。
+        why: 能向客户解释“为什么 AI 说得流畅却会出错”。
+        verify: 预测题：同一问题两次回答不同是否正常，并说明原因。
+        prerequisites: [l01]
+        estimate: 约 1 小时
+      - id: l03
+        title: 上下文与记忆
+        status: planned
+        outcome: 分清指令、材料、历史、上下文窗口与持久记忆。
+        why: 给客户配置资料时，能判断哪些信息真的进入了本次回答。
+        verify: 为一个任务挑出必要信息，并指出哪些信息没有进入本轮。
+        prerequisites: [l02]
+        estimate: 约 1 小时
+      - id: l04
+        title: 能力与证据边界
+        status: planned
+        outcome: 区分事实、推断与建议，识别信息缺失、来源问题和推断错误。
+        why: 审阅 AI 草稿时知道哪句能直接用、哪句必须核对。
+        verify: 对一段模拟输出逐句标注类型与依据。
+        prerequisites: [l03]
+        estimate: 约 1 小时
+  - id: m2
+    title: AI 使用与结果核验
+    purpose: 能布置清楚的任务，也能检查它是否做对。
+    lessons:
+      - id: l05
+        title: 把任务说清楚
+        status: planned
+        outcome: 写出包含目标、输入、输出、约束与验收的任务说明。
+        why: 给 AI 或同事派活时，结果可以按标准验收。
+        verify: 写一份任务说明，并按验收项逐条自评。
+        prerequisites: [l03]
+        estimate: 约 1 小时
+      - id: l06
+        title: 组织材料与示例
+        status: planned
+        outcome: 选择、结构化材料，使用示例并处理材料冲突。
+        why: 喂给 AI 的材料怎么组织，直接决定答案质量。
+        verify: 比较两组输入的结果差异并解释原因。
+        prerequisites: [l05]
+        estimate: 约 1.5 小时
+      - id: l07
+        title: 检查一份 AI 输出
+        status: planned
+        outcome: 通过来源核对、找遗漏和反例完成人工判断。
+        why: 交付前把关，不让错误流到客户。
+        verify: 用核对表逐项指出证据支持什么、不支持什么。
+        prerequisites: [l04, l05]
+        estimate: 约 1.5 小时
+      - id: l08
+        title: 单元实验与复测
+        status: planned
+        outcome: 用基线、单变量对比和陌生样例评估一次改动。
+        why: 判断改提示词是否真的变好，而不是凭观感。
+        verify: 完成一次单变量小实验并解释结果。
+        prerequisites: [l06, l07]
+        estimate: 约 2 小时
+  - id: m3
+    title: 软件与数据基础
+    purpose: 听懂技术方案，理解 SaaS 中的数据和操作怎样连接。
+    lessons:
+      - id: l09
+        title: 文件与版本
+        status: planned
+        outcome: 区分源文件、本地与线上，查看差异并恢复。
+        why: 听懂“改了哪里、能不能回退”。
+        verify: 在隔离练习中查看改动并恢复。
+        prerequisites: [l01]
+        estimate: 约 1.5 小时
+      - id: l10
+        title: 页面与前后端
+        status: planned
+        outcome: 解释页面、浏览器、前端与后端各自负责什么。
+        why: 客户反馈问题时，知道该找哪一层。
+        verify: 画出一次点击经过的环节。
+        prerequisites: [l09]
+        estimate: 约 1.5 小时
+      - id: l11
+        title: 接口与存储
+        status: planned
+        outcome: 说明请求、响应、API、数据库与权限的关系。
+        why: 评估集成方案时能识别读写边界。
+        verify: 画出一条数据流，并标出读写与权限。
+        prerequisites: [l10]
+        estimate: 约 2 小时
+      - id: l12
+        title: 数据与程序规则
+        status: planned
+        outcome: 理解对象、关系、状态、条件与字段契约。
+        why: 知道字段缺失或类型错误会怎样影响系统。
+        verify: 用小样例预测缺失值、错类型时的处理结果。
+        prerequisites: [l11]
+        estimate: 约 2 小时
+  - id: m4
+    title: 知识库与业务流程
+    purpose: 把可追溯知识和可执行流程连接起来。
+    lessons:
+      - id: l13
+        title: 知识来源与更新
+        status: planned
+        outcome: 区分原始材料、个人解释与正式规则，并管理版本。
+        why: 维护知识库时不把个人理解当成正式规则。
+        verify: 为一个知识点标明来源与更新条件。
+        prerequisites: [l04]
+        estimate: 约 1 小时
+      - id: l14
+        title: 检索与 RAG
+        status: planned
+        outcome: 解释检索、切分、引用与生成如何配合。
+        why: AI 答错时能分清是没找到、找错版本还是生成失真。
+        verify: 比较直接查文档与检索生成，解释各自误差。
+        prerequisites: [l03, l11, l13]
+        estimate: 约 2 小时
+      - id: l15
+        title: 业务建模与 SOP
+        status: planned
+        outcome: 把需求拆成对象状态、人机分工与异常处理。
+        why: 把客户需求变成可执行、可检查的流程。
+        verify: 把一个业务需求拆成输入、动作、输出和确认点。
+        prerequisites: [l05, l12]
+        estimate: 约 2 小时
+      - id: l16
+        title: CRM 字段映射
+        status: planned
+        outcome: 完成字段对应、转换，并考虑重试与重复提交。
+        why: 支撑外贸 CRM 实施中的数据对接。
+        verify: 在模拟数据中完成字段对应及异常验证。
+        prerequisites: [l12, l15]
+        estimate: 约 2 小时
+  - id: m5
+    title: 自动化与 Agent
+    purpose: 知道何时用规则、固定流程或动态决策，并能控制失败。
+    lessons:
+      - id: l17
+        title: 工具调用与 MCP
+        status: planned
+        outcome: 说明工具的输入输出、连接方式与权限。
+        why: 判断“接上工具”到底增加了什么能力和风险。
+        verify: 解释一次只读调用能做什么、不能做什么。
+        prerequisites: [l01, l11]
+        estimate: 约 1.5 小时
+      - id: l18
+        title: Workflow 与 Agent
+        status: planned
+        outcome: 比较固定步骤与动态选择，设计状态与停止条件。
+        why: 为客户场景选择足够简单的实现方式。
+        verify: 为同一任务选择实现方式并说明停止条件。
+        prerequisites: [l15, l17]
+        estimate: 约 2 小时
+      - id: l19
+        title: 评测与错误分析
+        status: planned
+        outcome: 设计人工基线、开发样例与保留样例，并分类错误。
+        why: 公平比较方案，不用训练样例冒充效果。
+        verify: 设计一份可比较的评测。
+        prerequisites: [l08, l18]
+        estimate: 约 2 小时
+      - id: l20
+        title: 安全与运行控制
+        status: planned
+        outcome: 处理输入风险、超时、成本、日志与人工接管。
+        why: 上线前知道什么时候必须停止或退回人工。
+        verify: 演练失败、停止与恢复。
+        prerequisites: [l18]
+        estimate: 约 2 小时
+  - id: m6
+    title: 方案交付与团队复制
+    purpose: 把知识变成可负责、可解释、可复做的交付能力。
+    lessons:
+      - id: l21
+        title: 方案取舍
+        status: planned
+        outcome: 收窄需求，权衡依赖、收益与实现选择。
+        why: 能解释为什么采用一个方案、暂缓什么。
+        verify: 写出最小方案及取舍说明。
+        prerequisites: [l16, l19, l20]
+        estimate: 约 2 小时
+      - id: l22
+        title: 试跑与验收
+        status: planned
+        outcome: 区分技术通过、用户可用与业务有效三类证据。
+        why: 验收时不混淆“能跑”和“有效”。
+        verify: 为三类结果分别收集证据。
+        prerequisites: [l21]
+        estimate: 约 2 小时
+      - id: l23
+        title: 价值评估
+        status: planned
+        outcome: 用人工时间、复核、返工与样本差异评估价值。
+        why: 向管理层说清价值与限制。
+        verify: 依据实际数据说明价值与限制。
+        prerequisites: [l22]
+        estimate: 约 2 小时
+      - id: l24
+        title: 标准化与教学
+        status: planned
+        outcome: 形成方法包，管理版本并支持他人复做与迁移。
+        why: 把个人实践变成团队实践。
+        verify: 让另一位同事在新变式中复做并反馈。
+        prerequisites: [l23]
+        estimate: 项目制，另行估计

@@ -1,0 +1,3 @@
+原合同最终只读复核，第二轮Claude已修完，结构检查通过。仅这两个activities文件变动，其他内容与上轮4项PASS一致。请重读这两个文件的practice段并核实上轮两条FAIL和l04关联问题是否关闭：P1/P2/P3三人数并列不假定取代；未给培训日期不能推定未到岗；l04 K1/Y输出/解析据此同步，评分X2/4 Y3/4可复算。请勿重审无变化全套材料。直接返回简短ACCEPT/REVISE/BLOCKED、缺陷关闭依据及receipt，无泛化建议。预算最多6分钟，dontAsk/read_file/无网络/无写入不变。没有人工验收，仍draft/not_open。
+/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/lessons/l03/activities.yaml
+/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/lessons/l04/activities.yaml

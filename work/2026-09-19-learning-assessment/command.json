@@ -1,0 +1,33 @@
+{
+  "cwd": "/Users/will/code/网站克隆工作台",
+  "command": [
+    "/Users/will/.local/bin/claude",
+    "-p",
+    "--model",
+    "claude-opus-5",
+    "--output-format",
+    "json",
+    "--permission-mode",
+    "dontAsk",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--tools",
+    "Read,Edit,Write",
+    "--allowedTools",
+    "Edit(//Users/will/code/网站克隆工作台/src/lib/ai-learning/assessment.mjs)",
+    "Edit(//Users/will/code/网站克隆工作台/src/lib/ai-learning/assessment.d.mts)",
+    "Edit(//Users/will/code/网站克隆工作台/scripts/assessment.test.mjs)",
+    "Edit(//Users/will/code/网站克隆工作台/work/2026-09-19-learning-assessment/claude-receipt.md)",
+    "Read(//Users/will/code/AI学习站/docs/.vitepress/theme/lib/grading.js)",
+    "Read(//Users/will/code/AI学习站/docs/.vitepress/theme/lib/progress.js)",
+    "Read(//Users/will/code/AI学习站/docs/.vitepress/theme/lib/status.js)",
+    "Read(//Users/will/code/AI学习站/tests/progress.test.mjs)",
+    "Read(//Users/will/code/网站克隆工作台/src/lib/ai-learning/catalog.ts)",
+    "Read(//Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources/lessons/l01/activities.yaml)",
+    "Read(//Users/will/code/网站克隆工作台/src/lib/ai-learning/assessment.mjs)",
+    "Read(//Users/will/code/网站克隆工作台/src/lib/ai-learning/assessment.d.mts)",
+    "Read(//Users/will/code/网站克隆工作台/scripts/assessment.test.mjs)",
+    "Read(//Users/will/code/网站克隆工作台/work/2026-09-19-learning-assessment/claude-receipt.md)"
+  ]
+}

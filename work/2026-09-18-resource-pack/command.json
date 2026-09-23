@@ -1,0 +1,17 @@
+[
+  "/Users/will/.grok/bin/grok",
+  "--no-auto-update",
+  "--cwd",
+  "/Users/will/code/网站克隆工作台",
+  "--permission-mode",
+  "dontAsk",
+  "--no-subagents",
+  "--tools",
+  "web_search,web_fetch",
+  "--max-turns",
+  "20",
+  "--output-format",
+  "json",
+  "--prompt-file",
+  "/Users/will/code/网站克隆工作台/work/2026-09-18-resource-pack/grok-handoff.md"
+]

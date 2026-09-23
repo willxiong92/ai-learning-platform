@@ -1,0 +1,114 @@
+/* 术语详情页的长篇讲解（AI 课程 sources/terms/ 渲染出来的 HTML）。
+   只管排版：标题、段落、列表、表格、引用框，颜色全部用站点已有的变量，深色模式自动跟随。 */
+.term-article {
+  margin-top: 28px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.8;
+}
+.term-article h2 {
+  /* 顶部有站点导航和面包屑两条吸顶栏，跳到小标题时留出位置，不被挡住 */
+  scroll-margin-top: calc(var(--site-nav-height, 60px) + 64px);
+  margin: 32px 0 12px;
+  font-size: 20px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.term-article h3 {
+  margin: 22px 0 8px;
+  font-size: 16px;
+  font-weight: 700;
+}
+.term-article p {
+  margin: 10px 0;
+}
+.term-article ul,
+.term-article ol {
+  margin: 10px 0;
+  padding-left: 22px;
+}
+.term-article ul {
+  list-style: disc;
+}
+/* 避坑指南、使用建议用编号列表；站点的样式重置会去掉序号，这里补回来 */
+.term-article ol {
+  list-style: decimal;
+}
+.term-article li {
+  margin: 6px 0;
+}
+.term-article li::marker {
+  color: var(--text-2);
+}
+.term-article strong {
+  font-weight: 700;
+}
+.term-article code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--bg-hover);
+  font-size: 0.92em;
+}
+.term-article blockquote {
+  margin: 14px 0;
+  padding: 12px 16px;
+  border-left: 3px solid var(--brand);
+  border-radius: 0 10px 10px 0;
+  background: var(--bg-hover);
+  color: var(--text);
+}
+.term-article blockquote p {
+  margin: 4px 0;
+}
+/* 表格窄屏时自己横向滚动，不撑破页面 */
+.term-article table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 14px 0;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.term-article th,
+.term-article td {
+  padding: 8px 12px;
+  border: 1px solid var(--border-light);
+  text-align: left;
+  vertical-align: top;
+}
+.term-article th {
+  background: var(--bg-hover);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.term-article td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+.term-article a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.term-article .header-anchor {
+  display: none;
+}
+/* 课程页右侧抽屉里空间小，标题和间距收一点 */
+.is-embedded .term-article h2 {
+  margin-top: 24px;
+  font-size: 17px;
+}
+/* 讲解里的提示框（Markdown 的 ::: tip / info 写法） */
+.term-article .custom-block {
+  margin: 14px 0;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: var(--bg-hover);
+}
+.term-article .custom-block-title {
+  margin: 0 0 4px;
+  font-weight: 700;
+}

@@ -1,0 +1,6 @@
+{
+  "src/components/ai-learning/progress-store.ts": "2a8ced374ebe08c7f8c09370fffcea2f1b2b01413aeaa7321a765d8148392568",
+  "src/lib/ai-learning/progress-controller.mjs": "895ec3472068f05b1fd09b858150846f057c08b41069816448221364edd87be3",
+  "src/lib/ai-learning/progress-controller.d.mts": "15d3f1363a4cb90b94a62426a2f8901c7b7615c55fdad3a15a39f1d17458f2ec",
+  "scripts/progress-controller.test.mjs": "0bc8c627021eaf4e8506bf1d9d7b7d4c3b37f40728eaf84d7e06bfdded606030"
+}

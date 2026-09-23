@@ -1,0 +1,101 @@
+diff --git a/README.md b/README.md
+index 3c45bea..974808c 100644
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,23 @@
++> ## 项目管理入口（先读这里）
++>
++> 这个仓库现在承接「AI 业务实践与学习平台」（project_id: `ai-learning-site`）。当前任务不是继续克隆网站。
++>
++> | 要看什么 | 去哪里 |
++> |---|---|
++> | 当前状态、任务表、决策、复核进度、唯一下一步（唯一状态源） | [PROJECT.md](/Users/will/Desktop/业务主线/A-部门项目/AI学习站/PROJECT.md) |
++> | 背景、需求、设计（版本与复核状态以 PROJECT 为准） | [docs/AI学习项目-底层方案.md](docs/AI学习项目-底层方案.md) |
++> | 已有成果与历史阶段（克隆基线 e76f680、首章教材、W01 等） | [PROJECT.md 第 3 节「现有成果索引」](/Users/will/Desktop/业务主线/A-部门项目/AI学习站/PROJECT.md#3-现有成果索引) |
++>
++> 旧范围、待同步：[框架图](docs/AI学习项目-框架图.html) 仍为 v2 辅助图；[v1 落地方案](docs/AI学习内容迭代-落地方案.md) 为旧范围。本 README 不维护状态。
++> 下方「本机说明」和英文模板说明是**历史脚手架说明**，不代表当前任务。
++
++---
++
+ > **本机说明（Will）**：从 JCodesMore/ai-website-cloner-template @92872bc 导入（2026-09-17），已断开上游 git、独立成本地库。
+ > 用法：在本目录开 Claude Code（建议 `claude --chrome`），输入 `/clone-website <网址>`。产物写入 `src/app`、`src/components/sites`、`public/sites`、`docs/research`。
+ > 为什么不装成全局 Skill：指令依赖本项目的 Next.js 脚手架和 `npm run build`，离开本目录会失败。卸载 = 删除本目录。
+ > 注意：只克隆有权使用的网站；默认会并行派子 agent + worktree，额度消耗大。
++> 当前产物：vibe-hub.org 中文站复刻（基线提交 e76f680）。2026-09-17 Will 确认**不做**：英文版 /en、语言切换、交流群弹窗；语言切换按钮界面已一并删除（交流群入口从未实现，无界面可删）。后续只按需求做二次迭代。
+ 
+ <div align="center">
+ 
+@@ -217,3 +233,18 @@ Each script regenerates the platform-specific copies automatically. Agents that
+ MIT
+ 
+ <sub>Translations: <a href="README.ja.md">日本語</a> · <a href="README.zh-CN.md">Simplified Chinese</a></sub>
++
++---
++
++## AI 学习站阅读页（/learning）
++
++- **是什么**：`/learning` 是 24 课的学习路线（6 个模块）；`/learning/l01`–`l04` 是四章完整阅读页；其余课号显示“待编写”说明页，课程地图以外的课号返回 404。页头导航新增“学习路线”入口。
++- **正文归谁管**：教材母源在 `/Users/will/Desktop/业务主线/A-部门项目/AI学习站/sources`（course.yaml、glossary.yaml、lessons/）。本仓库**不存第二份教材**，`src/lib/ai-learning/generated.json` 和 `rendered.json` 都是生成文件，不要手改；改正文请改母源。
++- **本机依赖（不在本仓库安装）**：读取和校验母源用 `/Users/will/code/AI学习站/scripts/content-lib.mjs`；Markdown 编译用该仓库已安装的 VitePress（`/Users/will/code/AI学习站/node_modules/vitepress` 的 `createMarkdownRenderer`）。换机器时可用绝对路径环境变量覆盖：`AI_LEARNING_SOURCE_DIR`、`AI_LEARNING_CONTENT_LIB`、`AI_LEARNING_VITEPRESS_DIR`。
++- **命令**：`npm run content:ai` 先跑 `scripts/generate-ai-learning.mjs`（生成 generated.json），再跑 `scripts/render-ai-learning.mjs`（生成 rendered.json）。`npm run dev`、`npm run build`、`npm run check` 之前会自动先跑一次，避免悄悄用旧数据。测试：`node --test scripts/generate-ai-learning.test.mjs scripts/render-ai-learning.test.mjs`。
++- **为什么这样做**：Markdown 在 Next 之外预先编译，浏览器不加载 VitePress/Vue；正文只放行这几章实际用到的结构标签，遇到脚本、事件属性、未知组件直接失败并保留上一次的输出（这不是通用 HTML 净化器）。
++- **状态**：内容为 **draft（内容复核通过，待本人试学）**，团队开放状态 **not_open**；四章标“可试读·待本人验收”，不代表已验收或已发布。
++- **本机学习功能（2026-09-19 接入）**：四章正文之后有“本章测验与进度”（`#assessment`）：标记已读、6 道单选 + 1 道简答、漏答时列出缺项不提交、提交后逐题显示选择/正确答案/解析和回看小节、简答按要点自查并手动确认（不是 AI 评分）、空白表单重做、首次与最近一次成绩；课程地图显示可试读课的本机进度，待编写课不显示。记录只存在当前浏览器的 localStorage：不上传，换浏览器或清除浏览器数据会丢失；这是自测，不是正式考试。评分规则来自 `src/lib/ai-learning/assessment.mjs`，未提交的作答不保存。
++- **我的学习（`/learning/me`，2026-09-19 接入）**：把上面四章的本机记录汇总到一页：每课状态、已读、首次与最近一次成绩（旧版本作答单列、不计入）、作答/重测/借助笔记或 AI 的次数、简答自查是否完成，以及“下一步”链接（没通过时直达第一个要回看的小节，否则直达该课 `#assessment`）。完成数只按 4 门可试读课算，20 门待编写课单独标注、不算未完成；不显示简答原文，不统计学习时长、连续天数或能力百分比，没有排名；不上传、不重置、不导出。入口在学习路线页头。状态：已实现，独立审查和 Will 本人试学**未完成**。
++- **模拟案例与作业（`/learning/cases`、`/learning/practice`，2026-09-19 接入，S3-A）**：`/learning/cases` 是案例模板（业务问题、SC/差距、步骤、可复用资产、证据、边界、相关章节）加一份原创的模拟周报练习：列出全部输入材料、有来源的事实与缺失信息、为什么要人工核对，SC/差距标“待业务项目确定”，相关章节链到第 02–04 课页面。页首明确写着“尚无已验收业务案例；以下为模拟练习，不是客户案例/业务成果”。`/learning/practice` 是空白练习草稿：点“保存草稿”才写入当前浏览器（只用一个键 `ai-learning-next:v1:practice-draft`，不碰学习进度），刷新后恢复；显示未保存提示；读不懂的旧记录先备份再覆盖；另一个标签页先保存过时拒绝保存并提示手动留底，不自动合并；“复制为 Markdown”只在点击时写剪贴板，失败时给可选中的文本框手动复制，复制内容标“模拟练习草稿 / 未验收 / 未提交”，空项写“待补充”。没有提交、审核、删除、导出或评分。存储规则在 `src/lib/ai-learning/practice-draft.mjs`，测试：`node --test scripts/practice-draft.test.mjs`。真实案例收集、提交渠道和审核流程（S3-B）**待 Will 决定**，未实现。状态：draft，团队开放 **not_open**；本功能的测试、`npm run check` 和浏览器验证**待运行**，独立审查**未完成**。
++- **验证现状**：技术检查已通过（Codex 于 2026-09-19 跑过 46 项测试和 `npm run check`，并在测试端口浏览器里验证了漏答阻止、全对提交、简答自查、刷新后恢复）；独立审查**未完成**；Will **未试学**；团队开放状态仍是 **not_open**。以上都不代表整站已验收或已发布。
+diff --git a/package.json b/package.json
+index 4bed5fa..ee41d5a 100644
+--- a/package.json
++++ b/package.json
+@@ -27,11 +27,15 @@
+     "node": ">=24"
+   },
+   "scripts": {
++    "content:ai": "node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs",
++    "predev": "npm run content:ai",
+     "dev": "next dev",
++    "prebuild": "npm run content:ai",
+     "build": "next build",
+     "start": "next start",
+     "lint": "eslint",
+     "typecheck": "tsc --noEmit",
++    "precheck": "npm run content:ai",
+     "check": "npm run lint && npm run typecheck && npm run build"
+   },
+   "dependencies": {
+diff --git a/src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx b/src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx
+index e37a9cd..f9b2665 100644
+--- a/src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx
++++ b/src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx
+@@ -5,12 +5,12 @@ import { usePathname } from "next/navigation";
+ import { Suspense, useState } from "react";
+ import { SearchBox } from "./search-box";
+ import { ThemeControls } from "./theme-controls";
+-import { LanguageSwitch } from "./language-switch";
+ 
+ const NAV_ITEMS = [
+   { href: "/", label: "术语" },
+   { href: "/practice", label: "练习" },
+   { href: "/courses", label: "课程" },
++  { href: "/learning", label: "学习路线" },
+   { href: "/anti-ai-flavor", label: "防止 AI 味儿" },
+   { href: "/changelog", label: "更新" },
+ ] as const;
+@@ -72,7 +72,6 @@ export function SiteHeader() {
+         <Suspense fallback={<div className="nav-search" />}>
+           <SearchBox />
+         </Suspense>
+-        <LanguageSwitch />
+         <ThemeControls />
+       </div>
+       <button
+@@ -91,6 +90,7 @@ export function SiteHeader() {
+           <Link href="/" onClick={() => setMenuOpen(false)}>术语</Link>
+           <Link href="/practice" onClick={() => setMenuOpen(false)}>练习</Link>
+           <Link href="/courses" onClick={() => setMenuOpen(false)}>课程</Link>
++          <Link href="/learning" onClick={() => setMenuOpen(false)}>学习路线</Link>
+           <Link href="/anti-ai-flavor" onClick={() => setMenuOpen(false)}>防止 AI 味儿</Link>
+           <Link href="/changelog" onClick={() => setMenuOpen(false)}>更新</Link>
+           <Link href="/vibehub-skill" onClick={() => setMenuOpen(false)}>Skill</Link>

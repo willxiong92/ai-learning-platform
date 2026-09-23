@@ -2,9 +2,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { COURSES, getCourse } from "@/lib/vibehub/data";
+import { getModules } from "@/lib/ai-learning/catalog";
+import { aiCourseSlug, getAiCourseBySlug } from "@/lib/ai-learning/course-routes";
+import { AiCourseOverview } from "@/components/ai-learning/ai-course-overview";
+import "../ai-courses.css";
 
 export function generateStaticParams() {
-  return COURSES.map((c) => ({ course: c.slug }));
+  return [
+    ...getModules().map((m) => ({ course: aiCourseSlug(m.id) })),
+    ...COURSES.map((c) => ({ course: c.slug })),
+  ];
 }
 
 export async function generateMetadata({
@@ -13,9 +20,13 @@ export async function generateMetadata({
   params: Promise<{ course: string }>;
 }): Promise<Metadata> {
   const { course: slug } = await params;
+  const aiCourse = getAiCourseBySlug(slug);
+  if (aiCourse) {
+    return { title: `${aiCourse.title}｜AI 应用课程`, description: aiCourse.purpose ?? undefined };
+  }
   const course = getCourse(slug);
   if (!course) return {};
-  return { title: `${course.title}｜VibeHub 课程`, description: course.lead };
+  return { title: `${course.title}｜AI 学习站`, description: course.lead };
 }
 
 export default async function CourseOverviewPage({
@@ -24,6 +35,8 @@ export default async function CourseOverviewPage({
   params: Promise<{ course: string }>;
 }) {
   const { course: slug } = await params;
+  const aiCourse = getAiCourseBySlug(slug);
+  if (aiCourse) return <AiCourseOverview courseModule={aiCourse} />;
   const course = getCourse(slug);
   if (!course) notFound();
 

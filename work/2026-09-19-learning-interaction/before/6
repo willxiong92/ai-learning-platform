@@ -1,0 +1,148 @@
+import Link from "next/link";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import {
+  getCourseMeta,
+  getLessonStatusLabel,
+  getLessonSummaries,
+  getLessonSummary,
+  getModule,
+  getNeighborLessons,
+  getReviewLabel,
+  type LessonSummary,
+  type RenderedLearningData,
+} from "@/lib/ai-learning/catalog";
+// Server-only import: rendered.json is compiled ahead of time by
+// scripts/render-ai-learning.mjs, so no Markdown/Vue runtime ships to the browser.
+import rendered from "@/lib/ai-learning/rendered.json";
+import "../learning.css";
+
+const renderedData = rendered as RenderedLearningData;
+
+// Only the 24 lesson IDs from the course map exist; anything else is a 404.
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getLessonSummaries().map((lesson) => ({ lesson: lesson.id }));
+}
+
+// Explicit props type: this route is new, so it must not depend on Next's
+// generated route types, which only exist after a build (typecheck runs first).
+type LessonPageProps = { params: Promise<{ lesson: string }> };
+
+export async function generateMetadata({ params }: LessonPageProps): Promise<Metadata> {
+  const { lesson } = await params;
+  const summary = getLessonSummary(lesson);
+  if (!summary) return {};
+  return {
+    title: `${summary.title}｜AI 学习站`,
+    description: summary.outcome,
+  };
+}
+
+const pad = (n: number) => String(n).padStart(2, "0");
+
+function NeighborLink({ lesson, direction }: { lesson: LessonSummary | undefined; direction: "上一课" | "下一课" }) {
+  if (!lesson) return <span className="ai-learning-pager-empty" />;
+  return (
+    <Link className={`ai-learning-pager-link is-${lesson.status}`} href={`/learning/${lesson.id}`}>
+      <span className="ai-learning-note">{direction}</span>
+      <span>
+        第 {pad(lesson.order)} 课 · {lesson.title}
+      </span>
+      <span className={`ai-learning-badge is-${lesson.status}`}>{getLessonStatusLabel(lesson.status)}</span>
+    </Link>
+  );
+}
+
+export default async function LearningLessonPage({ params }: LessonPageProps) {
+  const { lesson: id } = await params;
+  const summary = getLessonSummary(id);
+  if (!summary) notFound();
+
+  const meta = getCourseMeta();
+  const courseModule = getModule(summary.moduleId);
+  const { previous, next } = getNeighborLessons(id);
+  const content = summary.status === "available" ? renderedData.lessons.find((l) => l.id === id) : undefined;
+
+  return (
+    <div className="ai-learning-page">
+      <nav className="ai-learning-breadcrumb" aria-label="位置">
+        <Link href="/learning">学习路线</Link>
+        {courseModule && <span> / {courseModule.title}</span>}
+      </nav>
+
+      <header className="ai-learning-header">
+        <p className="ai-learning-kicker">第 {pad(summary.order)} 课</p>
+        {!content && <h1>{summary.title}</h1>}
+        <p className="ai-learning-badges">
+          <span className={`ai-learning-badge is-${summary.status}`}>{getLessonStatusLabel(summary.status)}</span>
+          <span className="ai-learning-badge is-draft">{getReviewLabel(meta.review)}</span>
+          {content && <span className="ai-learning-badge">教材版本 {content.version}</span>}
+          <span className="ai-learning-badge">课程版本 {meta.courseVersion}</span>
+        </p>
+        {content && (
+          <p className="ai-learning-note">
+            本页是只读阅读版：可以按目录跳读，练习解析在各练习下方展开查看。
+          </p>
+        )}
+      </header>
+
+      {content ? (
+        <>
+          <nav className="ai-learning-toc" aria-label="本课目录">
+            <p className="ai-learning-kicker">本课目录</p>
+            <ol>
+              {content.sections.map((section) => (
+                <li key={section.id}>
+                  <a href={`#${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+          {/* HTML is produced at build time from reviewed-draft sources and checked against a tag allowlist. */}
+          <article className="ai-learning-prose" dangerouslySetInnerHTML={{ __html: content.html }} />
+        </>
+      ) : summary.status === "available" ? (
+        <section className="ai-learning-empty">
+          <p>本课在课程地图里标为可试读，但没有找到渲染后的正文。请重新运行内容生成（npm run content:ai）。</p>
+        </section>
+      ) : (
+        <section className="ai-learning-empty">
+          <p>
+            <b>本课待编写。</b>目前没有正文、演示、练习或测验，下面只是课程地图里的计划说明。
+          </p>
+          <dl className="ai-learning-meta-list">
+            <dt>为什么学</dt>
+            <dd>{summary.why}</dd>
+            <dt>计划学完能做到</dt>
+            <dd>{summary.outcome}</dd>
+            <dt>计划怎样检验</dt>
+            <dd>{summary.verify}</dd>
+            <dt>预计时间</dt>
+            <dd>{summary.estimate}</dd>
+            <dt>先修</dt>
+            <dd>
+              {summary.prerequisites.length === 0
+                ? "无"
+                : summary.prerequisites.map((pid, i) => {
+                    const pre = getLessonSummary(pid);
+                    return (
+                      <span key={pid}>
+                        {i > 0 && "、"}
+                        <Link href={`/learning/${pid}`}>{pre ? `第 ${pad(pre.order)} 课 · ${pre.title}` : pid}</Link>
+                      </span>
+                    );
+                  })}
+            </dd>
+          </dl>
+        </section>
+      )}
+
+      <nav className="ai-learning-pager" aria-label="上一课与下一课">
+        <NeighborLink lesson={previous} direction="上一课" />
+        <NeighborLink lesson={next} direction="下一课" />
+      </nav>
+    </div>
+  );
+}

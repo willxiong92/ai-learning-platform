@@ -1,0 +1,5 @@
+{
+  "src/lib/ai-learning/assessment.mjs": "ae2cac115d8b1e9e0f293f5719eb30b3c56ffd524bb9b6296ede6e6a6ca025ce",
+  "src/lib/ai-learning/assessment.d.mts": "e3d4fc8aaf66537fda2bc6f5920dceb27915bd3f16f7a31a8e1b2a2eb56afa1b",
+  "scripts/assessment.test.mjs": "a730df7f0cfd36fc3e9be32f6c1a7c5387ea47f39481a0538cc99ebdc114c9a2"
+}

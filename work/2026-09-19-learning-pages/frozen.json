@@ -1,0 +1,11 @@
+{
+  "scripts/render-ai-learning.mjs": "2d5a31b36deb24d66398fe17a67c0d6e528c2783b56fd36a91823c26ae3d4228",
+  "scripts/render-ai-learning.test.mjs": "f109e7cad249db9c8451829414a98485ddff40e7c6cf9a362c5856247c7f720b",
+  "src/app/learning/page.tsx": "63faff3a613b331b3b94be721b141fde66b0813be57dcceea655397fe823f795",
+  "src/app/learning/[lesson]/page.tsx": "385c14e11e7c1dfa6c5a71193834474969787b3ca9fb56d1058525e360c7797d",
+  "src/app/learning/learning.css": "b865b1bfae2ad5a6d5d76e40410cc5464038db80528dce8e305427e38ccd9c76",
+  "src/lib/ai-learning/catalog.ts": "abcde5635fb1df3d7deac5a3e12002a06a8fa24e386ac2221a18bc44d278f44a",
+  "package.json": "823ce84d943c73826ba8da35b27f7595dddecb38ec661e93ac9ab60da037ba2a",
+  "README.md": "cdc65b91f5ff7e1863007dda5b57738b4ac0dbd5fad5e05ce8f4bc461e828a97",
+  "src/components/sites/vibe-hub-org-e37cedf6/shared/site-header.tsx": "1e60b34963c25c1c4ea0875999329e7959b70bfa4bc02de18bbd2c93a4c3a062"
+}

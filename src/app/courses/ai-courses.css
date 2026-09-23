@@ -1,0 +1,887 @@
+/* AI courses inside /courses. Everything reuses the vibehub course tokens
+   (--text, --text-2, --text-3, --border, --bg-hover, --brand, --green,
+   --warning) so light and dark themes follow the rest of the site. */
+
+/* ---------- /courses: two groups of course cards ---------- */
+
+.course-group + .course-group {
+  margin-top: 56px;
+}
+
+.course-group-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  margin-bottom: 8px;
+}
+
+.course-group-heading h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 720;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.course-group-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0 0 20px;
+  font-size: 13px;
+}
+
+.course-group-heading + .course-route-list {
+  margin-top: 20px;
+}
+
+.course-group-links a,
+.ai-course-facts a,
+.ai-course-notes a,
+.ai-course-crumb a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* The upstream amber pill has no dark-mode variant; keep it readable on both. */
+:root[data-color-mode="dark"] .course-status.is-review {
+  color: var(--warning);
+  background: color-mix(in oklab, var(--warning) 16%, transparent);
+}
+
+.course-route-meta .is-available {
+  color: var(--green);
+  font-weight: 650;
+}
+
+/* Courses and chapters that only exist as a plan: visibly quieter, never "clickable to nowhere". */
+.course-route-card.is-planned-course .course-route-list-visual {
+  opacity: 0.55;
+}
+
+.course-chapter-card.is-planned-chapter {
+  border-style: dashed;
+}
+
+.course-chapter-card.is-planned-chapter h3,
+.course-chapter-card.is-planned-chapter p {
+  color: var(--text-3);
+}
+
+/* ---------- course overview ---------- */
+
+.ai-course-facts {
+  max-width: 960px;
+  margin: 32px 0 40px;
+}
+
+.ai-course-facts-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 14px;
+}
+
+.ai-course-facts h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.ai-course-prereq {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ai-course-prereq > span:first-child {
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--bg-hover);
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.ai-course-outcomes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-course-outcomes li {
+  padding: 16px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.ai-course-outcome-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ai-course-outcome-tag em {
+  min-width: 26px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--brand) 12%, transparent);
+  color: var(--brand);
+  font-size: 12px;
+  font-style: normal;
+  text-align: center;
+}
+
+.ai-course-outcomes p {
+  margin: 8px 0 0;
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.ai-course-notes {
+  max-width: 760px;
+  margin: 40px 0 24px;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.ai-course-notes summary {
+  cursor: pointer;
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ai-course-notes p {
+  margin: 8px 0 0;
+}
+
+/* ---------- lesson page ---------- */
+
+.ai-course-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+/* learning.css scopes its variables to .ai-learning-page; the lesson here sits
+   in the shared course reader instead, so define them on this wrapper too.
+   .course-article is the scroll container, so anchors only need a small gap. */
+.ai-course-lesson {
+  --ai-learning-line: color-mix(in oklab, currentColor 14%, transparent);
+  --ai-learning-soft: color-mix(in oklab, currentColor 5%, transparent);
+  --ai-learning-muted: color-mix(in oklab, currentColor 64%, transparent);
+  --ai-learning-anchor-offset: 1.5rem;
+  min-width: 0;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.ai-course-lesson .ai-learning-prose a,
+.ai-course-lesson .ai-learning-empty a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- chapter layout template ----------
+   The rendered lesson follows the Web Coding chapter layout (vibehub.css):
+   title + one-line intro, sections with plain h2s, figures, a soft summary box.
+   Only what the AI lesson markup needs on top of those rules lives here. */
+
+.ai-course-lesson .course-chapter-hero {
+  padding-bottom: 0;
+}
+
+/* The rendered lesson carries its own title; same size as .course-chapter-hero h1. */
+.ai-course-lesson .ai-course-chapter-head {
+  padding: 0 0 28px;
+}
+
+.ai-course-lesson .ai-course-chapter-head h1 {
+  max-width: 18em;
+  margin: 0;
+  font-size: clamp(30px, 3.2vw, 40px);
+  font-weight: 720;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.ai-course-lesson .ai-course-chapter-head .course-chapter-intro {
+  margin: 10px 0 0;
+}
+
+/* VitePress permalink anchors: the template headings have none. */
+.ai-course-lesson .header-anchor {
+  display: none;
+}
+
+.ai-course-chapter-info {
+  margin: 16px 0 0;
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.ai-course-chapter-info summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.ai-course-chapter-info summary::-webkit-details-marker {
+  display: none;
+}
+
+.ai-course-chapter-info summary::after {
+  content: "▸";
+  font-size: 11px;
+  transition: transform 0.15s ease;
+}
+
+.ai-course-chapter-info[open] summary::after {
+  transform: rotate(90deg);
+}
+
+.ai-course-chapter-info summary:hover {
+  color: var(--text);
+}
+
+.ai-course-chapter-info dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 20px;
+  margin: 12px 0 0;
+  padding: 16px 18px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-soft);
+}
+
+.ai-course-chapter-info dt {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ai-course-chapter-info dd {
+  margin: 0;
+}
+
+.ai-course-chapter-info ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.ai-course-chapter-info .ai-learning-note {
+  margin: 8px 0 0;
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+/* Sections: plain h2 like the template; anchors land just under the pane top. */
+.ai-course-lesson .course-lesson-section h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: 700;
+}
+
+.ai-course-lesson .course-lesson-section > p,
+.ai-course-lesson .course-lesson-section > ul,
+.ai-course-lesson .course-lesson-section > ol {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.78;
+}
+
+.ai-course-lesson .course-lesson-section > ul,
+.ai-course-lesson .course-lesson-section > ol {
+  padding-left: 1.3em;
+}
+
+.ai-course-lesson .course-lesson-section > ul li + li,
+.ai-course-lesson .course-lesson-section > ol li + li {
+  margin-top: 8px;
+}
+
+.ai-course-lesson .course-lesson-section > h3 {
+  margin: 28px 0 0;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+.ai-course-lesson .course-lesson-section > table,
+.ai-course-lesson .course-lesson-section > details,
+.ai-course-lesson .course-lesson-section > div[class*="language-"],
+.ai-course-lesson .course-lesson-section > .ai-learning-terms,
+.ai-course-lesson .course-lesson-section > .ai-learning-demo,
+.ai-course-lesson .course-lesson-section > .ai-learning-practice {
+  margin-top: 18px;
+}
+
+/* 正文里的对比表（如第 1 课的工具选型表）：窄屏左右滑动，不撑破页面；首列是名称，不折行 */
+.ai-course-lesson .course-lesson-section > table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .course-lesson-section > table th:first-child,
+.ai-course-lesson .course-lesson-section > table td:first-child {
+  white-space: nowrap;
+  font-weight: 650;
+}
+
+.ai-course-lesson .course-lesson-section > .ai-learning-cite {
+  margin-top: 18px;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .course-section-summary > ul li strong,
+.ai-course-lesson .course-section-summary > p strong {
+  font-weight: 650;
+}
+
+.ai-course-lesson .ai-learning-status,
+.ai-course-lesson .ai-learning-sources,
+.ai-course-lesson .ai-learning-next {
+  margin-top: 32px;
+}
+
+/* Callouts (::: info / tip / details): quiet boxes in the template's soft tone. */
+.ai-course-lesson .course-lesson-section > .custom-block {
+  margin: 18px 0 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-soft);
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.ai-course-lesson .course-lesson-section > .custom-block.tip {
+  border-color: color-mix(in oklab, var(--brand) 28%, var(--border-light));
+  background: var(--brand-light);
+}
+
+.ai-course-lesson .custom-block .custom-block-title,
+.ai-course-lesson .custom-block > summary {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 680;
+}
+
+.ai-course-lesson details.custom-block > summary {
+  margin: 0;
+}
+
+.ai-course-lesson details.custom-block[open] > summary {
+  margin-bottom: 6px;
+}
+
+.ai-course-lesson .custom-block p {
+  margin: 0;
+}
+
+.ai-course-lesson .custom-block p + p {
+  margin-top: 6px;
+}
+
+/* Generic figures (::: figure …): template figure rules, plus the few gaps. */
+.ai-course-lesson .ai-figure {
+  margin: 28px 0 4px;
+}
+
+.ai-course-lesson .ai-figure ol,
+.ai-course-lesson .ai-figure ul {
+  list-style: none;
+}
+
+.ai-course-lesson .ai-figure .course-inline-compare ul {
+  margin: 12px 0 0;
+  list-style: disc;
+}
+
+.ai-course-lesson .course-inline-flow.has-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ai-course-lesson .course-inline-flow.has-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ai-course-lesson .course-inline-flow.has-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.ai-course-lesson .ai-figure.is-checklist {
+  --course-figure-padding: 18px 20px 20px;
+}
+
+.ai-course-lesson .ai-figure .course-checklist {
+  padding: 0;
+}
+
+.ai-course-lesson .ai-figure .course-checklist ol {
+  margin: 0;
+  padding: 0;
+}
+
+.ai-course-lesson .ai-figure .course-chat-flow p {
+  font-size: 14px;
+}
+
+.ai-figure-note {
+  margin: 14px 0 0;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ---------- 第 1 课“延伸示范”（选读，#agent-task-demo）----------
+   只作用于 .ai-agent-pilot 前缀。示范收在 ::: details 里，默认的浅灰提示框对长文太闷，
+   这里改成透明底，让关系图和卡片落在页面底色（浅色主题即白底）上，深色主题也跟着走。
+   关系图的方向写在每条箭头的文字里（“运行支撑 → 模型”），所以窄屏改成单列也不会读反。 */
+
+.ai-course-lesson details.custom-block:has(> .ai-agent-pilot) {
+  background: transparent;
+}
+
+.ai-course-lesson .ai-agent-pilot {
+  color: var(--text);
+}
+
+.ai-course-lesson .ai-agent-pilot > p,
+.ai-course-lesson .ai-agent-pilot > p + p,
+.ai-course-lesson .ai-agent-pilot > ul,
+.ai-course-lesson .ai-agent-pilot > ol {
+  margin: 12px 0 0;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.ai-course-lesson .ai-agent-pilot > ul,
+.ai-course-lesson .ai-agent-pilot > ol:not(.ai-agent-pilot-steps) {
+  padding-left: 1.3em;
+}
+
+.ai-course-lesson .ai-agent-pilot > ul li + li,
+.ai-course-lesson .ai-agent-pilot > ol:not(.ai-agent-pilot-steps) li + li {
+  margin-top: 6px;
+}
+
+.ai-course-lesson .ai-agent-pilot h3 {
+  margin: 32px 0 0;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.ai-course-lesson .ai-agent-pilot a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* 表格保持文档排版：随宽度折行，不撑破页面 */
+.ai-course-lesson .ai-agent-pilot table {
+  width: 100%;
+  margin: 14px 0 0;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .ai-agent-pilot th,
+.ai-course-lesson .ai-agent-pilot td {
+  padding: 8px 10px;
+  border: 1px solid var(--border-light);
+  text-align: left;
+  vertical-align: top;
+}
+
+.ai-course-lesson .ai-agent-pilot th {
+  background: var(--bg-soft);
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ai-course-lesson .ai-agent-pilot-draft > p {
+  margin: 20px 0 0;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* A. 本次任务关系图：桌面把人放在运行支撑上方，模型、工具分列两侧 */
+.ai-course-lesson .ai-agent-pilot-map {
+  margin: 20px 0 0;
+  padding: 18px;
+  border: 1px solid color-mix(in oklab, var(--brand) 30%, var(--border-light));
+  border-radius: 12px;
+}
+
+.ai-course-lesson .ai-agent-pilot-map figcaption b,
+.ai-course-lesson .ai-agent-pilot-map figcaption span {
+  display: block;
+}
+
+.ai-course-lesson .ai-agent-pilot-map figcaption b {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ai-course-lesson .ai-agent-pilot-map figcaption span {
+  margin-top: 2px;
+  color: var(--text-3);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .ai-agent-pilot-map-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.2fr) minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-areas:
+    ". . person . ."
+    ". . plink . ."
+    "model mlink harness tlink tool";
+  gap: 10px 8px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.ai-course-lesson .ai-agent-pilot-node.is-person { grid-area: person; }
+.ai-course-lesson .ai-agent-pilot-links.is-person-link { grid-area: plink; }
+.ai-course-lesson .ai-agent-pilot-node.is-harness { grid-area: harness; }
+.ai-course-lesson .ai-agent-pilot-links.is-model-link { grid-area: mlink; }
+.ai-course-lesson .ai-agent-pilot-node.is-model { grid-area: model; }
+.ai-course-lesson .ai-agent-pilot-links.is-tool-link { grid-area: tlink; }
+.ai-course-lesson .ai-agent-pilot-node.is-tool { grid-area: tool; }
+
+.ai-course-lesson .ai-agent-pilot-node {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in oklab, var(--brand) 35%, var(--border-light));
+  border-radius: 10px;
+}
+
+.ai-course-lesson .ai-agent-pilot-node.is-harness {
+  border-color: var(--brand);
+  background: var(--brand-light);
+}
+
+.ai-course-lesson .ai-agent-pilot-node b,
+.ai-course-lesson .ai-agent-pilot-node span {
+  display: block;
+}
+
+.ai-course-lesson .ai-agent-pilot-node b {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ai-course-lesson .ai-agent-pilot-node span {
+  margin-top: 2px;
+  color: var(--text-2);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.ai-course-lesson .ai-agent-pilot-links {
+  display: grid;
+  gap: 8px;
+}
+
+.ai-course-lesson .ai-agent-pilot-links > p,
+.ai-course-lesson .ai-agent-pilot-links > p + p {
+  margin: 0;
+  padding-left: 8px;
+  border-left: 2px solid var(--brand);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.ai-course-lesson .ai-agent-pilot-links span,
+.ai-course-lesson .ai-agent-pilot-links b,
+.ai-course-lesson .ai-agent-pilot-links small {
+  display: block;
+}
+
+.ai-course-lesson .ai-agent-pilot-links span {
+  color: var(--brand);
+  font-weight: 650;
+}
+
+.ai-course-lesson .ai-agent-pilot-links b {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.ai-course-lesson .ai-agent-pilot-links small {
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.ai-course-lesson .ai-agent-pilot-map > .ai-agent-pilot-loop {
+  margin: 16px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed color-mix(in oklab, var(--brand) 45%, var(--border-light));
+  color: var(--text-2);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .ai-agent-pilot-loop b {
+  margin-right: 6px;
+  color: var(--brand);
+}
+
+/* B. 七步过程卡：内容多高卡片就多高，不拉齐 */
+.ai-course-lesson .ai-agent-pilot > .ai-agent-pilot-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr));
+  gap: 12px;
+  align-items: start;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps > li {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--border-light);
+  border-top: 3px solid var(--brand);
+  border-radius: 10px;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps li > p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps li > p + p {
+  margin-top: 8px;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps li > p.ai-agent-pilot-step-title {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps li > p:not(.ai-agent-pilot-step-title) b {
+  display: block;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.ai-course-lesson .ai-agent-pilot-steps li > p span {
+  color: var(--text-2);
+}
+
+@container (max-width: 640px) {
+  .ai-course-lesson .ai-agent-pilot-map {
+    padding: 14px;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-map-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "person" "plink" "harness" "mlink" "model" "tlink" "tool";
+  }
+
+  .ai-course-lesson .ai-agent-pilot-links {
+    padding-left: 12px;
+  }
+
+  /* 草稿表在窄屏改成一行一张卡；渲染器不允许给表格加 tabindex，
+     所以不用横向滚动（键盘无法聚焦），用列名标签代替表头 */
+  .ai-course-lesson .ai-agent-pilot-draft table,
+  .ai-course-lesson .ai-agent-pilot-draft tbody,
+  .ai-course-lesson .ai-agent-pilot-draft tr,
+  .ai-course-lesson .ai-agent-pilot-draft td {
+    display: block;
+    width: auto;
+  }
+
+  /* 表头只在视觉上隐藏，读屏软件仍能读到 */
+  .ai-course-lesson .ai-agent-pilot-draft {
+    position: relative;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* 其余表格（材料、误报对照、处置、术语）：保留原生表格和表头，
+     固定列宽、完整折行，不靠横向滚动 */
+  .ai-course-lesson .ai-agent-pilot > table {
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    table-layout: fixed;
+    font-size: 12.5px;
+  }
+
+  .ai-course-lesson .ai-agent-pilot > table th,
+  .ai-course-lesson .ai-agent-pilot > table td {
+    padding: 6px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  /* 误报对照表有五列，前两列（编号、阶段）只放短代号，收窄给说明列腾地方 */
+  .ai-course-lesson .ai-agent-pilot > table:has(th:nth-child(5)) th:nth-child(-n + 2) {
+    width: 3.2em;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft tr {
+    padding: 10px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft tr + tr {
+    margin-top: 10px;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft td {
+    padding: 3px 0;
+    border: 0;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft td::before {
+    display: block;
+    color: var(--text-3);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .ai-course-lesson .ai-agent-pilot-draft td:nth-child(1)::before { content: "客户代号"; }
+  .ai-course-lesson .ai-agent-pilot-draft td:nth-child(2)::before { content: "当前进展"; }
+  .ai-course-lesson .ai-agent-pilot-draft td:nth-child(3)::before { content: "待确认事项"; }
+  .ai-course-lesson .ai-agent-pilot-draft td:nth-child(4)::before { content: "下一步（建议）"; }
+  .ai-course-lesson .ai-agent-pilot-draft td:nth-child(5)::before { content: "来源"; }
+}
+
+/* Four or five steps do not fit side by side below 640px; stack them the way
+   the template stacks every flow below 420px (vibehub.css). */
+@container (max-width: 640px) {
+  .ai-course-lesson .course-inline-flow.has-4,
+  .ai-course-lesson .course-inline-flow.has-5 {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .ai-course-lesson .course-inline-flow.has-4 > li:not(:last-child)::after,
+  .ai-course-lesson .course-inline-flow.has-5 > li:not(:last-child)::after {
+    top: auto;
+    right: 50%;
+    bottom: -20px;
+    transform: translateX(50%) rotate(90deg);
+  }
+
+  .ai-course-chapter-info dl {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .ai-course-chapter-info dd + dt {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 760px) {
+  .course-group + .course-group {
+    margin-top: 40px;
+  }
+
+  .ai-course-outcomes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- AI chapter term panel on phones ----------
+   The shared theme expects a fixed #course-term-panel wrapper and
+   .course-term-panel.is-sheet on phones; AiTermWorkspace renders neither, so
+   its plain panel fell into the page flow while the absolute backdrop covered
+   it. Scoped to .ai-term-workspace direct children so the Web Coding reader
+   and the desktop two-column layout are untouched: the panel becomes a
+   bottom sheet above a viewport-fixed backdrop (site header sits at 50). */
+@media (max-width: 959px) {
+  .ai-term-workspace.course-workspace > .course-term-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+  }
+
+  .ai-term-workspace.course-workspace > .course-term-panel {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 121;
+    display: grid;
+    grid-template-rows: 60px minmax(0, 1fr);
+    width: auto;
+    max-width: none;
+    height: min(80dvh, 640px);
+    margin: 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    background: var(--bg);
+    box-shadow: 0 -12px 32px rgb(0 0 0 / 0.18);
+  }
+
+  /* The body keeps its own scroll so long term cards stay readable. */
+  .ai-term-workspace.course-workspace > .course-term-panel > .course-term-scroll {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}

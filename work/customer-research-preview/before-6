@@ -1,0 +1,7 @@
+【全部为教学模拟；公司、域名、消息与产品均为虚构】
+业务委托 T1：业务员收到新买家消息。请先做一页中文客户简报，说明对方做什么、我们的哪项产品可能匹配、首次沟通需要确认什么。
+客户网站摘录 W1：Nordhaven Living，域名 nordhaven-living.example。About us: We are a UK homeware distributor supplying independent retailers.（这是提供给你的模拟摘录，不是本次联网查到的页面。）
+客户品类摘录 W2：同一域名的目录列有 kitchen storage、reusable lunch boxes、bamboo utensils；未提供采购量、采购预算、销售额或信用资料。
+买家消息 Q1：署名 Purchasing Team，邮箱域名与 W1 一致。We are reviewing reusable lunch boxes for our range. Can you offer our own logo? Is the whole lunch box dishwasher-safe? Please send the specifications first.（我们正在评估可重复使用的饭盒，能做自有 Logo 吗？整个饭盒能进洗碗机吗？请先发规格。）
+我方产品卡 P1：LB-600，600ml，304 不锈钢盒身，可做 Logo；盒身可用洗碗机，竹盖仅建议手洗。未提供食品接触认证文件、报价或生产交期。
+操作边界 C1：本次只读取上述模拟文字、生成内部简报。没有联网搜索、客户信用数据库查询或发送消息的任务；不得声称做过这些动作。Accio Work 的实际入口和可用能力以当前账号为准。

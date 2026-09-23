@@ -1,0 +1,120 @@
+// Typed read-only access to the AI learning course data.
+// generated.json is produced by scripts/generate-ai-learning.mjs from the
+// canonical course sources — never edit it by hand. No fs here, so this is
+// safe to import from both server and client components.
+import generated from "./generated.json";
+
+export type LessonStatus = "available" | "planned";
+export type ContentReviewState = "draft" | "reviewed";
+
+export interface CourseReview {
+  content: ContentReviewState;
+  /** Mirrors the source as-is, e.g. "not_open" (not opened to the team yet). */
+  teamAccess: string;
+}
+
+export interface LessonSummary {
+  id: string;
+  moduleId: string;
+  /** 1-based position in the full course. */
+  order: number;
+  title: string;
+  status: LessonStatus;
+  topics: string | null;
+  outcome: string;
+  why: string;
+  verify: string;
+  prerequisites: string[];
+  estimate: string;
+}
+
+export interface CourseModule {
+  id: string;
+  title: string;
+  purpose: string | null;
+  lessons: LessonSummary[];
+}
+
+export interface LessonSection {
+  id: string;
+  title: string;
+  text: string;
+}
+
+/** Activities come straight from activities.yaml; only the version is relied on here. */
+export interface LessonActivities {
+  version: string;
+  [key: string]: unknown;
+}
+
+export interface LessonContent {
+  id: string;
+  moduleId: string;
+  version: string;
+  markdown: string;
+  activities: LessonActivities;
+  sections: LessonSection[];
+}
+
+export interface GlossaryTerm {
+  id: string;
+  term: string;
+  en: string | null;
+  aliases: string[];
+  definition: string;
+  example: string;
+  needs: string[];
+  lesson: string;
+  section: string;
+}
+
+export interface LearningData {
+  schemaVersion: number;
+  courseVersion: string;
+  title: string;
+  audience: string | null;
+  depthNote: string | null;
+  review: CourseReview;
+  period: {
+    weeks: number | null;
+    hoursPerWeek: number | null;
+    totalHours: number | null;
+    note: string | null;
+  } | null;
+  counts: { modules: number; lessons: number; available: number; planned: number };
+  modules: CourseModule[];
+  glossary: { version: string | null; terms: GlossaryTerm[] };
+  lessons: LessonContent[];
+}
+
+const data = generated as LearningData;
+
+export function getCourseMeta() {
+  const { schemaVersion, courseVersion, title, audience, depthNote, review, period, counts } = data;
+  return { schemaVersion, courseVersion, title, audience, depthNote, review, period, counts };
+}
+
+export function getModules(): CourseModule[] {
+  return data.modules;
+}
+
+export function getModule(id: string): CourseModule | undefined {
+  return data.modules.find((m) => m.id === id);
+}
+
+export function getLessonSummaries(): LessonSummary[] {
+  return data.modules.flatMap((m) => m.lessons);
+}
+
+export function getLessonSummary(id: string): LessonSummary | undefined {
+  return getLessonSummaries().find((l) => l.id === id);
+}
+
+/** Only available lessons have content; planned lessons return undefined. */
+export function getLessonContent(id: string): LessonContent | undefined {
+  return data.lessons.find((l) => l.id === id);
+}
+
+export function getGlossaryTerms(): GlossaryTerm[] {
+  return data.glossary.terms;
+}

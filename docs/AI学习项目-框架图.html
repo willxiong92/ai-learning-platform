@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 学习项目框架</title>
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--ink:#1d1d1f;--mute:#6b6b70;--line:#dcdcd8;
+--c1:#2f6fed;--c2:#0f9d76;--c3:#c77800;--c4:#c2410c;--c5:#7c3aed;--c6:#475569;--soft:rgba(0,0,0,.035)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141416;--card:#1e1e22;--ink:#ececee;--mute:#9a9aa2;--line:#33333a;--soft:rgba(255,255,255,.04)}}
+:root[data-theme="dark"]{--bg:#141416;--card:#1e1e22;--ink:#ececee;--mute:#9a9aa2;--line:#33333a;--soft:rgba(255,255,255,.04)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,"PingFang SC","Noto Sans SC",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 48px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:1fr 250px;gap:16px}
+.layer{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--c);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+.lh{display:flex;gap:10px;align-items:baseline;margin-bottom:6px}
+.lh b{color:var(--c);font-size:15px}.lh span{color:var(--mute);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-size:12.5px}
+.chip.hot{border-color:var(--c4);color:var(--c4);font-weight:600}
+.chip.req{border-color:var(--c2)}
+.note{font-size:12px;color:var(--mute);margin-top:6px}
+.side{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.side h3{margin:0 0 10px;font-size:15px}
+.step{border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.step b{display:block}.step small{color:var(--mute)}
+.arrow{text-align:center;color:var(--mute);font-size:12px;margin:-2px 0 4px}
+.flow{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.flow h3{margin:0 0 10px;font-size:15px}
+.stages{display:grid;grid-template-columns:repeat(8,1fr);gap:6px}
+.st{border:1px solid var(--line);border-top:4px solid var(--c6);border-radius:8px;padding:8px;font-size:12.5px}
+.st.done{border-top-color:var(--c2)}.st.now{border-top-color:var(--c1)}
+.st b{display:block;font-size:13px}.st small{color:var(--mute)}
+.legend{margin-top:10px;font-size:12px;color:var(--mute)}
+@media (max-width:860px){.grid{grid-template-columns:1fr}.stages{grid-template-columns:repeat(2,1fr)}}
+</style>
+<style>
+.src{background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+.down{text-align:center;color:var(--mute);font-size:12px;margin:2px 0 8px}
+.three{display:grid;grid-template-columns:1.4fr 1fr;gap:12px}
+.dep{opacity:.6;text-decoration:line-through}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>AI 业务实践与学习平台 · 框架图 v2</h1>
+<p class="sub">项目先行 · 学习跟随 · 对外分享收尾。对应 docs/AI学习项目-底层方案.md（2026-09-18.2，待 Codex 复核）</p>
+
+<div class="src"><b>业务主线（母源）</b>　<span class="note">边界表 · 缺口清单 · 本体论 · 六包作业 · 成果卡规则 · AI场景知识库 · 北森 / 龙虎榜规则</span></div>
+<div class="down">↓ 选题：只选成熟 / 必收场景</div>
+
+<div class="layer" style="--c:var(--c4)">
+  <div class="lh"><b>线① 业务 AI 项目</b><span>Will 先做 · 在产线跑通</span></div>
+  <div class="chips"><span class="chip hot">服务客户</span><span class="chip hot">外贸场景</span><span class="chip hot">Accio Work（AWB）赋能</span></div>
+  <div class="note">沉淀：Prompt / Skill / SOP / 模板 + 产线证据　｜　首批候选：Accio Work 边界话术（SC-AWB-01）· 建档沟通质检（SC-P1-01 / MVP-01）· OKKI 结构化（SC-OKKI-01）</div>
+</div>
+<div class="down">↓ 上架（内部）　　　　　　　　　　　　　↘ 挑选 · 脱敏 · 原创（对外）</div>
+
+<div class="three">
+  <div class="layer" style="--c:var(--c1)">
+    <div class="lh"><b>线② 团队平台 = 克隆站（新主管工作台）</b><span>学 + 做 · 内部</span></div>
+    <div class="chips"><span class="chip hot">案例库：拿来就用</span><span class="chip">课程 / 术语：10 领域，按项目需要学</span><span class="chip">作业卡：照案例在自己客户上做一次</span><span class="chip">成果卡草稿 → 主管批阅 → 龙虎榜</span></div>
+    <div class="note">一线必修 A B G H I + Accio Work　｜　迁入：术语图鉴 · 四大工程课 · 案例 · 前端小课（内网）</div>
+  </div>
+  <div class="layer" style="--c:var(--c5)">
+    <div class="lh"><b>线③ 个人网站</b><span>对外 · GitHub</span></div>
+    <div class="chips"><span class="chip">方法</span><span class="chip">项目复盘</span><span class="chip">总结</span><span class="chip">同行交流</span></div>
+    <div class="note">只放 Will 原创并脱敏；不放 VibeHub、前端小课、客户与公司内部信息</div>
+  </div>
+</div>
+<div class="down">↺ 一线的好实践回流：带教 · 复制 · 成为新案例，回到线①</div>
+
+<div class="grid">
+  <div class="layer" style="--c:var(--c2)">
+    <div class="lh"><b>闭环与计分</b><span>一线为什么愿意用</span></div>
+    <div class="chips"><span class="chip">① Will 做项目</span><span class="chip">② 上架案例</span><span class="chip">③ 一线学 + 用（北森 30%）</span><span class="chip">④ 主管批阅</span><span class="chip">⑤ 回流带教（北森 20%）</span><span class="chip">⑥ 对外发布</span></div>
+    <div class="note">红线：成果卡需要产线证据，纯 POC 打回　｜　技术通过 ≠ 学会 ≠ 业务有效，三者分开记录</div>
+  </div>
+  <div class="side">
+    <h3>载体</h3>
+    <div class="step"><b>克隆站</b><small>唯一团队平台</small></div>
+    <div class="step"><b>个人网站</b><small>对外窗口</small></div>
+    <div class="step"><b>业务主线 · sources/</b><small>母源</small></div>
+    <div class="step dep"><b>旧主管工作台</b><small>弃用，只迁资产</small></div>
+  </div>
+</div>
+
+<div class="flow">
+  <h3>落地流程（时间为估计，按龙虎榜节奏：9 月扫盲 · 10–11 月打磨 · 12 月分化）</h3>
+  <div class="stages">
+    <div class="st done"><b>S1 分类</b><small>10 领域 ✅</small></div>
+    <div class="st now"><b>S0 复核</b><small>Codex 复核</small></div>
+    <div class="st"><b>S2 首个项目</b><small>产线跑通</small></div>
+    <div class="st"><b>S3 平台骨架</b><small>案例库 · 课程 · 作业卡 · 迁移</small></div>
+    <div class="st"><b>S4 补内容</b><small>H / I / D · 所需章节</small></div>
+    <div class="st"><b>S5 团队试用</b><small>2–3 人照案例做</small></div>
+    <div class="st"><b>S6 项目 2、3</b><small>重复 S2–S5</small></div>
+    <div class="st"><b>S7 开放</b><small>托管 · 钉钉 · 另议</small></div>
+  </div>
+  <div class="legend">绿 = 已完成　蓝 = 当前　灰 = 待做　｜　个人网站：首个项目完成后开始持续发布</div>
+</div>
+</div>
+</body>
+</html>
