@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 /**
  * 空状态：图标 + 标题 + 描述 + 可选操作按钮。
  * 列表/搜索无结果、无数据页面的统一占位。
+ * 本站改动：出现时淡入上移（tw-animate-css，已有依赖）；图标外加一圈细边，和手册风格的细边框一致。
  */
 function EmptyState({
   icon,
@@ -22,8 +23,10 @@ function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col items-center justify-center gap-3 px-6 py-12 text-center", className)}>
-      <div className="bg-muted text-muted-foreground flex size-12 items-center justify-center rounded-full [&_svg]:size-6">
+    <div className={cn("flex flex-col items-center justify-center gap-3 px-6 py-12 text-center",
+        "animate-in fade-in-0 slide-in-from-bottom-2 duration-500 motion-reduce:animate-none",
+        className)}>
+      <div className="bg-muted text-muted-foreground ring-border ring-offset-background flex size-12 items-center justify-center rounded-full ring-1 ring-offset-4 [&_svg]:size-6">
         {icon ?? <InboxIcon />}
       </div>
       <div className="space-y-1">

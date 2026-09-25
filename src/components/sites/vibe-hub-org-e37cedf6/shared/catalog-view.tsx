@@ -3,7 +3,7 @@ import { CategorySidebar } from "./category-sidebar";
 import { TermCard } from "./term-card";
 import { EmptyState } from "@/components/ui/empty-state";
 import Link from "next/link";
-import { SearchXIcon } from "lucide-react";
+import { SearchXIcon, StarIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { HOME_TOPIC_SLUG, ROUTE_TOPICS, TOPICS } from "@/lib/vibehub/data";
 import type { Term, Topic, TopicSection } from "@/lib/vibehub/types";
@@ -99,12 +99,16 @@ export function CatalogFullView({
   heading,
   sections,
   emptyLabel,
+  emptyKind = "search",
 }: {
   heading: string;
   sections: Section[];
   emptyLabel?: string;
+  /** 空状态说什么：搜索无结果、收藏夹为空，或还在读本地收藏（不显示空状态，避免闪一下） */
+  emptyKind?: "search" | "favorites" | "loading";
 }) {
   const hasAny = sections.some((s) => s.terms.length > 0);
+  const isFavorites = emptyKind === "favorites";
   return (
     <div className="catalog-page catalog-directory-page">
       <div className="catalog-layout catalog-directory-layout catalog-layout-full">
@@ -112,12 +116,12 @@ export function CatalogFullView({
           <header className="catalog-heading">
             <h1>{heading}</h1>
           </header>
-          {!hasAny && (
+          {!hasAny && emptyKind !== "loading" && (
             // 空状态换成组件库 550 的 EmptyState；「回到全部术语」给搜不到的人一条退路
             <EmptyState
-              icon={<SearchXIcon />}
+              icon={isFavorites ? <StarIcon /> : <SearchXIcon />}
               title={emptyLabel ?? "没有找到相关内容"}
-              description="试试更短的关键词，或者换个说法。"
+              description={isFavorites ? "收藏的术语会集中放在这里，方便回头复习。" : "试试更短的关键词，或者换个说法。"}
               action={
                 <Link href="/" className="text-primary text-sm font-medium underline-offset-4 hover:underline">
                   回到全部术语

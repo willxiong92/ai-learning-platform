@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 // 全站视觉层放在 globals.css 之后引入，保证能压过 globals 里对原站样式的补丁；撤回删这一行即可
 import "./handbook.css";
+// 第三轮质感与动效层，叠在手册视觉层之上；撤回删这一行即可
+import "./handbook-motion.css";
 import { THEME_INIT_SCRIPT } from "@/lib/vibehub/theme";
 import { SiteShell } from "@/components/sites/vibe-hub-org-e37cedf6/shared/site-shell";
 

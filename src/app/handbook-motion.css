@@ -1,0 +1,303 @@
+/* --- 全站质感与动效层（界面升级第三轮，2026-09-26，见 docs/REDESIGN.md §12）---
+   在第二轮「清爽工作手册」视觉层（handbook.css）之上，加一层克制的质感和动效：
+   - 质感：柔和的弥散阴影、统一的焦点环、标题排版更稳；
+   - 动效：页面淡入、卡片随滚动浮现、悬停时顶边「书签条」展开、导航下划线滑入、按钮箭头轻推。
+   动效词汇刻意和原站不同：原站是「悬停整张卡上浮 + 重投影」，这里只动细节（书签条、箭头、颜色）。
+   所有位移类动效只在系统没有开启「减少动态效果」时生效；随滚动浮现只在支持 animation-timeline 的浏览器里生效，
+   不支持的浏览器（如 Firefox）直接显示静态页面，内容不会被藏起来。
+   撤回：删掉 layout.tsx 里 import "./handbook-motion.css" 这一行。 */
+
+/* ========== 动效与阴影 token ========== */
+
+:root {
+  --hb-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --hb-ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --hb-dur-fast: .18s;
+  --hb-dur: .32s;
+  --hb-dur-slow: .6s;
+  --hb-shadow-soft: 0 1px 2px rgb(29 31 36 / 4%), 0 8px 20px -12px rgb(29 31 36 / 16%);
+  --hb-shadow-lift: 0 1px 2px rgb(29 31 36 / 5%), 0 18px 36px -18px rgb(29 31 36 / 24%);
+  --hb-ring: color-mix(in srgb, var(--brand) 55%, transparent);
+}
+:root[data-color-mode=dark] {
+  --hb-shadow-soft: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 20px -12px rgb(0 0 0 / 55%);
+  --hb-shadow-lift: 0 1px 2px rgb(0 0 0 / 35%), 0 18px 36px -18px rgb(0 0 0 / 70%);
+}
+
+/* ========== 全局排版与交互细节 ========== */
+
+/* 标题换行更均衡，段落避免最后一行只剩一个字 */
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+/* 锚点跳转时不被吸顶导航挡住 */
+html { scroll-padding-top: calc(var(--site-nav-height, 60px) + 16px); }
+
+/* 键盘操作时统一的主色焦点环；鼠标点击不出现 */
+:where(a, button, summary, [role="tab"], [role="menuitem"]):focus-visible {
+  outline: 2px solid var(--hb-ring);
+  outline-offset: 2px;
+}
+
+/* 滚动条颜色跟随纸面 */
+html { scrollbar-color: var(--border-hover) transparent; }
+
+/* ========== 页面标题统一成两级 ==========
+   原来各页大标题各用各的：64px 细体、44px 常规、44px 特粗、30px、26px 混在一起，翻页时像换了个网站。
+   统一成两级，字重都是 700，和首页首屏标题一个家族：
+   - 扉页级（有一大段导语的专题页）：30–42px；
+   - 目录级（列表、索引页）：26–32px。 */
+html .aif-catalog-heading h1,
+html .learning-hero h1,
+html .own-skill-intro h1 {
+  font-size: clamp(30px, 3.6vw, 42px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+html .practice-task .learning-hero h1 { font-size: clamp(26px, 2.35vw, 32px); }
+html .catalog-heading h1,
+html .catalog-directory-layout .catalog-heading h1,
+html .course-index-heading h1,
+html .changelog-title,
+html .ai-learning-header h1,
+html .dh-head h1 {
+  font-size: clamp(26px, 2.6vw, 32px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+/* ========== 术语详情页的正文部件 ========== */
+
+/* 「你可能会说」引用：从整块浅蓝底改成「左侧主色竖线 + 纸面浅底」，和课程页旁注是同一种部件 */
+.dh-quote {
+  border-left: 3px solid var(--brand);
+  border-radius: 4px 8px 8px 4px;
+  background: var(--bg-soft);
+}
+
+/* 小节标题前加一枚主色短竖条，像手册的章节标记，扫读时更好找 */
+.section-title::before {
+  content: "";
+  flex: none;
+  width: 3px;
+  height: .95em;
+  border-radius: 2px;
+  background: var(--brand);
+}
+.detail-entry-hero .section-title::before { display: none; }
+
+/* 组成结构演示台：细边加深一级，和卡片一致 */
+.anat-stage { border-color: var(--border); }
+
+/* ========== 顶栏 ========== */
+
+/* 栏目悬停：主色细线从中间展开（当前栏目是实线，悬停是半透明） */
+.nav-primary-item::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--brand);
+  opacity: .4;
+  transform: scaleX(0);
+  transition: transform var(--hb-dur) var(--hb-ease-out), opacity var(--hb-dur) ease;
+}
+.nav-primary-item:hover::after { transform: scaleX(1); }
+.nav-primary-item.is-current::after { opacity: 1; transform: scaleX(1); }
+@media (max-width: 1023px) {
+  .nav-primary-item::after { left: 8px; right: 8px; bottom: 2px; }
+}
+
+/* 主题色菜单：从按钮处轻轻展开 */
+.theme-dot-menu {
+  box-shadow: var(--hb-shadow-lift);
+  transform-origin: top right;
+}
+
+/* ========== 卡片（术语卡、课程卡、练习卡、案例卡、变体卡） ========== */
+
+.card,
+html .course-route-card,
+html .course-chapter-card,
+.practice-case-card,
+.ai-learning-case-card,
+.variant-card {
+  transition:
+    border-color var(--hb-dur) ease,
+    box-shadow var(--hb-dur) var(--hb-ease-out);
+}
+.card:hover,
+html .course-route-card:hover,
+html .course-chapter-card:hover,
+.practice-case-card:hover,
+.ai-learning-case-card:hover,
+.variant-card:hover {
+  box-shadow: var(--hb-shadow-soft);
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+}
+
+/* 术语卡顶边的「书签条」：悬停时从左往右展开，像给这一页夹了张书签 */
+.card::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 14px;
+  right: 14px;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: var(--brand);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .42s var(--hb-ease-out);
+  pointer-events: none;
+}
+.card:hover::before,
+.card:focus-within::before { transform: scaleX(1); }
+.card .card-head h3 { transition: color var(--hb-dur-fast) ease; }
+.card:hover .card-head h3 { color: var(--brand); }
+.card .card-demo { transition: border-color var(--hb-dur) ease, background-color var(--hb-dur) ease; }
+.card:hover .card-demo { border-color: color-mix(in srgb, var(--brand) 30%, var(--border)); }
+
+/* 课程卡配图：悬停时轻微放大，不上浮不倾斜 */
+html .course-route-card .course-route-list-visual :is(img, svg),
+html .course-chapter-card .course-chapter-list-visual :is(img, svg) {
+  transition: transform .5s var(--hb-ease-out);
+}
+html .course-chapter-card:hover .course-chapter-list-visual :is(img, svg),
+html .course-route-card:hover .course-route-list-visual :is(img, svg) {
+  transform: scale(1.025);
+}
+
+/* 页脚入口卡 */
+.footer-social-link { transition: border-color var(--hb-dur) ease, box-shadow var(--hb-dur) var(--hb-ease-out); }
+.footer-social-link:hover { box-shadow: var(--hb-shadow-soft); }
+
+/* ========== 按钮与小部件 ========== */
+
+/* 带箭头的入口：悬停时箭头往前推一点，暗示「点这里往下走」 */
+.detail-back-button .ui-icon,
+.float-nav .fn-arrow,
+.changelog-breadcrumb-link .ti {
+  display: inline-block;
+  transition: transform var(--hb-dur) var(--hb-ease-out);
+}
+.detail-back-button:hover .ui-icon,
+.changelog-breadcrumb-link:hover .ti { transform: translateX(-3px); }
+.float-nav:hover { box-shadow: var(--hb-shadow-soft); }
+
+/* 按下反馈：只做很小的缩放 */
+:is(.detail-copy-markdown, .favorite-button, .changelog-filter-btn, .nav-color-mode, .nav-circle):active {
+  transform: scale(.96);
+}
+:is(.detail-copy-markdown, .favorite-button, .changelog-filter-btn, .nav-color-mode) {
+  transition-property: color, background-color, border-color, transform;
+  transition-duration: var(--hb-dur-fast);
+}
+
+/* 亮暗切换按钮：图标切换时转一下 */
+.nav-color-mode svg { transition: transform .5s var(--hb-ease-out); }
+.nav-color-mode:hover svg { transform: rotate(-18deg); }
+
+/* 更新页术语小标签 */
+.changelog-term-pill { transition: border-color var(--hb-dur-fast) ease, background-color var(--hb-dur-fast) ease, color var(--hb-dur-fast) ease; }
+
+/* ========== 亮暗切换：从按钮位置圆形展开新配色 ========== */
+/* 由 theme-controls.tsx 在支持 View Transitions 的浏览器里触发；不支持时直接切换 */
+:root[data-vt="color-mode"]::view-transition-old(root),
+:root[data-vt="color-mode"]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+:root[data-vt="color-mode"]::view-transition-new(root) {
+  animation: hb-circle-reveal .55s var(--hb-ease-in-out) both;
+}
+@keyframes hb-circle-reveal {
+  from { clip-path: circle(0 at var(--hb-vt-x, 100%) var(--hb-vt-y, 0)); }
+  to { clip-path: circle(150vmax at var(--hb-vt-x, 100%) var(--hb-vt-y, 0)); }
+}
+
+/* ========== 进场与滚动浮现（只在系统未要求减少动效时） ========== */
+
+@keyframes hb-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes hb-rise {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: none; }
+}
+@keyframes hb-pop {
+  from { opacity: 0; transform: translateY(-4px) scale(.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hb-pulse-ring {
+  0% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent); }
+  70% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--brand) 0%, transparent); }
+  100% { box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 18%, transparent); }
+}
+@keyframes hb-nav-elevate {
+  from { box-shadow: 0 0 0 transparent; }
+  to { box-shadow: 0 6px 18px -14px rgb(29 31 36 / 35%); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* 换页时正文淡入。只动透明度，不动位置：正文里有 position: fixed 的浮动按钮，位移会让它跟着跑 */
+  .site-shell > main > * {
+    animation: hb-fade-in .45s ease backwards;
+  }
+
+  /* 各页标题区：进页面时轻轻上浮，和首页首屏同一种节奏 */
+  :is(.catalog-heading, .course-index-heading, .changelog-header-main, .learning-hero,
+      .own-skill-intro, .aif-catalog-heading, .ai-learning-header, .dh-head) {
+    animation: hb-rise .6s var(--hb-ease-out) backwards;
+  }
+
+  /* 主题色菜单弹出 */
+  .theme-dot-menu { animation: hb-pop .22s var(--hb-ease-out) both; }
+
+  /* 更新页最新一条的时间点：轻轻呼吸，提示「这是最近的更新」 */
+  .changelog-entry:first-of-type .changelog-track-node {
+    animation: hb-pulse-ring 2.6s ease-out 3;
+  }
+
+  /* 随滚动浮现：卡片进入视口时从下方淡入。
+     结束值是 translate: none，动画结束后不留下 transform，不影响卡片里弹层的层级 */
+  @supports (animation-timeline: view()) {
+    .card,
+    html .course-route-card,
+    html .course-chapter-card,
+    .practice-case-card,
+    .ai-learning-case-card,
+    .curriculum-route,
+    .changelog-entry,
+    .variant-card,
+    .cat-title {
+      animation: hb-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+
+    /* 页面滚动后顶栏出现一层很淡的投影，和正文分开 */
+    .nav {
+      animation: hb-nav-elevate linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 120px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card::before,
+  .nav-primary-item::after,
+  .nav-color-mode svg,
+  html .course-route-card .course-route-list-visual :is(img, svg),
+  html .course-chapter-card .course-chapter-list-visual :is(img, svg) {
+    transition: none;
+  }
+  :root[data-vt="color-mode"]::view-transition-new(root) { animation: none; }
+}

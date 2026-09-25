@@ -15,7 +15,8 @@ export function HomeIntro() {
         <h1 id="home-intro-title" className="home-intro-title">
           按业务场景学 AI，
           <br />
-          从第 01 课开始
+          {/* 第二行加一道荧光笔式的底色，进场时从左往右划出来（home.css） */}
+          <span className="home-intro-mark">从第 01 课开始</span>
         </h1>
         <p className="home-intro-lead">
           先练 AI 使用基本功，再按业务场景一步步往下学。自愿学习，不考核、不计分；模块 1 已开放，其余模块编写中。
