@@ -285,3 +285,43 @@ body:has(.catalog-directory-page) .nav { background: var(--bg); }
   .catalog-directory-page .catalog-directory-layout { --catalog-anchor-offset: calc(var(--site-nav-height, 64px) + var(--catalog-sticky-gap)); }
   .catalog-directory-page .catalog-directory-layout .catalog-finder { position: static; }
 }
+
+/* --- 定制 token（界面升级样稿，2026-09-26，见 docs/REDESIGN.md §2）---
+   方向「清爽工作手册」：暖白纸面、深墨蓝单一主色、细边框代替阴影。
+   只覆盖 vibehub.css 里同名变量，原文件不改；撤回就删掉这一块（主题色另见 theme.ts）。 */
+:root {
+  --bg: #fbfaf8;
+  --bg-soft: #f4f2ee;
+  --bg-hover: #eeebe6;
+  --text: #1d1f24;
+  --text-2: #4f4b45;
+  --text-3: #6b665f;
+  --border: #e6e2db;
+  --border-hover: #d5d0c7;
+  --border-light: #efece6;
+  --brand: var(--theme-brand, #1f4e8c);
+  --brand-hover: var(--theme-brand-hover, #183f72);
+  --accent: var(--theme-brand, #1f4e8c);
+  --inverse-bg: #2b2a27;
+  --inverse-text: #f3f1ec;
+  --shadow-card: 0 1px 0 rgb(29 31 36 / 4%);
+  --shadow-float: 0 10px 28px rgb(29 31 36 / 10%);
+}
+:root[data-color-mode=dark] {
+  --brand: var(--theme-dark-brand, #8fb0e0);
+  --accent: var(--theme-dark-brand, #8fb0e0);
+  --on-brand: #1a1917;
+  --bg: #1a1917;
+  --bg-soft: #22211e;
+  --bg-hover: #2b2a27;
+  --text: #dedad3;
+  --text-2: #bdb7ad;
+  --text-3: #9d978d;
+  --border: #3b3934;
+  --border-hover: #4d4a44;
+  --border-light: #2e2c28;
+  --on-status: #1a1917;
+  --inverse-bg: #33312d;
+  --inverse-text: #dedad3;
+  --shadow-card: 0 1px 0 rgb(0 0 0 / 20%);
+}
