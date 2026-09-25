@@ -1,7 +1,9 @@
 import { CatalogFinder, type CatalogFinderChip } from "./catalog-finder";
 import { CategorySidebar } from "./category-sidebar";
 import { TermCard } from "./term-card";
+import { EmptyState } from "@/components/ui/empty-state";
 import Link from "next/link";
+import { SearchXIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { HOME_TOPIC_SLUG, ROUTE_TOPICS, TOPICS } from "@/lib/vibehub/data";
 import type { Term, Topic, TopicSection } from "@/lib/vibehub/types";
@@ -111,7 +113,17 @@ export function CatalogFullView({
             <h1>{heading}</h1>
           </header>
           {!hasAny && (
-            <div className="catalog-empty">{emptyLabel ?? "没有找到相关内容"}</div>
+            // 空状态换成组件库 550 的 EmptyState；「回到全部术语」给搜不到的人一条退路
+            <EmptyState
+              icon={<SearchXIcon />}
+              title={emptyLabel ?? "没有找到相关内容"}
+              description="试试更短的关键词，或者换个说法。"
+              action={
+                <Link href="/" className="text-primary text-sm font-medium underline-offset-4 hover:underline">
+                  回到全部术语
+                </Link>
+              }
+            />
           )}
           {sections
             .filter((s) => s.terms.length > 0)

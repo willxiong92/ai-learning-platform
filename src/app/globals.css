@@ -9,7 +9,8 @@
 @import "./design.css";
 @import "./term-article.css";
 
-@custom-variant dark (&:is(.dark *));
+/* 本站用 <html data-color-mode="dark"> 切暗色，不用 .dark 类；组件库里的 dark: 样式跟着它走 */
+@custom-variant dark (&:where([data-color-mode=dark], [data-color-mode=dark] *));
 
 @theme inline {
   --color-background: var(--background);
@@ -53,6 +54,31 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* --- 接色：shadcn 组件的颜色指向站点手册 token（2026-09-26，docs/REDESIGN.md §11）---
+   为什么：组件库 550 的组件用 bg-primary、border-border 这类 shadcn 颜色；本站的 --accent、--border
+   是原站自己的变量（--accent 是主色，不是悬停底色），所以不改这两个变量，而是让 Tailwind 颜色直接指向站点 token。
+   暗色跟着站点 token 一起变。撤回：删掉这一块。 */
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-card: var(--bg);
+  --color-card-foreground: var(--text);
+  --color-popover: var(--bg);
+  --color-popover-foreground: var(--text);
+  --color-primary: var(--brand);
+  --color-primary-foreground: var(--on-brand);
+  --color-secondary: var(--bg-soft);
+  --color-secondary-foreground: var(--text);
+  --color-muted: var(--bg-soft);
+  --color-muted-foreground: var(--text-3);
+  --color-accent: var(--bg-hover);
+  --color-accent-foreground: var(--text);
+  --color-destructive: var(--red);
+  --color-border: var(--border);
+  --color-input: var(--border-hover);
+  --color-ring: var(--brand);
 }
 
 :root {

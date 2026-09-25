@@ -71,10 +71,7 @@
   background: var(--brand);
 }
 
-/* 搜索框：原站是全圆角胶囊，手册风格用小圆角矩形 */
-.search-box { border-radius: 8px; }
-.nav-search .search-box { background: var(--bg-soft); border-color: var(--border); }
-.nav-search .search-box:focus-within { background: var(--bg); }
+/* 搜索框：已换成组件库 550 的 SearchInput（src/components/ui/search-input.tsx），样式在组件里 */
 
 /* 主题色按钮：原站是不规则「有机色块」，换成端正的小方块 */
 .nav-circle { border-radius: 6px; }

@@ -373,13 +373,13 @@ Token 就是「全站共用的设计变量」：底色、文字色、边框、�
 | 本站现在 | 组件库对应 | 外部依赖 | 替换的好处 |
 |---|---|---|---|
 | 课后测验单选题（`quiz-form.tsx`、`quiz-block.tsx`，原生 radio） | `ui/radio-group` | `@base-ui/react`（已有） | 键盘上下键切换、焦点样式统一，读屏软件更友好 |
-| 更新页筛选（`changelog-view.tsx`，手写 tablist） | `ui/segmented` 或 `ui/tabs` | 无，或 `@base-ui/react`（已有） | 手写的键盘切换和滑块逻辑可以删掉 |
+| ~~更新页筛选（`changelog-view.tsx`，手写 tablist）~~ | ~~`ui/segmented` 或 `ui/tabs`~~ | — | **不换**（2026-09-26 读源码后更正）：现有筛选已经有完整的 tablist 读屏标注、方向键切换和滑块动效，换成 `segmented` 反而少功能 |
 | 学习进度（`learning-progress.tsx`、`course-progress.tsx`） | `ui/progress`、`ui/step-dots`、`ui/circular-progress`、`business/goal-progress` | `@base-ui/react`（已有） | 进度条、章节圆点有统一样式和读屏标注 |
 | 我的学习（`my-learning.tsx`，列表） | `ui/checklist`、`saas/onboarding-checklist` | `lucide-react`（已有） | 「已读 / 待学」一眼能看清，像入职清单 |
 | 课后三步（`lesson-assessment.tsx`：标记已读、测验、自检） | `business/steps` 或 `ui/timeline` | `lucide-react`、`cva`（已有） | 三步做到哪一步更直观 |
 | 课程目录折叠（`ai-section-rail.tsx`，原生 details） | `ui/collapsible` 或 `ui/accordion` | `@base-ui/react`（已有） | 展开收起有动效，状态更好控制 |
 | 顶栏搜索框（`search-box.tsx`） | `business/search-input` | `lucide-react`（已有），另需一起搬 `ui/input` | 清空按钮、快捷键提示是现成的 |
-| 术语筛选条（`catalog-finder.tsx`） | `business/filter-chips` | `lucide-react`（已有） | 已选条件可以一键清除 |
+| ~~术语筛选条（`catalog-finder.tsx`）~~ | ~~`business/filter-chips`~~ | — | **不适用**（2026-09-26 读源码后更正）：`filter-chips` 是「已选条件，点叉移除」，本站筛选条是分类导航链接，用途不同 |
 | 搜索无结果、练习空状态 | `ui/empty-hint`、`ui/empty-search`、`business/empty-state` | `lucide-react`（已有） | 空状态统一成一种说法和样式 |
 | 术语详情里的引用、提示、代码（`term-detail-body.tsx`） | `ui/blockquote`、`ui/highlight-box`、`ui/code-block`、`ui/kbd` | `lucide-react`（已有） | 代码块自带复制按钮；快捷键有统一样式 |
 | 练习草稿输入框（`practice-draft.tsx`） | `ui/textarea`、`ui/field` | `cva`（已有） | 字数提示、说明文字、报错位置统一 |
@@ -413,3 +413,38 @@ Token 就是「全站共用的设计变量」：底色、文字色、边框、�
 5. 课程页相关的第 2、3 步（测验、进度、目录折叠）要等 L01 试学之后，遵守冻结规则。
 
 搬运方式：把组件文件复制进本站 `src/components/ui/`，文件开头注明「来源：R-AI中后台组件库550组件，Will 2026-09-26 确认授权」，不在页面上显示。
+
+### 11.6 执行记录：接色 + 搜索框 + 空状态（2026-09-26）
+
+Will 回复「执行」后，按 §11.5 做了第 1 步和第 3 步中不涉及课程页的部分。课程页的测验、进度、目录折叠、我的学习、课后三步、练习草稿，全部等 L01 试学后再做。
+
+**改了什么**
+
+| 文件 | 改动 | 为什么 |
+|---|---|---|
+| `src/app/globals.css` | 新增「接色」`@theme inline` 块：`bg-primary`、`text-muted-foreground`、`border-input` 这类组件库颜色类，直接指向本站手册 token（`--brand`、`--bg`、`--bg-soft`、`--text-3`、`--border` 等） | 不接的话，搬来的组件是 shadcn 默认黑白灰。没有改 `--accent` 这些变量本身，因为本站的 `--accent` 是品牌色，和 shadcn 的同名变量含义不同，直接改会串色 |
+| `src/app/globals.css` | 暗色变体从 `.dark` 类改成跟随 `<html data-color-mode="dark">` | 本站切暗色用的是这个属性，组件库里 `dark:` 开头的样式才能跟着生效 |
+| `src/app/vibehub.css` | 全局 `*{margin:0;padding:0}` 和表单行高重置，放进 `@layer base` | 原来这条不在任何层里，优先级高过所有 Tailwind 工具类，会把组件库的内边距全部清零。Tailwind 自带的重置做的是同一件事，所以现有页面不受影响（已扫过：现有页面不用 Tailwind 间距类） |
+| `src/components/ui/input.tsx`（新） | 搬自组件库 `ui/input`，原样 | 搜索框的底座 |
+| `src/components/ui/search-input.tsx`（新） | 搬自 `business/search-input`，本站改动：左边距加宽避免图标压字；去掉回车处理（交给外层表单提交）；不用 `type="search"`（避免浏览器自带的清空叉和组件自己的叉重复） | 顶栏搜索框换成带清空按钮的统一样式 |
+| `src/components/ui/empty-state.tsx`（新） | 搬自 `business/empty-state`，原样 | 搜索无结果的统一空状态 |
+| `shared/search-box.tsx` | 顶栏搜索换成 `SearchInput` | 同上 |
+| `shared/catalog-view.tsx` | 「没有找到」换成 `EmptyState`，带图标、建议文字和「回到全部术语」链接 | 空状态有下一步可点 |
+| `src/app/handbook.css` | 删掉旧 `.search-box` 三条样式 | 样式已经在组件里 |
+
+**验证**（dev server 重启后测；第一次测时 dev 缓存没刷新，颜色读到的是旧值）
+
+- 颜色：链接 `rgb(31,78,140)` 即 `#1f4e8c` 墨蓝；搜索框底色 `#f4f2ee`、边框手册色。暗色下正文浅色、链接浅蓝、边框深灰。
+- 375 宽：搜索框字号 16px（手机上点进去不会自动放大），空状态左右留 16px，无横向滚动。
+- 交互：清空按钮能清空；输入后回车跳到 `/?q=…`。
+- 横向滚动：首页、更新、学习、课程、练习、skill、收藏、反 AI 味、我的学习、案例，375 和 1440 两个宽度全部无横向滚动。
+- `npm run lint`（0 错误，1 条旧警告）、`npm run typecheck`、`npm run build` 通过；改动文件作者信息检查无命中。
+
+**撤回方式**：删掉 `globals.css` 里「接色」一块、暗色变体改回原样，`git checkout` 这次提交涉及的文件，删除三个新 `ui/` 文件。
+
+**剩下的**
+
+- 课程页相关组件：等 L01 试学后。
+- 术语详情里的引用、提示、代码块（`ui/blockquote`、`ui/code-block` 等）：没做，下一轮可做，不涉及课程页。
+- B 类要装新包的组件：未安装，仍需 Will 批准（§11.3）。
+
