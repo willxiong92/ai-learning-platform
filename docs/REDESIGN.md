@@ -344,3 +344,72 @@ Token 就是「全站共用的设计变量」：底色、文字色、边框、�
 | 课程配图重画 | 图里是课程内容，重画等于改课程页内容（§8 #7） |
 | localStorage 键、`vh-*` 类名、目录名 | 看不见，改名要做数据迁移，按 §7 放到正式改版 |
 | 新依赖 | 本次禁止安装；也没有需要 |
+
+## 11. 组件库 550 对照清单（只读调研，2026-09-26）
+
+这一节是调研，不是改动：站内代码一行没改，组件库目录也只读没写。用途是给 L01 试学后的正式改版做准备。
+
+- 来源目录：`/Users/will/Desktop/AI学习/A-学习路线/教材/AI前端小课/下载附件/R-AI中后台组件库550组件/`
+- 授权情况：Will 2026-09-26 确认可以使用（§8 #2）。
+
+### 11.1 结论
+
+**技术上兼容度高，多数候选组件可以零新依赖直接搬。**
+
+- 组件库和本站用的是同一套底座：shadcn 写法、`@base-ui/react`、Tailwind v4、`class-variance-authority`、`lucide-react`。本站现有的 `button.tsx` 就是同一种写法。
+- 组件库本身是 Vite + TanStack Router 项目，不是 Next.js。
+  - 通用组件（`ui/`、`business/`）不依赖路由，能直接搬。
+  - 布局类组件（`layout/Header`、`CommandMenu`）绑定了 TanStack 路由，不能直接用。
+- 搬之前必须先做一件事：把 shadcn 的通用变量接到本站的手册色上。
+  - 本站 `globals.css` 里 `--primary`、`--background`、`--border` 等变量还是 shadcn 默认的黑白灰。
+  - 如果不接，搬来的组件会是黑白灰，和墨蓝纸面不搭。
+  - 做法：加一小段 CSS，让 `--primary` 指向 `var(--brand)`，`--background` 指向 `var(--bg)`，以此类推。
+- 作者痕迹：组件文件里没有署名、公众号或仓库链接（`dot-divider` 注释里的「作者」只是举例文字）。`fake-db/` 和 `views/` 里是演示数据，不搬。
+
+组件数量：`ui/` 147 个、`business/` 283 个、`ai/` 65 个、`saas/` 63 个，另有 `layout/` 7 个、`shared/` 3 个。
+
+### 11.2 A 类：零新依赖，替换后有明显好处
+
+| 本站现在 | 组件库对应 | 外部依赖 | 替换的好处 |
+|---|---|---|---|
+| 课后测验单选题（`quiz-form.tsx`、`quiz-block.tsx`，原生 radio） | `ui/radio-group` | `@base-ui/react`（已有） | 键盘上下键切换、焦点样式统一，读屏软件更友好 |
+| 更新页筛选（`changelog-view.tsx`，手写 tablist） | `ui/segmented` 或 `ui/tabs` | 无，或 `@base-ui/react`（已有） | 手写的键盘切换和滑块逻辑可以删掉 |
+| 学习进度（`learning-progress.tsx`、`course-progress.tsx`） | `ui/progress`、`ui/step-dots`、`ui/circular-progress`、`business/goal-progress` | `@base-ui/react`（已有） | 进度条、章节圆点有统一样式和读屏标注 |
+| 我的学习（`my-learning.tsx`，列表） | `ui/checklist`、`saas/onboarding-checklist` | `lucide-react`（已有） | 「已读 / 待学」一眼能看清，像入职清单 |
+| 课后三步（`lesson-assessment.tsx`：标记已读、测验、自检） | `business/steps` 或 `ui/timeline` | `lucide-react`、`cva`（已有） | 三步做到哪一步更直观 |
+| 课程目录折叠（`ai-section-rail.tsx`，原生 details） | `ui/collapsible` 或 `ui/accordion` | `@base-ui/react`（已有） | 展开收起有动效，状态更好控制 |
+| 顶栏搜索框（`search-box.tsx`） | `business/search-input` | `lucide-react`（已有），另需一起搬 `ui/input` | 清空按钮、快捷键提示是现成的 |
+| 术语筛选条（`catalog-finder.tsx`） | `business/filter-chips` | `lucide-react`（已有） | 已选条件可以一键清除 |
+| 搜索无结果、练习空状态 | `ui/empty-hint`、`ui/empty-search`、`business/empty-state` | `lucide-react`（已有） | 空状态统一成一种说法和样式 |
+| 术语详情里的引用、提示、代码（`term-detail-body.tsx`） | `ui/blockquote`、`ui/highlight-box`、`ui/code-block`、`ui/kbd` | `lucide-react`（已有） | 代码块自带复制按钮；快捷键有统一样式 |
+| 练习草稿输入框（`practice-draft.tsx`） | `ui/textarea`、`ui/field` | `cva`（已有） | 字数提示、说明文字、报错位置统一 |
+
+### 11.3 B 类：需要装新依赖（本次禁止安装，要 Will 批准）
+
+| 组件 | 要装的包 | 建议 |
+|---|---|---|
+| `business/copy-button`（复制成功后弹提示） | `sonner` | 本站 `copy-chip.tsx` 已经够用，**不建议为它装包**；只有想要全站统一的轻提示时再装 |
+| `ui/command`（⌘K 全站搜索面板） | `cmdk` | 是新功能，不是替换，按冻结规则等 L01 试学后再议 |
+| `business/relative-time`（「3 天前」这类相对时间） | `date-fns` | 更新页用得上，但几行代码就能自己写，不建议装 |
+| `layout/ModeToggle`（亮暗切换） | `next-themes` | 本站已有自己的主题脚本，**不需要** |
+
+### 11.4 C 类：不适用本站
+
+| 类别 | 为什么不用 |
+|---|---|
+| `ui/sidebar`（690 行）、`layout/*` | 后台管理系统的整体外壳，套上去就是换导航结构，违反冻结规则；`Header`、`CommandMenu` 还绑了 TanStack 路由 |
+| `business/` 下订单、仓储、财务、门店类卡片（大部分） | 电商和 ERP 业务组件，学习站用不上 |
+| `saas/` 下 SSO、账单、API Key、Webhook 类 | SaaS 后台设置页，学习站用不上 |
+| `ai/` 下对话产品类（模型选择、流式输出、Token 用量等） | 本站没有在线 AI 对话 |
+
+旁注：`business/` 里有客户成功相关组件，例如 `customer-success-qbr-card`、`nps-score`、`customer-churn-risk`、`customer-follow-up-card`。它们和本站无关，但如果以后要给 CRM 客户做演示页或陪跑材料，可以直接参考。
+
+### 11.5 正式改版时的建议顺序
+
+1. **接色**：让 shadcn 变量指向手册 token（一小段 CSS），先搬 `ui/card`、`ui/badge` 试效果。
+2. **交互件**：测验单选、更新页筛选、进度条。好处最大，而且都在组件内部，不改页面结构。
+3. **展示件**：空状态、搜索框、筛选条、术语详情里的引用和代码块。
+4. 每搬一个，都要在 1440 和 375 两个宽度下回归，并做一遍作者信息检查。
+5. 课程页相关的第 2、3 步（测验、进度、目录折叠）要等 L01 试学之后，遵守冻结规则。
+
+搬运方式：把组件文件复制进本站 `src/components/ui/`，文件开头注明「来源：R-AI中后台组件库550组件，Will 2026-09-26 确认授权」，不在页面上显示。
