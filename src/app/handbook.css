@@ -1,0 +1,186 @@
+/* --- 全站视觉层「清爽工作手册」（界面升级第二轮，2026-09-26，见 docs/REDESIGN.md §10）---
+   为什么单独一个文件：原站样式（vibehub.css 等）一个字不改，只在最后叠一层覆盖。
+   想撤回整层视觉，只要删掉 layout.tsx 里 import "./handbook.css" 这一行。
+   原则：只改外观（字体、边框、圆角、阴影、动效），不改页面结构、文字内容和导航项。
+   页面级 CSS（如 courses/ai-courses.css）比本文件加载得晚，需要压过它时选择器前加 html 提高优先级。 */
+
+/* ========== 顶栏 ========== */
+
+/* 原站顶栏半透明 + 毛玻璃，正文滚上去会透出来；手册风格用实底 + 一条细线 */
+.nav {
+  background: var(--bg);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: var(--border);
+}
+
+/* 站名：去掉原站「悬停展开副标题 + 渐变短横线」的招牌动效，固定显示「AI 学习站」 */
+.nav .vh-logo { --vh-logo-hover: var(--vh-logo-rest); }
+.nav .vh-logo-stage::after,
+.vh-logo > .vh-word b::after { display: none; }
+.vh-logo:hover > .vh-word { letter-spacing: inherit; transform: none; }
+.vh-logo:hover .vh-logo-mark,
+.vh-logo:focus-visible .vh-logo-mark { transform: none; }
+.vh-logo:hover .vh-word-brand,
+.vh-logo:focus-visible .vh-word-brand { opacity: 1; transform: translateY(-50%); filter: none; letter-spacing: inherit; }
+.vh-logo:hover .vh-word-tagline,
+.vh-logo:focus-visible .vh-word-tagline { opacity: 0; }
+.vh-word { font-family: inherit; }
+
+/* 当前栏目：原站是灰色胶囊底，改成文字下方一条主色细线（像书的页签） */
+.nav-primary-item {
+  position: relative;
+  border-radius: 6px;
+}
+.nav-primary-item.is-current {
+  background: transparent;
+  color: var(--text);
+}
+.nav-primary-item.is-current::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--brand);
+}
+@media (max-width: 1023px) {
+  .nav-primary-item.is-current::after { left: 8px; right: 8px; bottom: 2px; }
+}
+
+/* 顶栏右侧入口：去掉原站专用字体和浮起的浅色胶囊，和其他栏目同一套字体 */
+.nav-skill-link {
+  font-family: inherit;
+  border-radius: 6px;
+}
+.nav-skill-link::before {
+  border-radius: 6px;
+  background: var(--bg-soft);
+  transform: none;
+}
+.nav-skill-link.is-current::after {
+  content: "";
+  position: absolute;
+  left: 11px;
+  right: 11px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--brand);
+}
+
+/* 搜索框：原站是全圆角胶囊，手册风格用小圆角矩形 */
+.search-box { border-radius: 8px; }
+.nav-search .search-box { background: var(--bg-soft); border-color: var(--border); }
+.nav-search .search-box:focus-within { background: var(--bg); }
+
+/* 主题色按钮：原站是不规则「有机色块」，换成端正的小方块 */
+.nav-circle { border-radius: 6px; }
+.nav-circle::after {
+  inset: 8px;
+  border-radius: 3px;
+  transform: none;
+}
+.nav-circle:hover { transform: none; }
+.theme-dot-swatch { border-radius: 5px; }
+.theme-dot-swatch:hover { transform: none; outline-color: var(--text-3); }
+.theme-dot-menu { border-radius: 10px; }
+
+/* ========== 术语目录页 ========== */
+
+/* 原站首屏的网格 + 光晕背景是它的招牌视觉，全站统一去掉 */
+.catalog-page::before { display: none; }
+
+/* 筛选条：选中项从浅色底块改成「浅底 + 主色描边」，更像手册里的标签 */
+.catalog-filter-chip { border-radius: 6px; box-shadow: inset 0 0 0 1px transparent; }
+.catalog-filter-chip[aria-pressed="true"] {
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 45%, var(--border));
+}
+.catalog-filter-chip:active { transform: none; }
+
+/* 术语卡：不再悬停上浮 + 阴影，改成边框变主色；示例区用虚线边框，像手册里的「示意框」 */
+.card {
+  border-radius: 10px;
+  box-shadow: none;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+.card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+}
+.card-demo {
+  border-radius: 6px;
+  border-style: dashed;
+  border-color: var(--border);
+}
+.card-head h3 { font-weight: 680; letter-spacing: -.01em; }
+
+/* ========== 页脚 ========== */
+
+/* 原站页脚左边是一个巨大的淡色英文字标，是它最好认的签名之一。
+   字标本身是装饰（aria-hidden），「will」个人主页入口在右侧卡片里仍然保留，所以这里只隐藏字标。 */
+.footer-wordmark { display: none; }
+.site-footer { background: var(--bg-soft); border-top-color: var(--border); }
+.site-footer-content {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 20px 0 24px;
+}
+.footer-socials {
+  grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+}
+.footer-social-link { border-radius: 8px; border-color: var(--border); }
+.footer-social-link::after { display: none; }
+.footer-social-link:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+}
+.footer-social-icon { border-radius: 6px; }
+@media (max-width: 640px) {
+  .site-footer-content { padding: 16px 0 20px; }
+  .footer-socials { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ========== 课程 / 学习页 ========== */
+
+/* 原站学习页标题、产品卡用的是它自带的 Manrope 字体，统一回系统字体 */
+.learning-intro h1,
+.learning-product-brand,
+.learning-product-copy h2,
+.learning-control output { font-family: inherit; }
+
+/* 课程正文里的提示框：从圆角色块改成「左侧主色竖线 + 浅底」，读起来像手册里的旁注 */
+html .custom-block {
+  border-radius: 4px 8px 8px 4px;
+  border-left-width: 3px;
+}
+html .custom-block.tip { border-left-color: var(--brand); }
+html .custom-block.info { border-left-color: var(--border-hover); }
+
+/* 本课导读的小标题原来是细体大字，改成粗一点、小一点，和正文小节标题一个层级 */
+html .lesson-guide { border-radius: 10px; }
+html .lesson-guide > h2 { font-size: 19px; font-weight: 700; line-height: 1.5; }
+
+/* 课程目录卡片、路线卡片：去掉悬停上浮和阴影，统一为边框变色 */
+.course-route-card,
+.course-chapter-card {
+  box-shadow: none;
+}
+.course-route-card:hover,
+.course-chapter-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+.course-chapter-card:hover .course-chapter-list-visual :is(img, svg),
+.course-route-card:hover .course-route-list-visual :is(img, svg) {
+  transform: none;
+  filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .footer-social-link { transition: none; }
+}
