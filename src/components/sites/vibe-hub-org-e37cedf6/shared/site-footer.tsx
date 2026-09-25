@@ -1,40 +1,12 @@
-// 页脚渠道：版式沿用原站，作者换成 will（2026-09-19）。
-// href 留空的渠道暂不可点；拿到真实地址后填进 href，并把 sub 换成账号名。
+// 页脚渠道：只留个人站一个入口，联系方式统一走个人站（2026-09-25 Will 裁决 V3 D4）。
+// 邮箱、X、小红书已去掉：个人站规定只通过 GitHub 联系，两站口径要一致。
 const SOCIALS = [
   {
     key: "website",
-    href: "",
+    href: "https://will-in-practice.willxiong92.chatgpt.site/",
     icon: <i className="ti ti-user" aria-hidden="true" />,
     title: "will",
-    sub: "个人主页待补充",
-  },
-  {
-    key: "github",
-    href: "https://github.com/willxiong92",
-    icon: <i className="ti ti-brand-github" aria-hidden="true" />,
-    title: "GitHub",
-    sub: "@willxiong92",
-  },
-  {
-    key: "x",
-    href: "https://x.com/willxiong92",
-    icon: <i className="ti ti-brand-x" aria-hidden="true" />,
-    title: "X",
-    sub: "x.com/willxiong92",
-  },
-  {
-    key: "xiaohongshu",
-    href: "",
-    icon: <b className="footer-social-glyph">RED</b>,
-    title: "小红书",
-    sub: "will 的小红书主页",
-  },
-  {
-    key: "email",
-    href: "mailto:willxiong92@gmail.com",
-    icon: <i className="ti ti-mail" aria-hidden="true" />,
-    title: "Email",
-    sub: "willxiong92@gmail.com",
+    sub: "个人主页",
   },
 ];
 
