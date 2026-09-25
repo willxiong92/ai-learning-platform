@@ -7,7 +7,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-01-list-v2-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-01-list-v2-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -37,7 +37,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-02-list-v3-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-02-list-v3-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -72,7 +72,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-03-list-v2-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-03-list-v2-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -99,7 +99,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-04-list-v3-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-04-list-v3-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -125,7 +125,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-05-list-v2-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-05-list-v2-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -162,7 +162,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-06-list-v2-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-06-list-v2-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -185,7 +185,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-07-list-v3-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-07-list-v3-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -218,7 +218,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-08-list-v4-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-08-list-v4-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -249,7 +249,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-09-list-v4-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-09-list-v4-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -275,7 +275,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-10-list-v4-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-10-list-v4-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -310,7 +310,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-11-list-v3-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-11-list-v3-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -343,7 +343,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#product-website-chapter-12-list-v2-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#product-website-chapter-12-list-v2-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -381,7 +381,7 @@
   </defs>
 
 
-  <g transform="rotate(-3 320 345)" filter="url(#product-website-route-list-v1-card-shadow)">
+  <g>
 
     <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
 
@@ -432,7 +432,7 @@
   </defs>
 
 
-  <g transform="rotate(-3 320 345)" filter="url(#git-workflow-route-list-v1-card-shadow)">
+  <g>
 
     <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
 
@@ -485,7 +485,7 @@
   </defs>
 
 
-  <g transform="rotate(-3 320 345)" filter="url(#git-workflow-route-list-en-v1-card-shadow)">
+  <g>
 
     <rect x="65" y="60" width="510" height="565" rx="28" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2.5" />
 
@@ -534,7 +534,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-01-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-01-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -580,7 +580,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-01-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-01-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -626,7 +626,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-02-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-02-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -660,7 +660,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-02-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-02-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -694,7 +694,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-03-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-03-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -731,7 +731,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-03-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-03-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -768,7 +768,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-04-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-04-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -803,7 +803,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-04-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-04-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -838,7 +838,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-05-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-05-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -872,7 +872,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-05-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-05-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -906,7 +906,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-06-list-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-06-list-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
@@ -937,7 +937,7 @@
       <rect x="24" y="48" width="592" height="420" rx="22" />
     </clipPath>
   </defs>
-  <g transform="rotate(-2.2 320 258)" filter="url(#git-workflow-chapter-06-list-en-v1-wide-card-shadow)">
+  <g>
     <rect x="24" y="48" width="592" height="420" rx="22" fill="var(--bg-soft, #ffffff)" stroke="var(--border, #e2e8f0)" stroke-width="2" />
     <g clip-path="url(#git-workflow-chapter-06-list-en-v1-wide-card-clip)">
       <g transform="translate(0 -120)">
