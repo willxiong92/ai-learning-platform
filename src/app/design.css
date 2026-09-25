@@ -393,7 +393,7 @@
 .apple-film button { width: 24px; height: 24px; border-radius: 7px; background: rgba(0, 0, 0, .055); }
 
 /* sceneUI 内的场景专用小件（仅被现代风格术语内容引用） */
-.style-apple-sc-wall { background: linear-gradient(150deg, rgba(20, 21, 35, .22), rgba(76, 55, 116, .22)), url("/assets/style-imagery/apple-blue-organic.webp") center / cover; }
+.style-apple-sc-wall { background: linear-gradient(150deg, rgba(20, 21, 35, .22), rgba(76, 55, 116, .22)), url("/illustrations/style/apple-blue-organic.svg") center / cover; }
 .style-brutalism-sc-marquee {
   background: #000; color: #ffdd00; font-weight: 800; font-size: 12px; letter-spacing: 1px;
   padding: 5px 10px; white-space: nowrap; overflow: hidden;
