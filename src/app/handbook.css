@@ -105,7 +105,7 @@
 .card {
   border-radius: 10px;
   box-shadow: none;
-  transition: border-color .2s ease, background-color .2s ease;
+  transition: border-color .2s ease;
 }
 .card:hover {
   transform: none;
