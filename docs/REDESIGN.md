@@ -519,3 +519,20 @@ Will 回复「执行」后，按 §11.5 做了第 1 步和第 3 步中不涉及�
 - 课程页组件（测验、进度、侧栏目录、我的学习）的质感升级：等 L01 试学后。
 - 目录侧栏的锚点没有「滚到哪高亮哪」：要加 JS 行为，这轮只做视觉，没做。
 - 首页仍有两个 h1（§8 #4）。
+
+## 13. 阶段收尾：隔离修复（2026-09-26，任务 AI-CLOSEOUT-20260926）
+
+Codex 统筹收尾审查后，Claude 按合同只做本地、隔离的修复。本工作区（`design/draft-2026-09`）的代码、页面、导航和已装依赖都没动；工作区里构建留下的 3 个课程数据 JSON 和未跟踪的 `.claude/launch.json` 原样保留。
+
+| 修复 | 所在位置 | 做了什么 | 状态 |
+|---|---|---|---|
+| CI 触发分支 | 隔离 worktree `/Users/will/code/AI学习平台/worktrees/ci-main-trigger`，分支 `fix/ci-main-trigger` | `.github/workflows/ci.yml` 的 push、pull_request 目标从 `master` 改成 `main`，其他字段没动 | 未提交、未推送，**远端还没生效**；没有触发 Actions |
+| 课程数据生成物 | 隔离 worktree `/Users/will/code/AI学习平台/worktrees/v4-skeleton-a-b1`，分支 `content/v4-skeleton-a-b1` | 用仓库自带的生成和渲染脚本重新生成 3 个 JSON，没有手改；跟 main 相比只差 `courseVersion`（2026-09-26.1）和 l08 先修（l06）；3 个内容测试文件 81 项通过 | 未提交、未推送。这 3 个文件属于课程 V4 批 1（线 A），不属于界面升级 |
+
+- 本轮没有部署，也没有合并。main 仍在 18b052f，冻结；界面升级分支按统筹基线在 1d6cdb2，本轮没有推送（之前 Will 手动推送过，见 §12.6）。
+- **部署，已证实的部分**：Codex 2026-09-26 只读查询 Sites 后台（project `appgprj_6aaf913bda308191be97e6856e68e9ef`），最新保存版本是第 6 版，commit `5b39b40d8dcff642278669cb5454e1278a9f4f7c`，部署状态 succeeded，更新于 2026-09-20T10:26:27Z，线上地址 https://ai-learning-practice.willxiong92.chatgpt.site 。Sites 目前仍是 9-20 的第 6 版，没有 1d6cdb2 的新保存版本。
+- **部署，仍是 `missing_input` 的部分**：其他托管（例如 Vercel）有没有关联没核实，不能据此说所有外部部署都排除了。
+- **权限护栏**：本机 `.claude` 配置没改。要不要调整 agent 的 push 等权限，需要先写出精确方案，再由 Will 单独批准。
+- 双 h1、侧栏滚动高亮、需要新依赖的组件（§11.3）等，继续按原排期等 L01 试学之后，本轮不扩修。
+- **2026-09-26 Codex 已独立复核**：两个隔离分支的差异、受保护文件的 hash、YAML 解析和测试回执都核对通过。本轮的局部技术修复通过；远端 CI 还没生效。Will 09-26 对整版视觉的验收「基本满意」（§12.6）仍然有效；`business_validated = false`。提交、推送、合并、部署每一步都要 Will 单独批准。
+- **2026-09-26 推送记录**：Codex 收尾时额度耗尽，Will 要求把最新内容传上 git，由 Claude 完成。两个隔离分支已提交并推到远端同名分支：`content/v4-skeleton-a-b1` 在 6fb9db5，课程版本 2026-09-26.2，推送前重新生成课程数据，结果无差异，138 项测试通过；`fix/ci-main-trigger` 在 fe07d43。本分支只提交了本文件。工作区里构建留下的 3 个 JSON（2026-09-26.1）和 `.claude/launch.json` 仍然不提交。没有合并 main，也没有部署。CI 的修复要合并进 main 之后才会生效。
