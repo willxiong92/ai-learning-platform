@@ -29,6 +29,26 @@ function applyColorMode(mode: "light" | "dark") {
   }
 }
 
+// 亮暗切换动效：浏览器支持 View Transitions 时，新配色从按钮位置画圆展开（样式在 handbook-motion.css）；
+// 不支持、或系统开了「减少动态效果」时，直接切换，和原来一样。
+function switchColorMode(mode: "light" | "dark", origin?: { x: number; y: number }) {
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (typeof document.startViewTransition !== "function" || reduceMotion) {
+    applyColorMode(mode);
+    return;
+  }
+  if (origin) {
+    root.style.setProperty("--hb-vt-x", `${origin.x}px`);
+    root.style.setProperty("--hb-vt-y", `${origin.y}px`);
+  }
+  root.dataset.vt = "color-mode";
+  const transition = document.startViewTransition(() => applyColorMode(mode));
+  transition.finished.finally(() => {
+    delete root.dataset.vt;
+  });
+}
+
 export function ThemeControls() {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<"light" | "dark">("light");
@@ -89,8 +109,9 @@ export function ThemeControls() {
         className="nav-color-mode"
         aria-label={nextMode === "dark" ? "切换到黑夜模式" : "切换到白天模式"}
         title={nextMode === "dark" ? "切换到黑夜模式" : "切换到白天模式"}
-        onClick={() => {
-          applyColorMode(nextMode);
+        onClick={(e) => {
+          const box = e.currentTarget.getBoundingClientRect();
+          switchColorMode(nextMode, { x: box.left + box.width / 2, y: box.top + box.height / 2 });
           setMode(nextMode);
         }}
       >

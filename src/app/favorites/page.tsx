@@ -19,7 +19,8 @@ export default function FavoritesPage() {
     <CatalogFullView
       heading="我的收藏"
       sections={ready ? sections : []}
-      emptyLabel={ready ? "还没有收藏任何术语，点卡片右上角的星标试试" : "加载中…"}
+      emptyLabel="还没有收藏任何术语，点卡片右上角的星标试试"
+      emptyKind={ready ? "favorites" : "loading"}
     />
   );
 }
