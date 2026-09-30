@@ -50,4 +50,8 @@ jobs:
         run: npm run typecheck
 
       - name: Build
-        run: npm run build
+        # `npm run build` would fire the `prebuild` hook, which regenerates
+        # src/lib/ai-learning/*.json from a source directory that only exists
+        # on the maintainer's machine. Call Next directly and build from the
+        # generated files that are committed in the repo.
+        run: npx next build
