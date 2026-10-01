@@ -28,6 +28,7 @@
   },
   "scripts": {
     "content:ai": "node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs",
+    "content:collab": "node scripts/sync-collab-handbook.mjs",
     "predev": "npm run content:ai",
     "dev": "next dev",
     "prebuild": "npm run content:ai",

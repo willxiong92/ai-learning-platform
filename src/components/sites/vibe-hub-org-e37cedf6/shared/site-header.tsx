@@ -10,7 +10,7 @@ const NAV_ITEMS = [
   { href: "/", label: "术语" },
   { href: "/courses", label: "课程" },
   { href: "/practice", label: "实践" },
-  { href: "/anti-ai-flavor", label: "防止 AI 味儿" },
+  { href: "/ai-collab", label: "AI 协作手册" },
   { href: "/changelog", label: "更新" },
 ] as const;
 
@@ -89,7 +89,7 @@ export function SiteHeader() {
           <Link href="/" onClick={() => setMenuOpen(false)}>术语</Link>
           <Link href="/courses" onClick={() => setMenuOpen(false)}>课程</Link>
           <Link href="/practice" onClick={() => setMenuOpen(false)}>实践</Link>
-          <Link href="/anti-ai-flavor" onClick={() => setMenuOpen(false)}>防止 AI 味儿</Link>
+          <Link href="/ai-collab" onClick={() => setMenuOpen(false)}>AI 协作手册</Link>
           <Link href="/changelog" onClick={() => setMenuOpen(false)}>更新</Link>
           <Link href="/skill" onClick={() => setMenuOpen(false)}>Skill</Link>
           <Link href="/favorites" onClick={() => setMenuOpen(false)}>收藏</Link>
