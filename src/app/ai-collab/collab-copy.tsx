@@ -1,42 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 
-/**
- * 正文是同步脚本渲染好的 HTML。范式「完整版」是一段要整段复制、再填空的模板，
- * 这里给正文里每个代码框补一个「复制」按钮；正文 HTML 本身不带按钮，保持同步脚本的白名单校验简单。
- */
-export function CollabArticle({ html }: { html: string }) {
-  const ref = useRef<HTMLDivElement>(null);
+/** 范式的简版和完整版都要能一键复制：简版是一句话，完整版是要填空的模板 */
+export function CopyButton({ text, label = "复制" }: { text: string; label?: string }) {
+  const [state, setState] = useState<"idle" | "done" | "fail">("idle");
 
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const buttons: HTMLButtonElement[] = [];
-    root.querySelectorAll<HTMLElement>("div[class*='language-']").forEach((block) => {
-      const code = block.querySelector("pre");
-      if (!code) return;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "collab-copy";
-      button.textContent = "复制模板";
-      button.setAttribute("aria-label", "复制这段模板");
-      button.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(code.innerText.trimEnd());
-          button.textContent = "已复制";
-        } catch {
-          button.textContent = "复制失败，请手动选中";
-        }
-        window.setTimeout(() => {
-          button.textContent = "复制模板";
-        }, 1600);
-      });
-      block.appendChild(button);
-      buttons.push(button);
-    });
-    return () => buttons.forEach((b) => b.remove());
-  }, [html]);
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(text);
+      setState("done");
+    } catch {
+      setState("fail");
+    }
+    window.setTimeout(() => setState("idle"), 1600);
+  }
 
-  return <div ref={ref} className="term-article collab-article" dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <button type="button" className="collab-copy" onClick={copy} aria-label={`${label}：复制到剪贴板`}>
+      {state === "done" ? "已复制" : state === "fail" ? "复制失败，请手动选中" : label}
+    </button>
+  );
 }

@@ -11,6 +11,10 @@
 // - 网站上一张卡是「一个坑」的一整套内容：一个案例 + 它的主原理 + 案例自带的沟通范式（Will 2026-10-01 定）。
 //   页面按「先讲事，再讲理」重排：事情经过 → 为什么会这样 → 下次怎么说 → 换个场景练一练。
 //   母源每个小节放进哪一块由 CASE_PLACEMENT / PRINCIPLE_PLACEMENT 决定；母源新增了没登记的小节就失败，避免悄悄丢内容。
+// - 排版参考课程页（Will 2026-10-01：结构化、评述短、多用左右结构）。脚本不输出整段 HTML，而是把母源里
+//   本来就有的结构认出来，输出成一块块「部件」：对照表 → 左右对照行，误区表 → 以为 / 其实卡，
+//   要点列表 → 编号清单，步骤表 → 横向步骤条，范式 → 简版和完整版左右并排。文字一字不改。
+//   母源格式变了（表头改名、多出一张表）就失败，不猜。
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
@@ -18,7 +22,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { assertSafeHtml, cleanVitepressHtml, DEFAULT_VITEPRESS_DIR, loadMarkdownRenderer } from './render-ai-learning.mjs'
 
-export const SCHEMA_VERSION = 2
+export const SCHEMA_VERSION = 3
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const DEFAULT_SOURCE_DIR = path.join(os.homedir(), 'Desktop/AI学习/E-工具与环境/Codex协作复盘/学习案例')
 export const DEFAULT_OUTPUT = path.join(repoRoot, 'src/lib/collab-handbook/handbook.json')
@@ -51,6 +55,59 @@ export const SECTIONS = [
   { id: 'say', title: '下次怎么说' },
   { id: 'practice', title: '换个场景练一练' }
 ]
+
+// 「事情经过」的左右排版：从母源故事里摘原句，排成「同一句话 → 两边结果」的对照。
+// 每一句 text 都必须能在母源故事原文里原样找到，找不到就失败；网站自己只写短标签（label / k / tag）。
+// 完整经过折叠在对照下面，原文一字不删。卡片要开放详情页，必须先在这里配好。
+export const STORY_LAYOUT = {
+  'C-002': {
+    said: [{ who: 'me', label: '同一句话，发给两个网站', text: '我准备睡觉，需要一个长任务来跑完额度，并且推进网站界面升级。' }],
+    left: {
+      label: '团队学习站',
+      tag: '基本满意',
+      tone: 'good',
+      items: [
+        { k: 'AI 交的定位', text: '从「设计感强的课程站」换成「团队内部工作手册」，追求清楚、可信、读起来不累。' },
+        { k: '我的反馈', text: '这一版基本满意' }
+      ]
+    },
+    right: {
+      label: '个人网站',
+      tag: '三轮都没用上',
+      tone: 'bad',
+      items: [
+        { k: '第一版后', text: '这版不如之前复刻的好，界面太简约没有任何设计感。' },
+        { k: '第三轮后', text: '这次改版不满意。主要是主题风格和内容匹配度不高。' },
+        { k: '结果', text: '前后九个多小时，三轮改版一轮都没用上。' }
+      ]
+    },
+    takeaway: { label: '差别在哪', text: '差别不在 AI，在我：团队站是干什么用的，我很清楚；个人网站想给人什么感觉，我自己当时也不知道。' }
+  },
+  'C-001': {
+    said: [
+      { who: 'me', label: '我交代的', text: '按照审查过的最新版本，开始对网站进行对应的优化。' },
+      { who: 'ai', label: 'AI 的回答', text: '我会沿用现有视觉风格。' }
+    ],
+    left: {
+      label: 'AI 报告的',
+      tag: '全部通过',
+      tone: 'good',
+      items: [
+        { k: '检查', text: '138 项测试全过，电脑和手机都看过，另一个 AI 做的独立审查也通过了。' },
+        { k: '然后', text: '直接上线' }
+      ]
+    },
+    right: {
+      label: '我打开看到的',
+      tag: '界面变了',
+      tone: 'bad',
+      items: [
+        { k: '页面', text: '「课程」和「实践」两个页面跟其他页面不像一家的：多了独立的大标题，原来的卡片变成了竖排列表。' },
+        { k: '返工', text: '前后 33 分钟，我反馈了 2 轮，线上多更新了 2 次。' }
+      ]
+    }
+  }
+}
 
 // 母源小节标题 → 放进哪一块；skip 表示网站不用（合成一页后重复）
 const CASE_PLACEMENT = [
@@ -188,40 +245,272 @@ function place(sections, rules, where) {
   return sections.map(section => {
     const rule = rules.find(r => r.match(section.title))
     if (!rule) fail(where, `小节「${section.title}」没有登记放在页面哪一块（CASE_PLACEMENT / PRINCIPLE_PLACEMENT）`)
-    return { ...section, to: rule.to, heading: rule.title ? rule.title(section.title) : section.title }
+    return { ...section, to: rule.to }
   })
 }
 
-// 小节内部的标题往下降：小节标题本身是 h3（原理里的是 h4），里面原有的四级标题跟着降
-const shift = (body, levels) => body.replace(/^(#{4,5})\s/gm, (_, h) => `${'#'.repeat(Math.min(h.length + levels, 6))} `)
+const cells = line => line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim())
 
-/** 一张卡的四块 Markdown：先讲事，再讲理 */
-export function composeTopic(caseEntry, principle) {
-  const where = `${caseEntry.id} + ${principle.id}`
-  const caseParts = place(caseEntry.sections, CASE_PLACEMENT, caseEntry.id)
-  const principleParts = place(principle.sections, PRINCIPLE_PLACEMENT, principle.id)
-  const block = (part, level) => [part.heading ? `${'#'.repeat(level)} ${part.heading}` : '', shift(part.body, level - 3)].filter(Boolean).join('\n\n')
-  const pick = (parts, to, title) => parts.filter(p => p.to === to && (!title || p.title === title))
-
-  const why = [
-    ...pick(caseParts, 'why', '事实和理论对照').map(p => block(p, 3)),
-    `### 背后的原理：${principle.name}\n\n**${principle.headline}**\n\n${principle.summary}`,
-    ...pick(principleParts, 'why').map(p => block(p, 4)),
-    ...pick(caseParts, 'why').filter(p => p.title !== '事实和理论对照').map(p => block(p, 3))
-  ]
-  const markdown = {
-    story: pick(caseParts, 'story').map(p => block(p, 3)),
-    why,
-    say: [...pick(principleParts, 'say').map(p => block(p, 3)), ...pick(caseParts, 'say').map(p => block(p, 3))],
-    practice: pick(caseParts, 'practice').map(p => block(p, 3))
+/** 把一个小节的 Markdown 拆成块：段落、引用、有序 / 无序列表、表格、代码框 */
+export function parseBlocks(body, where) {
+  const lines = body.split('\n')
+  const blocks = []
+  let i = 0
+  const take = re => {
+    const out = []
+    while (i < lines.length && re.test(lines[i])) out.push(lines[i++])
+    return out
   }
-  for (const { id, title } of SECTIONS) {
-    if (!markdown[id].length) fail(where, `「${title}」这一块没有内容`)
+  while (i < lines.length) {
+    const line = lines[i]
+    if (!line.trim()) {
+      i++
+    } else if (line.startsWith('```')) {
+      const start = ++i
+      while (i < lines.length && !lines[i].startsWith('```')) i++
+      if (i >= lines.length) fail(where, '代码框没有结束')
+      blocks.push({ kind: 'code', text: lines.slice(start, i).join('\n') })
+      i++
+    } else if (line.startsWith('|')) {
+      const rows = take(/^\|/).map(cells)
+      if (rows.length < 3 || !rows[1].every(c => /^:?-+:?$/.test(c))) fail(where, '表格格式不对')
+      blocks.push({ kind: 'table', header: rows[0], rows: rows.slice(2) })
+    } else if (/^\d+\.\s/.test(line)) {
+      blocks.push({ kind: 'ol', items: take(/^\d+\.\s/).map(l => l.replace(/^\d+\.\s+/, '')) })
+    } else if (/^-\s/.test(line)) {
+      blocks.push({ kind: 'ul', items: take(/^-\s/).map(l => l.replace(/^-\s+/, '')) })
+    } else if (line.startsWith('>')) {
+      blocks.push({ kind: 'quote', text: take(/^>/).map(l => l.replace(/^>\s?/, '')).join('') })
+    } else if (line.startsWith('#')) {
+      fail(where, `小节里还有下一级标题「${line}」，网站不知道怎么排`)
+    } else {
+      blocks.push({ kind: 'p', text: take(/^(?!\s*$|```|\||\d+\.\s|-\s|>|#)/).join('') })
+    }
   }
-  return markdown
+  return blocks
 }
 
-// 正文不允许出现任何链接；VitePress 自带的标题锚点（#）去掉
+// 「**粗体开头。** 后面的解释」拆成标题和正文
+const boldLead = text => {
+  const m = text.match(/^\*\*(.+?)\*\*[:：]?\s*(.*)$/)
+  return m ? { title: m[1].replace(/[:：]$/, ''), rest: m[2] } : { title: null, rest: text }
+}
+
+function tableRows(block, header, where) {
+  if (block.header.join('|') !== header.join('|')) {
+    fail(where, `表头变了：网站按「${header.join(' | ')}」排版，母源现在是「${block.header.join(' | ')}」`)
+  }
+  return block.rows
+}
+
+/** 按页面四块输出部件。所有文字都来自母源；网站自己只加短标签 */
+export function composeTopic({ caseEntry, principle, principleInfo, md }) {
+  const where = `${caseEntry.id} + ${principle.id}`
+  const inline = text => {
+    const html = md.renderInline(text).trim()
+    assertSafeHtml(html, where)
+    if (/<a\b/.test(html)) fail(where, '正文里出现链接')
+    assertClean(html.replace(/<[^>]+>/g, ''), where)
+    return html
+  }
+  const label = text => {
+    assertClean(text, `${where} 网站标签`)
+    return text
+  }
+  const caseParts = place(caseEntry.sections, CASE_PLACEMENT, caseEntry.id)
+  const principleParts = place(principle.sections, PRINCIPLE_PLACEMENT, principle.id)
+  const part = (parts, test, what) => {
+    const found = parts.find(test)
+    if (!found) fail(where, `缺少小节「${what}」`)
+    return found
+  }
+  // 段落里的评述：在结构化部件前面的当引子，后面的当小注
+  const notes = (blocks, mainIndex) =>
+    blocks.flatMap((b, i) => {
+      if (i === mainIndex) return []
+      if (b.kind !== 'p') fail(where, `有一块${b.kind}没有排进页面`)
+      return [{ type: i < mainIndex ? 'lead' : 'note', html: inline(b.text) }]
+    })
+  const single = (blocks, kind, what) => {
+    const idx = blocks.map((b, i) => (b.kind === kind ? i : -1)).filter(i => i >= 0)
+    if (idx.length !== 1) fail(where, `「${what}」里应该正好有一个${kind}，现在有 ${idx.length} 个`)
+    return idx[0]
+  }
+
+  // ---------- 事情经过 ----------
+  const storyPart = part(caseParts, p => p.to === 'story', '案例：…')
+  const layout = STORY_LAYOUT[caseEntry.id]
+  if (!layout) fail(where, '要在 STORY_LAYOUT 里配好「事情经过」的左右排版')
+  const storyPlain = storyPart.body.replace(/\*\*/g, '').replace(/^>\s?/gm, '')
+  const quoteOf = text => {
+    if (!storyPlain.includes(text)) fail(where, `STORY_LAYOUT 摘的这句在母源故事里找不到：「${text}」`)
+    return inline(text)
+  }
+  const side = s => ({
+    label: label(s.label),
+    tag: label(s.tag),
+    tone: s.tone,
+    items: s.items.map(item => ({ k: label(item.k), html: quoteOf(item.text) }))
+  })
+  const storyBlocks = parseBlocks(storyPart.body, `${caseEntry.id} 事情经过`)
+  const analogyAt = storyBlocks.findIndex(b => b.kind === 'p' && b.text.startsWith('**这像什么：**'))
+  if (analogyAt < 0) fail(where, '故事里缺少「**这像什么：**」')
+  const fullStory = storyBlocks.filter((_, i) => i !== analogyAt)
+  const story = [
+    { type: 'chat', items: layout.said.map(s => ({ who: s.who, label: label(s.label), html: quoteOf(s.text) })) },
+    { type: 'versus', left: side(layout.left), right: side(layout.right) },
+    ...(layout.takeaway ? [{ type: 'takeaway', label: label(layout.takeaway.label), html: quoteOf(layout.takeaway.text) }] : []),
+    { type: 'analogy', html: inline(boldLead(storyBlocks[analogyAt].text).rest) },
+    {
+      type: 'details',
+      summary: `看完整经过：${storyPart.title.replace(/^案例：/, '')}`,
+      html: renderBody(md, fullStory.map(blockMarkdown).join('\n\n'), `${caseEntry.id} 完整经过`)
+    }
+  ]
+
+  // ---------- 为什么会这样 ----------
+  const why = []
+  {
+    const blocks = parseBlocks(part(caseParts, p => p.title === '事实和理论对照', '事实和理论对照').body, where)
+    const at = single(blocks, 'table', '事实和理论对照')
+    const rows = tableRows(blocks[at], ['发生了什么', '当时看起来', '实际缺了什么', '这叫什么'], where)
+    why.push({
+      type: 'contrast',
+      title: '事实和理论对照',
+      rows: rows.map(([head, before, after, term]) => ({ head: inline(head), before: inline(before), after: inline(after), term: inline(term) }))
+    })
+    why.push(...notes(blocks, at).map(n => ({ ...n, type: 'summary', label: '连起来看' })))
+  }
+  why.push({ type: 'principle', ...principleInfo })
+  for (const p of principleParts.filter(p => p.to === 'why')) {
+    const blocks = parseBlocks(p.body, `${principle.id} ${p.title}`)
+    if (p.title.endsWith('误区')) {
+      const at = single(blocks, 'table', p.title)
+      const rows = tableRows(blocks[at], ['误区', '实际情况', '学名'], where)
+      why.push({ type: 'myths', title: p.title, items: rows.map(([myth, fact, term]) => ({ myth: inline(myth), fact: inline(fact), term: inline(term) })) })
+      why.push(...notes(blocks, at))
+    } else {
+      const at = single(blocks, 'ul', p.title)
+      why.push({
+        type: 'cards',
+        title: p.title,
+        items: blocks[at].items.map(item => {
+          const { title, rest } = boldLead(item)
+          if (!title) fail(where, `「${p.title}」的每一条要用粗体开头`)
+          return { title: inline(title), html: inline(rest) }
+        })
+      })
+      why.push(...notes(blocks, at))
+    }
+  }
+  {
+    const blocks = parseBlocks(part(caseParts, p => p.title === '三个关键点', '三个关键点').body, where)
+    const at = single(blocks, 'ol', '三个关键点')
+    why.push({
+      type: 'checklist',
+      title: '三个关键点',
+      items: blocks[at].items.map(item => {
+        const { title, rest } = boldLead(item)
+        return { title: title ? inline(title) : null, html: inline(rest) }
+      })
+    })
+    why.push(...notes(blocks, at))
+  }
+
+  // ---------- 下次怎么说 ----------
+  const say = []
+  for (const p of principleParts.filter(p => p.to === 'say')) {
+    const blocks = parseBlocks(p.body, `${principle.id} ${p.title}`)
+    if (p.title.startsWith('怎么做')) {
+      const at = single(blocks, 'table', p.title)
+      const rows = tableRows(blocks[at], ['步', '做什么', '可以直接说的话'], where)
+      const lead = notes(blocks, at)
+      say.push({
+        type: 'steps',
+        title: p.title.replace(/^怎么做[:：]\s*/, ''),
+        lead: lead.filter(n => n.type === 'lead').map(n => n.html),
+        items: rows.map(([step, what, words]) => ({ step: inline(step), what: inline(what), say: inline(words) })),
+        notes: lead.filter(n => n.type === 'note').map(n => n.html)
+      })
+    } else {
+      const at = single(blocks, 'ol', p.title)
+      const lead = notes(blocks, at)
+      say.push({
+        type: 'checklist',
+        title: p.title,
+        lead: lead.filter(n => n.type === 'lead').map(n => n.html),
+        items: blocks[at].items.map(item => {
+          const { title, rest } = boldLead(item)
+          return { title: title ? inline(title) : null, html: inline(rest) }
+        }),
+        notes: lead.filter(n => n.type === 'note').map(n => n.html)
+      })
+    }
+  }
+  say.push(paradigmBlock(part(caseParts, p => p.to === 'say', '沟通范式'), caseEntry, inline, where))
+
+  // ---------- 换个场景练一练 ----------
+  const practiceBlocks = parseBlocks(part(caseParts, p => p.to === 'practice', '换个场景想一想').body, where)
+  const answerAt = practiceBlocks.findIndex(b => b.kind === 'p' && /^（参考答案：.+）$/.test(b.text))
+  if (answerAt < 0) fail(where, '练一练里缺少「（参考答案：……）」')
+  const questions = practiceBlocks.filter((_, i) => i !== answerAt)
+  if (questions.length !== 1 || questions[0].kind !== 'p') fail(where, '练一练应该是一段题目加一段参考答案')
+  const practice = [{
+    type: 'quiz',
+    question: inline(questions[0].text),
+    answer: inline(practiceBlocks[answerAt].text.replace(/^（参考答案：/, '').replace(/）$/, ''))
+  }]
+
+  return { story, why, say, practice }
+}
+
+// 块还原成 Markdown（只给折叠的完整经过用）
+function blockMarkdown(b) {
+  if (b.kind === 'p') return b.text
+  if (b.kind === 'quote') return `> ${b.text}`
+  if (b.kind === 'ul') return b.items.map(t => `- ${t}`).join('\n')
+  if (b.kind === 'ol') return b.items.map((t, i) => `${i + 1}. ${t}`).join('\n')
+  fail('事情经过', `故事里不应该有${b.kind}`)
+}
+
+function paradigmBlock(p, caseEntry, inline, where) {
+  const blocks = parseBlocks(p.body, `${caseEntry.id} ${p.title}`)
+  const used = new Set()
+  const find = (prefix, what) => {
+    const i = blocks.findIndex(b => b.kind === 'p' && b.text.startsWith(prefix))
+    if (i < 0) fail(where, `沟通范式里缺少「${what}」`)
+    used.add(i)
+    return i
+  }
+  const next = (i, kind, what) => {
+    if (blocks[i + 1]?.kind !== kind) fail(where, `「${what}」后面应该紧跟一个${kind}`)
+    used.add(i + 1)
+    return blocks[i + 1]
+  }
+  const noteOf = text => (text.match(/（(.+?)）/) || [])[1] || ''
+  const when = blocks[find('**什么时候用：**', '什么时候用')].text.replace(/^\*\*什么时候用：\*\*\s*/, '')
+  const shortAt = find('**简版**', '简版')
+  const short = next(shortAt, 'quote', '简版')
+  if (short.text !== caseEntry.sayShort) fail(where, '简版和入口页卡片上的那句话对不上')
+  const fullAt = find('**完整版**', '完整版')
+  const full = next(fullAt, 'code', '完整版')
+  assertClean(full.text, `${caseEntry.id} 完整版模板`)
+  const diffAt = find('**两个版本差在哪：**', '两个版本差在哪')
+  const diff = next(diffAt, 'ul', '两个版本差在哪')
+  const rest = blocks.filter((b, i) => !used.has(i))
+  if (rest.some(b => b.kind !== 'p')) fail(where, '沟通范式里有没排进页面的表格或列表')
+  return {
+    type: 'paradigm',
+    title: p.title.replace(/^沟通范式[:：]\s*/, ''),
+    when: inline(when),
+    short: { note: inline(noteOf(blocks[shortAt].text)), html: inline(short.text), text: short.text },
+    full: { note: inline(noteOf(blocks[fullAt].text)), text: full.text },
+    diff: diff.items.map(inline),
+    notes: rest.map(b => inline(b.text))
+  }
+}
+
+// 折叠的完整经过：整段渲染。不允许任何链接；VitePress 自带的标题锚点（#）去掉
 function renderBody(md, markdown, where) {
   let html = cleanVitepressHtml(md.render(markdown, { relativePath: 'collab-handbook.md', cleanUrls: true }))
   html = html.replace(/\s*<a class="header-anchor"[^>]*>[\s\S]*?<\/a>/g, '')
@@ -266,6 +555,7 @@ export function buildHandbook({ sources, md, syncedAt }) {
       covered.add(id)
     }
     const published = PUBLISHED.has(c.id)
+    const principle = principleInfo(topic.principleId)
     const base = {
       slug: c.id.toLowerCase(),
       caseId: c.id,
@@ -273,14 +563,14 @@ export function buildHandbook({ sources, md, syncedAt }) {
       headline: c.headline,
       summary: c.summary,
       sayShort: c.sayShort,
-      principle: principleInfo(topic.principleId),
+      principle,
       related: topic.relatedPrincipleIds.map(principleInfo),
       published
     }
-    const markdown = composeTopic(c, parsed.get(topic.principleId))
+    // 没开放的卡也排一遍版：母源格式不对时现在就失败，开放时只需改 PUBLISHED 一行
+    const blocks = composeTopic({ caseEntry: c, principle: parsed.get(topic.principleId), principleInfo: principle, md })
     if (!published) return base
-    const sections = SECTIONS.map(({ id, title }) => ({ id, title, html: renderBody(md, markdown[id].join('\n\n'), `${c.id}「${title}」`) }))
-    return { ...base, sections }
+    return { ...base, sections: SECTIONS.map(({ id, title }) => ({ id, title, blocks: blocks[id] })) }
   })
   for (const entry of ENTRIES.filter(e => e.kind === 'principle')) {
     if (!covered.has(entry.id)) fail('TOPICS', `原理 ${entry.id} 没有出现在任何一张卡里`)

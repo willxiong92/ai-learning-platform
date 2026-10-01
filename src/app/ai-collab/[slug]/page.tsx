@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCollabTopic, getPublishedCollabTopics, type CollabPrinciple } from "@/lib/collab-handbook";
-import { CollabArticle } from "../collab-copy";
+import { getCollabTopic, getPublishedCollabTopics } from "@/lib/collab-handbook";
+import { CopyButton } from "../collab-copy";
+import { Block, PrincipleCard } from "./blocks";
 import "../ai-collab.css";
 
 // 只生成已开放的卡片；其余编号直接 404，正文也不在副本里
@@ -22,24 +23,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-function trialText(p: CollabPrinciple) {
-  return `${p.status} · ${p.caseCount} 条案例支撑`;
-}
-
-// 这件事还碰到、但没有自己主案例的原理：在「为什么会这样」后面简短提一句
-function RelatedPrinciple({ principle }: { principle: CollabPrinciple }) {
-  return (
-    <aside className="collab-related-principle" aria-label={`相关原理 ${principle.id} ${principle.name}`}>
-      <p className="collab-related-label">
-        这件事还碰到了另一条原理：{principle.id} {principle.name}
-        <span className="collab-badge">{trialText(principle)}</span>
-      </p>
-      <p className="collab-related-headline">{principle.headline}</p>
-      <p>{principle.summary}</p>
-    </aside>
-  );
-}
-
 export default async function CollabTopicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const topic = getCollabTopic(slug);
@@ -51,19 +34,27 @@ export default async function CollabTopicPage({ params }: { params: Promise<{ sl
       <Link className="collab-back" href="/ai-collab">
         ← 返回 AI 协作手册
       </Link>
-      <header className="collab-hero">
-        <p className="collab-kicker">
-          协作手册 · {topic.title} · {topic.caseId}
-        </p>
-        <h1>{topic.headline}</h1>
-        <p className="collab-lead">
-          <span className="collab-lead-label">一句话</span>
-          {topic.summary}
-        </p>
-        <p className="collab-trial-note">
-          <span className="collab-badge">{principle.status}</span>
-          背后的原理「{principle.id} {principle.name}」目前是假设，有 {principle.caseCount} 条真实案例支撑。案例多了、经得起反例，再改成定论。
-        </p>
+      {/* 标题区左右两栏：左边是这件事，右边是看完要带走的那句话 */}
+      <header className="collab-hero collab-detail-hero">
+        <div>
+          <p className="collab-kicker">
+            协作手册 · {topic.title} · {topic.caseId}
+          </p>
+          <h1>{topic.headline}</h1>
+          <p className="collab-lead">
+            <span className="collab-lead-label">一句话</span>
+            {topic.summary}
+          </p>
+          <p className="collab-trial-note">
+            <span className="collab-badge">{principle.status}</span>
+            背后的原理「{principle.id} {principle.name}」目前是假设，有 {principle.caseCount} 条真实案例支撑。案例多了、经得起反例，再改成定论。
+          </p>
+        </div>
+        <aside className="collab-hero-say" aria-label="下次这样说">
+          <p className="collab-say-label">下次这样说</p>
+          <p className="collab-hero-say-text">{topic.sayShort}</p>
+          <CopyButton text={topic.sayShort} label="复制这句" />
+        </aside>
       </header>
 
       <div className="collab-layout">
@@ -87,8 +78,12 @@ export default async function CollabTopicPage({ params }: { params: Promise<{ sl
               <h2 className="collab-block-title" id={`${s.id}-title`}>
                 {s.title}
               </h2>
-              <CollabArticle html={s.html} />
-              {s.id === "why" && related.map((p) => <RelatedPrinciple key={p.id} principle={p} />)}
+              <div className="cb-stack">
+                {s.blocks.map((b, i) => (
+                  <Block block={b} key={i} />
+                ))}
+                {s.id === "why" && related.map((p) => <PrincipleCard key={p.id} p={p} related />)}
+              </div>
             </section>
           ))}
         </div>

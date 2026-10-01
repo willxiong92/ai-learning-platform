@@ -11,7 +11,44 @@ export type CollabPrinciple = {
   caseCount: number;
 };
 
-export type CollabSection = { id: string; title: string; html: string };
+// 详情页的部件。同步脚本把母源里的表格、列表、范式认出来，排成下面这些块；
+// 带 html 的字段是脚本渲染并校验过的行内 HTML（只有粗体、引号这类），文字都来自母源。
+type Html = string;
+type StorySide = { label: string; tag: string; tone: "good" | "bad"; items: { k: string; html: Html }[] };
+type ListItem = { title: Html | null; html: Html };
+
+export type CollabBlock =
+  | { type: "chat"; items: { who: "me" | "ai"; label: string; html: Html }[] }
+  | { type: "versus"; left: StorySide; right: StorySide }
+  | { type: "takeaway"; label: string; html: Html }
+  | { type: "analogy"; html: Html }
+  | { type: "details"; summary: string; html: Html }
+  | { type: "contrast"; title: string; rows: { head: Html; before: Html; after: Html; term: Html }[] }
+  | { type: "summary"; label: string; html: Html }
+  | ({ type: "principle" } & CollabPrinciple)
+  | { type: "myths"; title: string; items: { myth: Html; fact: Html; term: Html }[] }
+  | { type: "cards"; title: string; items: { title: Html; html: Html }[] }
+  | { type: "checklist"; title: string; lead?: Html[]; items: ListItem[]; notes?: Html[] }
+  | { type: "lead" | "note"; html: Html }
+  | {
+      type: "steps";
+      title: string;
+      lead: Html[];
+      items: { step: Html; what: Html; say: Html }[];
+      notes: Html[];
+    }
+  | {
+      type: "paradigm";
+      title: string;
+      when: Html;
+      short: { note: Html; html: Html; text: string };
+      full: { note: Html; text: string };
+      diff: Html[];
+      notes: Html[];
+    }
+  | { type: "quiz"; question: Html; answer: Html };
+
+export type CollabSection = { id: string; title: string; blocks: CollabBlock[] };
 
 export type CollabTopic = {
   slug: string;
@@ -29,7 +66,7 @@ export type CollabTopic = {
   sections?: CollabSection[];
 };
 
-export const COLLAB_TOPICS = handbook.topics as CollabTopic[];
+export const COLLAB_TOPICS = handbook.topics as unknown as CollabTopic[];
 export const COLLAB_SYNCED_AT: string = handbook.syncedAt;
 
 export function getCollabTopic(slug: string): CollabTopic | undefined {
