@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef } from "react";
 
 /**
  * 正文是同步脚本渲染好的 HTML。范式「完整版」是一段要整段复制、再填空的模板，
  * 这里给正文里每个代码框补一个「复制」按钮；正文 HTML 本身不带按钮，保持同步脚本的白名单校验简单。
  */
-export function CollabArticle({ html, children }: { html: string; children?: ReactNode }) {
+export function CollabArticle({ html }: { html: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,10 +38,5 @@ export function CollabArticle({ html, children }: { html: string; children?: Rea
     return () => buttons.forEach((b) => b.remove());
   }, [html]);
 
-  return (
-    <div className="collab-article-wrap">
-      <div ref={ref} className="term-article collab-article" dangerouslySetInnerHTML={{ __html: html }} />
-      {children}
-    </div>
-  );
+  return <div ref={ref} className="term-article collab-article" dangerouslySetInnerHTML={{ __html: html }} />;
 }

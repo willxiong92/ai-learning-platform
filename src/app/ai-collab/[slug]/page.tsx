@@ -1,70 +1,50 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  collabHref,
-  getCollabById,
-  getCollabEntry,
-  getPublishedCollabEntries,
-  type CollabEntry,
-} from "@/lib/collab-handbook";
+import { getCollabTopic, getPublishedCollabTopics, type CollabPrinciple } from "@/lib/collab-handbook";
 import { CollabArticle } from "../collab-copy";
 import "../ai-collab.css";
 
-// 只生成已开放的条目；其余编号直接 404，正文也不在副本里
+// 只生成已开放的卡片；其余编号直接 404，正文也不在副本里
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return getPublishedCollabEntries().map((e) => ({ slug: e.slug }));
+  return getPublishedCollabTopics().map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const entry = getCollabEntry(slug);
-  if (!entry) return {};
-  const kind = entry.kind === "principle" ? "原理" : "案例";
+  const topic = getCollabTopic(slug);
+  if (!topic) return {};
   return {
-    title: `${kind} ${entry.id}｜${entry.name} · AI 协作手册｜AI 学习站`,
-    description: entry.summary,
+    title: `${topic.title} · AI 协作手册｜AI 学习站`,
+    description: topic.summary,
   };
 }
 
-function RelatedCard({ entry }: { entry: CollabEntry }) {
-  const href = collabHref(entry);
-  const kind = entry.kind === "principle" ? "原理" : "案例";
-  const inner = (
-    <>
-      <p className="collab-card-meta">
-        <span>{entry.id}</span> · {kind} · {entry.name}
+function trialText(p: CollabPrinciple) {
+  return `${p.status} · ${p.caseCount} 条案例支撑`;
+}
+
+// 这件事还碰到、但没有自己主案例的原理：在「为什么会这样」后面简短提一句
+function RelatedPrinciple({ principle }: { principle: CollabPrinciple }) {
+  return (
+    <aside className="collab-related-principle" aria-label={`相关原理 ${principle.id} ${principle.name}`}>
+      <p className="collab-related-label">
+        这件事还碰到了另一条原理：{principle.id} {principle.name}
+        <span className="collab-badge">{trialText(principle)}</span>
       </p>
-      <h3>{entry.headline}</h3>
-      {href ? (
-        <span className="collab-card-cta">
-          去看看 <span aria-hidden="true">→</span>
-        </span>
-      ) : (
-        <span className="collab-card-pending">小样阶段暂未开放</span>
-      )}
-    </>
-  );
-  return href ? (
-    <Link className="collab-card" href={href}>
-      {inner}
-    </Link>
-  ) : (
-    <div className="collab-card is-pending">{inner}</div>
+      <p className="collab-related-headline">{principle.headline}</p>
+      <p>{principle.summary}</p>
+    </aside>
   );
 }
 
-export default async function CollabEntryPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CollabTopicPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const entry = getCollabEntry(slug);
-  if (!entry || !entry.published || !entry.html) notFound();
-
-  const isPrinciple = entry.kind === "principle";
-  const relatedIds = isPrinciple ? entry.caseIds : entry.principleIds;
-  const related = relatedIds.map(getCollabById).filter((e): e is CollabEntry => Boolean(e));
-  const toc = entry.toc ?? [];
+  const topic = getCollabTopic(slug);
+  if (!topic || !topic.published || !topic.sections?.length) notFound();
+  const { principle, related, sections } = topic;
 
   return (
     <article className="collab-page collab-detail">
@@ -73,58 +53,45 @@ export default async function CollabEntryPage({ params }: { params: Promise<{ sl
       </Link>
       <header className="collab-hero">
         <p className="collab-kicker">
-          {isPrinciple ? "原理" : "案例"} {entry.id} · {entry.name}
+          协作手册 · {topic.title} · {topic.caseId}
         </p>
-        <h1>{entry.headline}</h1>
+        <h1>{topic.headline}</h1>
         <p className="collab-lead">
           <span className="collab-lead-label">一句话</span>
-          {entry.summary}
+          {topic.summary}
         </p>
-        {isPrinciple ? (
-          <p className="collab-trial-note">
-            <span className="collab-badge">{entry.status}</span>
-            这条原理目前是假设，有 {entry.caseIds.length} 条真实案例支撑。案例多了、经得起反例，再改成定论。
-          </p>
-        ) : (
-          entry.principleNoteHtml && (
-            <div className="collab-principle-note">
-              <p className="collab-principle-note-label">这是哪条原理的实例</p>
-              <p dangerouslySetInnerHTML={{ __html: entry.principleNoteHtml }} />
-            </div>
-          )
-        )}
+        <p className="collab-trial-note">
+          <span className="collab-badge">{principle.status}</span>
+          背后的原理「{principle.id} {principle.name}」目前是假设，有 {principle.caseCount} 条真实案例支撑。案例多了、经得起反例，再改成定论。
+        </p>
       </header>
 
       <div className="collab-layout">
         <nav className="collab-index" aria-label="本页目录">
           <p>本页目录</p>
           <ol>
-            {toc.map((item, i) => (
-              <li key={item.id}>
-                <a href={`#${encodeURIComponent(item.id)}`}>
+            {sections.map((s, i) => (
+              <li key={s.id}>
+                <a href={`#${s.id}`}>
                   <span>{String(i + 1).padStart(2, "0")}</span>
-                  {item.label}
+                  {s.title}
                 </a>
               </li>
             ))}
           </ol>
-          {related.length > 0 && <a href="#collab-related">{isPrinciple ? "支撑这条原理的案例" : "这个案例对应的原理"}</a>}
         </nav>
 
-        <CollabArticle html={entry.html}>
-          {related.length > 0 && (
-            <section className="collab-related" id="collab-related" aria-labelledby="collab-related-title">
-              <h2 className="collab-section-title" id="collab-related-title">
-                {isPrinciple ? "支撑这条原理的案例" : "这个案例对应的原理"}
+        <div className="collab-article-wrap">
+          {sections.map((s) => (
+            <section className="collab-block" id={s.id} key={s.id} aria-labelledby={`${s.id}-title`}>
+              <h2 className="collab-block-title" id={`${s.id}-title`}>
+                {s.title}
               </h2>
-              <div className="collab-grid is-compact">
-                {related.map((r) => (
-                  <RelatedCard key={r.id} entry={r} />
-                ))}
-              </div>
+              <CollabArticle html={s.html} />
+              {s.id === "why" && related.map((p) => <RelatedPrinciple key={p.id} principle={p} />)}
             </section>
-          )}
-        </CollabArticle>
+          ))}
+        </div>
       </div>
     </article>
   );

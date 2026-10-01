@@ -8,6 +8,9 @@
 // - 网站是公开的：先按下面的脱敏规则替换，再扫一遍禁用词（人名、工具名、本机路径、链接、卡号），
 //   任何一处命中都直接失败、不写文件。精确替换规则在母源里找不到时也失败，提醒人重新过一遍脱敏。
 // - 只同步下面点名的文件。母源新增案例不会自动上站，要先在这里登记、过脱敏。
+// - 网站上一张卡是「一个坑」的一整套内容：一个案例 + 它的主原理 + 案例自带的沟通范式（Will 2026-10-01 定）。
+//   页面按「先讲事，再讲理」重排：事情经过 → 为什么会这样 → 下次怎么说 → 换个场景练一练。
+//   母源每个小节放进哪一块由 CASE_PLACEMENT / PRINCIPLE_PLACEMENT 决定；母源新增了没登记的小节就失败，避免悄悄丢内容。
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
@@ -15,12 +18,12 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { assertSafeHtml, cleanVitepressHtml, DEFAULT_VITEPRESS_DIR, loadMarkdownRenderer } from './render-ai-learning.mjs'
 
-export const SCHEMA_VERSION = 1
+export const SCHEMA_VERSION = 2
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 export const DEFAULT_SOURCE_DIR = path.join(os.homedir(), 'Desktop/AI学习/E-工具与环境/Codex协作复盘/学习案例')
 export const DEFAULT_OUTPUT = path.join(repoRoot, 'src/lib/collab-handbook/handbook.json')
 
-// 原理和案例按这个顺序出现在栏目入口页
+// 要读的母源文件
 export const ENTRIES = [
   { id: 'P-01', file: 'P-01-共同基础.md', kind: 'principle' },
   { id: 'P-02', file: 'P-02-反馈回路.md', kind: 'principle' },
@@ -29,9 +32,41 @@ export const ENTRIES = [
   { id: 'C-002', file: 'C-002-先看样再开工.md', kind: 'case' }
 ]
 
-// 已开详情页的条目。其余条目只在入口页露标题和一句话，正文不进副本。
-// 小样阶段（2026-10-01）只开 P-03 和 C-002；Will 看过小样后再决定其余三页。
-export const PUBLISHED = new Set(['P-03', 'C-002'])
+// 网站上的卡片，按这个顺序出现在栏目入口页。一张卡 = 一个案例 + 主原理（principleId）+ 案例自带的范式；
+// relatedPrincipleIds 是这件事还碰到、但没有自己主案例的原理，在「为什么会这样」末尾简短提一句。
+// 每条原理至少要在一张卡里出现（主原理或相关原理），否则失败。
+export const TOPICS = [
+  { caseId: 'C-002', principleId: 'P-03', relatedPrincipleIds: ['P-02'] },
+  { caseId: 'C-001', principleId: 'P-01', relatedPrincipleIds: [] }
+]
+
+// 已开详情页的卡片（按案例编号）。其余卡片只在入口页露标题和一句话，正文不进副本。
+// 小样阶段（2026-10-01）只开「先看样，再开工」；Will 看过小样后再决定其余。
+export const PUBLISHED = new Set(['C-002'])
+
+// 页面上的四块，顺序即页面顺序
+export const SECTIONS = [
+  { id: 'story', title: '事情经过' },
+  { id: 'why', title: '为什么会这样' },
+  { id: 'say', title: '下次怎么说' },
+  { id: 'practice', title: '换个场景练一练' }
+]
+
+// 母源小节标题 → 放进哪一块；skip 表示网站不用（合成一页后重复）
+const CASE_PLACEMENT = [
+  { match: t => t.startsWith('案例：'), to: 'story', title: t => t.replace(/^案例：/, '') },
+  { match: t => t === '事实和理论对照', to: 'why' },
+  { match: t => t === '三个关键点', to: 'why' },
+  { match: t => t.startsWith('沟通范式：'), to: 'say' },
+  { match: t => t === '换个场景想一想', to: 'practice', title: () => null }
+]
+const PRINCIPLE_PLACEMENT = [
+  { match: t => t.endsWith('误区'), to: 'why' },
+  { match: t => t.startsWith('为什么'), to: 'why' },
+  { match: t => t.startsWith('怎么做'), to: 'say' },
+  { match: t => t === '记忆给什么', to: 'say' },
+  { match: t => t === '这条原理下的案例和范式', to: 'skip' }
+]
 
 // 原理的状态。母源里原理都是「假设」，网站上统一标「试行」（Will 2026-10-01 指定）。
 // 有原理被母源改成「已立住」时，在这里改，不从下半档案读。
@@ -105,7 +140,7 @@ export function assertClean(text, where) {
   }
 }
 
-/** 把上半正文拆成页面用的几块：大标题、一句话、（案例）所属原理、正文 */
+/** 把上半正文拆成：大标题、一句话、（案例）所属原理、范式名和简版、各小节 */
 export function parseUpper(text, entry) {
   const where = `${entry.id} 上半正文`
   const lines = text.split('\n')
@@ -119,26 +154,74 @@ export function parseUpper(text, entry) {
   const summary = summaryMatch[1].trim()
   rest = rest.replace(summaryMatch[0], '')
 
-  let principleNote = null
   let principleIds = []
   if (entry.kind === 'case') {
     const noteMatch = rest.match(/^\*\*这是哪条原理的实例：\*\*\s*(.+)$/m)
     if (!noteMatch) fail(where, '缺少「**这是哪条原理的实例：**」')
-    principleNote = noteMatch[1].trim()
-    principleIds = [...new Set([...principleNote.matchAll(/「(P-\d{2})\s/g)].map(x => x[1]))]
+    principleIds = [...new Set([...noteMatch[1].matchAll(/「(P-\d{2})\s/g)].map(x => x[1]))]
     if (!principleIds.length) fail(where, '「这是哪条原理的实例」里没有指到任何原理')
+    // 合成一页后，主原理就在同一页里讲，这句指路的话不再需要
     rest = rest.replace(noteMatch[0], '')
   }
 
-  const paradigm = rest.match(/^###\s+沟通范式：(.+)$/m)?.[1].trim() ?? null
-  if (entry.kind === 'case' && !paradigm) fail(where, '缺少「### 沟通范式：名字」')
+  const parts = rest.split(/^###\s+/m)
+  if (parts[0].trim()) fail(where, '第一个三级标题之前还有正文，网站不知道放哪里')
+  const sections = parts.slice(1).map(part => {
+    const [title, ...body] = part.split('\n')
+    return { title: title.trim(), body: body.join('\n').trim() }
+  })
 
-  // 页面大标题已经是 h1，正文里的三级标题升一级成 h2，四级成 h3
-  const body = rest.trim().replace(/^(#{3,4})\s/gm, (_, hashes) => `${hashes.slice(1)} `)
-  return { headline, summary, principleNote, principleIds, paradigm, body }
+  let paradigm = null
+  let sayShort = null
+  if (entry.kind === 'case') {
+    const say = sections.find(s => s.title.startsWith('沟通范式：'))
+    if (!say) fail(where, '缺少「### 沟通范式：名字」')
+    paradigm = say.title.replace(/^沟通范式：/, '').trim()
+    const short = say.body.match(/^\*\*简版\*\*.*\n+((?:>.*\n?)+)/m)
+    if (!short) fail(where, '沟通范式里缺少「**简版**」后面的引用句')
+    sayShort = short[1].split('\n').map(l => l.replace(/^>\s?/, '')).join('').trim()
+  }
+  return { headline, summary, principleIds, paradigm, sayShort, sections }
 }
 
-// 正文不允许出现任何链接；VitePress 自带的标题锚点（#）去掉，页面自己做目录
+function place(sections, rules, where) {
+  return sections.map(section => {
+    const rule = rules.find(r => r.match(section.title))
+    if (!rule) fail(where, `小节「${section.title}」没有登记放在页面哪一块（CASE_PLACEMENT / PRINCIPLE_PLACEMENT）`)
+    return { ...section, to: rule.to, heading: rule.title ? rule.title(section.title) : section.title }
+  })
+}
+
+// 小节内部的标题往下降：小节标题本身是 h3（原理里的是 h4），里面原有的四级标题跟着降
+const shift = (body, levels) => body.replace(/^(#{4,5})\s/gm, (_, h) => `${'#'.repeat(Math.min(h.length + levels, 6))} `)
+
+/** 一张卡的四块 Markdown：先讲事，再讲理 */
+export function composeTopic(caseEntry, principle) {
+  const where = `${caseEntry.id} + ${principle.id}`
+  const caseParts = place(caseEntry.sections, CASE_PLACEMENT, caseEntry.id)
+  const principleParts = place(principle.sections, PRINCIPLE_PLACEMENT, principle.id)
+  const block = (part, level) => [part.heading ? `${'#'.repeat(level)} ${part.heading}` : '', shift(part.body, level - 3)].filter(Boolean).join('\n\n')
+  const pick = (parts, to, title) => parts.filter(p => p.to === to && (!title || p.title === title))
+
+  const why = [
+    ...pick(caseParts, 'why', '事实和理论对照').map(p => block(p, 3)),
+    `### 背后的原理：${principle.name}\n\n**${principle.headline}**\n\n${principle.summary}`,
+    ...pick(principleParts, 'why').map(p => block(p, 4)),
+    ...pick(caseParts, 'why').filter(p => p.title !== '事实和理论对照').map(p => block(p, 3))
+  ]
+  const markdown = {
+    story: pick(caseParts, 'story').map(p => block(p, 3)),
+    why,
+    say: [...pick(principleParts, 'say').map(p => block(p, 3)), ...pick(caseParts, 'say').map(p => block(p, 3))],
+    practice: pick(caseParts, 'practice').map(p => block(p, 3))
+  }
+  for (const { id, title } of SECTIONS) {
+    if (!markdown[id].length) fail(where, `「${title}」这一块没有内容`)
+  }
+  return markdown
+}
+
+// 正文不允许出现任何链接；VitePress 自带的标题锚点（#）去掉
 function renderBody(md, markdown, where) {
   let html = cleanVitepressHtml(md.render(markdown, { relativePath: 'collab-handbook.md', cleanUrls: true }))
   html = html.replace(/\s*<a class="header-anchor"[^>]*>[\s\S]*?<\/a>/g, '')
@@ -148,71 +231,63 @@ function renderBody(md, markdown, where) {
   return html
 }
 
-function renderInline(md, markdown, where) {
-  const html = md.renderInline(markdown)
-  assertSafeHtml(html, where)
-  if (/<a\b/.test(html)) fail(where, '出现链接')
-  return html
-}
-
-/** 页内目录：正文里的二级标题 */
-function headings(html) {
-  return [...html.matchAll(/<h2 id="([^"]+)"[^>]*>([\s\S]*?)<\/h2>/g)].map(([, id, label]) => ({
-    id,
-    label: label.replace(/<[^>]+>/g, '').trim()
-  }))
-}
-
-/** 读取 + 脱敏 + 渲染，不写任何文件 */
+/** 读取 + 脱敏 + 合成 + 渲染，不写任何文件 */
 export function buildHandbook({ sources, md, syncedAt }) {
-  const parsed = ENTRIES.map(entry => {
+  const parsed = new Map()
+  const redactions = []
+  const sourceHashes = {}
+  for (const entry of ENTRIES) {
     const raw = sources[entry.id]
     if (typeof raw !== 'string') fail(entry.file, '母源文件没读到')
     const { name, upper } = splitSource(raw, entry)
     const { text, changes } = redact(upper, entry)
-    return { entry, name, upper, text, changes, ...parseUpper(text, entry) }
-  })
-
-  const caseIdsOf = principleId =>
-    parsed.filter(p => p.entry.kind === 'case' && p.principleIds.includes(principleId)).map(p => p.entry.id)
-
-  const entries = parsed.map(p => {
-    const { entry } = p
-    const where = `${entry.id} 渲染`
-    const published = PUBLISHED.has(entry.id)
-    const base = {
-      id: entry.id,
-      slug: entry.id.toLowerCase(),
-      kind: entry.kind,
-      name: p.name,
-      headline: p.headline,
-      summary: p.summary,
-      published,
-      sourceHash: sha256(p.upper)
-    }
-    if (entry.kind === 'principle') {
-      const status = PRINCIPLE_STATUS[entry.id]
-      if (!status) fail(entry.id, '没有在 PRINCIPLE_STATUS 里登记状态')
-      Object.assign(base, { status, caseIds: caseIdsOf(entry.id) })
-    } else {
-      Object.assign(base, { principleIds: p.principleIds, paradigm: p.paradigm })
-    }
-    if (published) {
-      const html = renderBody(md, p.body, where)
-      Object.assign(base, { html, toc: headings(html) })
-      if (p.principleNote) base.principleNoteHtml = renderInline(md, p.principleNote, `${entry.id} 所属原理`)
-    }
-    return base
-  })
-
-  for (const e of entries.filter(x => x.kind === 'case')) {
-    for (const pid of e.principleIds) {
-      if (!entries.some(x => x.id === pid)) fail(e.id, `指到的原理 ${pid} 没有登记`)
-    }
+    redactions.push(...changes.map(c => ({ id: entry.id, ...c })))
+    sourceHashes[entry.id] = sha256(upper)
+    parsed.set(entry.id, { ...entry, name, ...parseUpper(text, entry) })
   }
+
+  const cases = [...parsed.values()].filter(e => e.kind === 'case')
+  const principleInfo = id => {
+    const p = parsed.get(id)
+    if (!p || p.kind !== 'principle') fail('TOPICS', `${id} 不是登记过的原理`)
+    const status = PRINCIPLE_STATUS[id]
+    if (!status) fail(id, '没有在 PRINCIPLE_STATUS 里登记状态')
+    // 支撑案例数：母源里有几个案例写了「这是哪条原理的实例」指到它
+    const caseCount = cases.filter(c => c.principleIds.includes(id)).length
+    return { id, name: p.name, headline: p.headline, summary: p.summary, status, caseCount }
+  }
+
+  const covered = new Set()
+  const topics = TOPICS.map(topic => {
+    const c = parsed.get(topic.caseId)
+    if (!c || c.kind !== 'case') fail('TOPICS', `${topic.caseId} 不是登记过的案例`)
+    for (const id of [topic.principleId, ...topic.relatedPrincipleIds]) {
+      if (!c.principleIds.includes(id)) fail(c.id, `母源没写它是 ${id} 的实例，不能放进同一张卡`)
+      covered.add(id)
+    }
+    const published = PUBLISHED.has(c.id)
+    const base = {
+      slug: c.id.toLowerCase(),
+      caseId: c.id,
+      title: c.paradigm,
+      headline: c.headline,
+      summary: c.summary,
+      sayShort: c.sayShort,
+      principle: principleInfo(topic.principleId),
+      related: topic.relatedPrincipleIds.map(principleInfo),
+      published
+    }
+    const markdown = composeTopic(c, parsed.get(topic.principleId))
+    if (!published) return base
+    const sections = SECTIONS.map(({ id, title }) => ({ id, title, html: renderBody(md, markdown[id].join('\n\n'), `${c.id}「${title}」`) }))
+    return { ...base, sections }
+  })
+  for (const entry of ENTRIES.filter(e => e.kind === 'principle')) {
+    if (!covered.has(entry.id)) fail('TOPICS', `原理 ${entry.id} 没有出现在任何一张卡里`)
+  }
+
   // 脱敏前后的对照只打印给维护的人看，不写进副本：原文里有母源文件名
-  const redactions = parsed.flatMap(p => p.changes.map(c => ({ id: p.entry.id, ...c })))
-  return { handbook: { schemaVersion: SCHEMA_VERSION, syncedAt, entries }, redactions }
+  return { handbook: { schemaVersion: SCHEMA_VERSION, syncedAt, sourceHashes, topics }, redactions }
 }
 
 export function serialize(handbook) {
@@ -244,7 +319,7 @@ async function check(sourceDir, outputPath) {
   const current = JSON.parse(await readFile(outputPath, 'utf8'))
   const stale = ENTRIES.filter(entry => {
     const { upper } = splitSource(sources[entry.id], entry)
-    return current.entries.find(e => e.id === entry.id)?.sourceHash !== sha256(upper)
+    return current.sourceHashes?.[entry.id] !== sha256(upper)
   }).map(e => e.id)
   if (stale.length) {
     console.error(`母源已改、网站副本未更新：${stale.join('、')}。运行 npm run content:collab`)
@@ -265,7 +340,7 @@ async function main() {
     const syncedAt = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Shanghai' })
     const { handbook, redactions } = buildHandbook({ sources, md, syncedAt })
     await writeAtomic(DEFAULT_OUTPUT, serialize(handbook))
-    console.log(`已生成 ${path.relative(repoRoot, DEFAULT_OUTPUT)}：${handbook.entries.length} 条（详情页 ${[...PUBLISHED].join('、')}）`)
+    console.log(`已生成 ${path.relative(repoRoot, DEFAULT_OUTPUT)}：${handbook.topics.length} 张卡（已开放 ${[...PUBLISHED].join('、')}）`)
     for (const c of redactions) console.log(`  脱敏 ${c.id}：${c.from} → ${c.to}（${c.reason}）`)
   } finally {
     dispose()
