@@ -112,21 +112,6 @@ export interface Topic {
   };
 }
 
-export interface AifCard {
-  id: string;
-  title: string | null;
-  quote: string | null;
-  demoClass: string | null;
-  demoHTML: string | null;
-}
-
-export interface AifSection {
-  id: string;
-  title: string | null;
-  subtitle: string | null;
-  cards: AifCard[];
-}
-
 export interface ChangelogMonth {
   label: string | null;
   count: string | null;
