@@ -28,7 +28,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     const url = externalGuideUrl(source.url);
     return url ? [{ label: source.label, url }] : [];
   });
-  return <GuideReader article={article} html={html} sources={sources}
+  // Send only the metadata used by the reader; the rendered body is already in html.
+  const { title, author, date, cover, headings, status } = article;
+  return <GuideReader article={{ slug, title, author, date, cover, headings, status }} html={html} sources={sources}
     category={{ id: phase.id, name: phase.name, count: sequence.length }}
     authorIcon={readingData.icons["/articles/ai-agent-common-operations"]}
     previous={neighbor(sequence[position - 1])} next={neighbor(sequence[position + 1])} />;

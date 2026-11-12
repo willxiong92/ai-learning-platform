@@ -1,8 +1,0 @@
-{
-  "src/lib/ai-learning/practice-draft.mjs": "d32617246bdb72b1f9f8866e56a9af5833115d55d7ade0efa1c29a0a0716c132",
-  "src/lib/ai-learning/practice-draft.d.mts": "c4668f4f706bcd369923b3fc78f09c954fffb63faf4fb76d7b8440e78c9cf600",
-  "src/components/ai-learning/practice-draft.tsx": "8add88a1912004e5b5b1c61fafb943ff0f76990b8f420f7872a2771e74fe9c08",
-  "src/app/learning/cases/page.tsx": "6c93fccb50b3d4af2e0adff2a9a1d99841e90bfaec4fe7c79561aa582ce1535f",
-  "src/app/learning/practice/page.tsx": "f056ba06c5bd0d5be7cdde712ab7813b25d812ecfe62c7a7d10e01cbbfe5d90b",
-  "scripts/practice-draft.test.mjs": "c30bc8a48721578f204758aaf20731e4818aaa0013e1ff976c19fd9080098ba7"
-}

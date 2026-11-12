@@ -60,3 +60,6 @@ work/*turbopack-cache*/
 # Local review logs and captured browser artifacts are not application source.
 /work/
 **/__pycache__/
+
+# Historical capture artifacts are not part of the maintained application.
+/docs/design-references/

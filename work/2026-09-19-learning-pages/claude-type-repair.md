@@ -1,1 +1,0 @@
-继续 ALS-S3-A2 原合同同权限，仅修两项，不读教材。Codex npm run check lint通过，typecheck失败：page.tsx:29/54 PageProps<"/learning/[lesson]"> 不满足 AppRoutes，params unknown。新路由尚未生成类型，而typecheck先于build。请用明确的本页 props 类型 params: Promise<{lesson:string}> 消除依赖旧生成路由类型，保留异步await与其余行为。README 状态改为 draft（内容复核通过，待本人试学），not_open不变。更新原授权 claude-receipt.md 说明本轮未执行检查，Codex复跑。不得改其他内容、权限、依赖或模型。最多5分钟。

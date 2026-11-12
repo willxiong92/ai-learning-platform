@@ -22,9 +22,9 @@ AI コーディングエージェントに URL を渡すだけで、ウェブサ
 
 ## デモ
 
-[![デモを見る](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
+[元のテンプレートのデモを見る](https://youtu.be/O669pVZ_qr0)
 
-> 上の画像をクリックすると、YouTube でデモ全編を視聴できます。
+> 上のリンクから、YouTube で元のテンプレートのデモを視聴できます。
 
 ## クイックスタート
 
@@ -144,7 +144,6 @@ public/
   seo/              # ファビコン、OG 画像
 docs/
   research/         # 調査結果とコンポーネント仕様
-  design-references/ # スクリーンショット
 scripts/
   sync-agent-rules.sh  # エージェント指示ファイルを再生成
   sync-skills.mjs      # 全プラットフォーム向けに /clone-website を再生成

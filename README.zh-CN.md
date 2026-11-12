@@ -22,9 +22,9 @@
 
 ## 演示
 
-[![观看演示](docs/design-references/comparison.png)](https://youtu.be/O669pVZ_qr0)
+[观看原模板演示](https://youtu.be/O669pVZ_qr0)
 
-> 点击上方图片即可在 YouTube 观看完整演示。
+> 点击上方链接可在 YouTube 观看原模板演示。
 
 ## 快速开始
 
@@ -144,7 +144,6 @@ public/
   seo/              # Favicon、OG 图片
 docs/
   research/         # 提取产物与组件规格
-  design-references/ # 截图参考
 scripts/
   sync-agent-rules.sh  # 重新生成各代理指令文件
   sync-skills.mjs      # 为所有平台重新生成 /clone-website 指令

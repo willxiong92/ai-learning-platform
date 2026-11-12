@@ -7,8 +7,9 @@ import type { GuideArticle } from "@/lib/ai-guide";
 type Font = "sans" | "serif";
 type Size = "sm" | "md" | "lg";
 type Neighbor = Pick<GuideArticle, "slug" | "title">;
+type ReaderArticle = Pick<GuideArticle, "slug" | "title" | "author" | "date" | "cover" | "headings" | "status">;
 type Props = {
-  article: GuideArticle;
+  article: ReaderArticle;
   html: string;
   category: { id: string; name: string; count: number };
   sources: { label: string; url: string }[];
