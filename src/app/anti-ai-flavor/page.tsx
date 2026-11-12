@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AIF_SECTIONS } from "@/lib/vibehub/data";
+import AIF_SECTIONS from "@/lib/vibehub/aif-data.json";
 import { AifView } from "@/components/sites/vibe-hub-org-e37cedf6/anti-ai-flavor/aif-view";
 
 export const metadata: Metadata = {

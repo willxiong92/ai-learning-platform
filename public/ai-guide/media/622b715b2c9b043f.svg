@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">可复用透明背景设计素材生成与跨场景合成工作流</title>
+  <desc id="desc">对比传统整图生成后手动抠图的痛点，展示使用统一品牌提示词与 background="transparent" 生成原生 RGBA 透明资产库，并复用到电商、PPT、设计模板与周边商品的完整流水线。</desc>
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <pattern id="checker" width="16" height="16" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#e2e8f0"/>
+      <rect x="8" width="8" height="8" fill="#f8fafc"/>
+      <rect y="8" width="8" height="8" fill="#f8fafc"/>
+      <rect x="8" y="8" width="8" height="8" fill="#e2e8f0"/>
+    </pattern>
+  </defs>
+  <style>
+    text { font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; }
+    .code { font-family: Menlo, Consolas, 'PingFang SC', monospace; }
+  </style>
+
+  <!-- Canvas background -->
+  <rect width="1280" height="720" fill="#f8f7f4"/>
+  <text x="640" y="58" font-size="32" font-weight="750" fill="#1e293b" text-anchor="middle">把 AI 当「透明组件工厂」：一次生成，跨场景无损复用</text>
+
+  <!-- Top comparison bar: Old way vs New way -->
+  <rect x="40" y="84" width="584" height="128" rx="16" fill="#fff1f2" stroke="#fecdd3" stroke-width="1.5"/>
+  <circle cx="76" cy="120" r="14" fill="#e11d48"/>
+  <text x="76" y="126" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">×</text>
+  <text x="102" y="124" font-size="22" font-weight="700" fill="#9f1239">传统做法：直接生成带背景的整张合成图</text>
+  <text x="102" y="158" font-size="17" fill="#475569">• 换季节、换幻灯片底色或换衣服颜色时，只能重新抽卡或手动抠图</text>
+  <text x="102" y="186" font-size="17" fill="#475569">• 玻璃折射、薄纱丝带、芦苇细丝在后期抠图时极易产生白边与残影</text>
+
+  <rect x="656" y="84" width="584" height="128" rx="16" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5"/>
+  <circle cx="692" cy="120" r="14" fill="#059669"/>
+  <text x="692" y="126" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">✓</text>
+  <text x="718" y="124" font-size="22" font-weight="700" fill="#065f46">组件化工作流：原生透明通道 PNG + 下游排版合成</text>
+  <text x="718" y="158" font-size="17" fill="#475569">• 模型直接输出真实 Alpha 通道，完整保留半透明玻璃与发丝级边缘</text>
+  <text x="718" y="186" font-size="17" fill="#475569">• 同一套标准透明资产可由 Codex 或 Pillow 无缝贴合任意底色背景</text>
+
+  <!-- Main 3-stage pipeline container -->
+  <rect x="40" y="232" width="1200" height="452" rx="20" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Stage 1: Prompt & API -->
+  <rect x="68" y="264" width="320" height="388" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/>
+  <rect x="88" y="284" width="96" height="30" rx="15" fill="#2563eb"/>
+  <text x="136" y="305" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">第 1 步</text>
+  <text x="196" y="306" font-size="22" font-weight="700" fill="#1e3a8a">提示词与参数锁定</text>
+
+  <rect x="88" y="332" width="280" height="92" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="104" y="360" font-size="17" font-weight="650" fill="#1e293b">1. 独立单品描述 (Subject)</text>
+  <text x="104" y="386" font-size="15" fill="#64748b">聚焦单一主体器型、材质与细节</text>
+  <text x="104" y="408" font-size="15" fill="#dc2626" font-weight="600">严禁在提示词里写背景颜色或场景</text>
+
+  <rect x="88" y="438" width="280" height="92" rx="10" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="104" y="466" font-size="17" font-weight="650" fill="#1e293b">2. 共享品牌后缀 (Brand Suffix)</text>
+  <text x="104" y="492" font-size="15" fill="#64748b">统一光影、色调、留白与「无底座、</text>
+  <text x="104" y="514" font-size="15" fill="#64748b">无投影、无文字、真透明背景」约束</text>
+
+  <rect x="88" y="544" width="280" height="86" rx="10" fill="#1e293b"/>
+  <text x="104" y="570" font-size="14" fill="#93c5fd" class="code">background="transparent"</text>
+  <text x="104" y="593" font-size="14" fill="#38bdf8" class="code">output_format="png"</text>
+  <text x="104" y="616" font-size="14" fill="#a7f3d0" class="code">quality="high"  # 保护细微边缘</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M396 458 H436" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+  <!-- Stage 2: Native RGBA Asset Library & Verification -->
+  <rect x="448" y="264" width="344" height="388" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="468" y="284" width="96" height="30" rx="15" fill="#0f172a"/>
+  <text x="516" y="305" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">第 2 步</text>
+  <text x="576" y="306" font-size="22" font-weight="700" fill="#0f172a">原生透明资产与质检</text>
+
+  <!-- Checkerboard preview box -->
+  <rect x="468" y="332" width="304" height="162" rx="12" fill="url(#checker)" stroke="#94a3b8" stroke-width="1.2"/>
+  <rect x="486" y="350" width="78" height="96" rx="10" fill="#f59e0b" fill-opacity="0.28" stroke="#d97706" stroke-width="2"/>
+  <text x="525" y="403" font-size="15" font-weight="700" fill="#92400e" text-anchor="middle">半透明玻璃</text>
+  <rect x="581" y="350" width="78" height="96" rx="10" fill="#2563eb" fill-opacity="0.22" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="620" y="403" font-size="15" font-weight="700" fill="#1e40af" text-anchor="middle">无框图表</text>
+  <rect x="676" y="350" width="78" height="96" rx="10" fill="#10b981" fill-opacity="0.25" stroke="#059669" stroke-width="2"/>
+  <text x="715" y="403" font-size="15" font-weight="700" fill="#065f46" text-anchor="middle">贴纸/印花</text>
+  <text x="620" y="476" font-size="15" font-weight="600" fill="#334155" text-anchor="middle">保留真实 Alpha 通道与局部半透明折射</text>
+
+  <!-- Verification box -->
+  <rect x="468" y="510" width="304" height="120" rx="10" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+  <text x="486" y="538" font-size="16" font-weight="700" fill="#92400e">程序化 + 视觉模型双重质检：</text>
+  <text x="486" y="564" font-size="14" fill="#78350f" class="code">image.mode == "RGBA"</text>
+  <text x="486" y="588" font-size="14" fill="#78350f" class="code">getchannel("A").getbbox() 裁边</text>
+  <text x="486" y="612" font-size="14" fill="#78350f">排查棋盘格伪透明、毛刺与数据错位</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M800 458 H840" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)"/>
+
+  <!-- Stage 3: Reuse across 4 scenarios -->
+  <rect x="852" y="264" width="360" height="388" rx="16" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1.5"/>
+  <rect x="872" y="284" width="96" height="30" rx="15" fill="#059669"/>
+  <text x="920" y="305" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">第 3 步</text>
+  <text x="980" y="306" font-size="22" font-weight="700" fill="#065f46">四大场景直接合成复用</text>
+
+  <rect x="872" y="332" width="320" height="68" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+  <text x="890" y="360" font-size="17" font-weight="700" fill="#1e293b">01 电商四季视觉页 (Codex)</text>
+  <text x="890" y="384" font-size="14" fill="#64748b">同一套香氛单品自由切换春夏秋冬底色</text>
+
+  <rect x="872" y="412" width="320" height="68" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+  <text x="890" y="440" font-size="17" font-weight="700" fill="#1e293b">02 企业品牌演示文稿 (PPT)</text>
+  <text x="890" y="464" font-size="14" fill="#64748b">透明图表直接融入深色渐变母版，告别白框</text>
+
+  <rect x="872" y="492" width="320" height="68" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+  <text x="890" y="520" font-size="17" font-weight="700" fill="#1e293b">03 在线设计模板组件库</text>
+  <text x="890" y="544" font-size="14" fill="#64748b">图标、刀模贴纸与植物装饰任意拖拽换底</text>
+
+  <rect x="872" y="572" width="320" height="64" rx="10" fill="#ffffff" stroke="#86efac" stroke-width="1.2"/>
+  <text x="890" y="598" font-size="17" font-weight="700" fill="#1e293b">04 按需印花周边样机 (Pillow)</text>
+  <text x="890" y="622" font-size="14" fill="#64748b">单张透明插画通过 alpha_composite 印上多色服饰</text>
+</svg>

@@ -47,7 +47,6 @@ html { scrollbar-color: var(--border-hover) transparent; }
    统一成两级，字重都是 700，和首页首屏标题一个家族：
    - 扉页级（有一大段导语的专题页）：30–42px；
    - 目录级（列表、索引页）：26–32px。 */
-html .aif-catalog-heading h1,
 html .learning-hero h1,
 html .own-skill-intro h1 {
   font-size: clamp(30px, 3.6vw, 42px);
@@ -253,7 +252,7 @@ html .course-route-card:hover .course-route-list-visual :is(img, svg) {
 
   /* 各页标题区：进页面时轻轻上浮，和首页首屏同一种节奏 */
   :is(.catalog-heading, .course-index-heading, .changelog-header-main, .learning-hero,
-      .own-skill-intro, .aif-catalog-heading, .ai-learning-header, .dh-head) {
+      .own-skill-intro, .ai-learning-header, .dh-head) {
     animation: hb-rise .6s var(--hb-ease-out) backwards;
   }
 

@@ -1,0 +1,889 @@
+/* Demo visual layer for course discovery and reading.
+   Reader sizing, scroll containers and lesson demos keep their original rules. */
+
+/* Accepted reader preview, 2026-11-01. Keep the existing theme palette and dark mode. */
+html:not([data-color-mode="dark"]) .demo-shell .site-shell.is-course-reader {
+  --bg-soft: #f5f7fa;
+  --text: #192b45;
+  --text-2: #3c4e66;
+  --text-3: #52627a;
+  --text-4: #52627a;
+  --border: #dce4ee;
+}
+
+.demo-shell .site-shell.is-course-reader .nav {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.demo-shell .site-shell.is-course-reader .nav :is(.nav-primary-item, .nav-skill-link) {
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.demo-shell .site-shell.is-course-reader .nav :is(.nav-primary-item, .nav-skill-link).is-current {
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .site-shell.is-course-reader .nav-search input {
+  border-color: var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* Course catalogue */
+.demo-shell .course-index-app,
+.demo-shell .course-home-app {
+  background: var(--bg-soft);
+}
+
+.demo-shell .course-index-main,
+.demo-shell .course-home-main {
+  width: min(1120px, calc(100% - 64px));
+  padding-top: 48px;
+  padding-bottom: 88px;
+}
+
+.demo-shell .course-index-heading,
+.demo-shell .course-home-intro {
+  margin-bottom: 28px;
+}
+
+.demo-shell .course-index-heading h1,
+.demo-shell .course-home-intro h1,
+.demo-shell .learning-hub > .learning-hero h1 {
+  color: var(--text);
+  font-size: clamp(32px, 3.8vw, 46px);
+  font-weight: 760;
+  line-height: 1.18;
+  letter-spacing: -0.045em;
+}
+
+.demo-shell .learning-index-heading > p,
+.demo-shell .course-home-lead,
+.demo-shell .learning-hub > .learning-hero > p:not(.learning-eyebrow) {
+  max-width: 780px;
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.demo-shell .learning-index .learning-actions {
+  gap: 12px 24px;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.demo-shell .learning-index .learning-actions > a:not(.learning-entry),
+.demo-shell .course-index-app .curriculum-expand,
+.demo-shell .course-index-app .learning-sub-link,
+.demo-shell .learning-hub > .learning-path .learning-sub-link {
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .learning-index .learning-actions .learning-entry,
+.demo-shell .course-primary-link {
+  min-height: 44px;
+  padding: 11px 20px;
+  border: 1px solid var(--brand);
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand, #fff);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-decoration: none;
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--brand) 14%, transparent);
+}
+
+.demo-shell .learning-index .learning-actions .learning-entry:hover,
+.demo-shell .course-primary-link:hover {
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
+  box-shadow: 0 5px 16px color-mix(in srgb, var(--brand) 20%, transparent);
+}
+
+.demo-shell .learning-index .learning-note {
+  margin-bottom: 32px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--demo-card-bg, var(--bg));
+  color: var(--text-3);
+  line-height: 1.75;
+}
+
+.demo-shell .course-index-app .course-route-list,
+.demo-shell .course-home-app .course-chapter-list > ol {
+  gap: 24px;
+}
+
+.demo-shell .course-index-app .curriculum-route > summary,
+.demo-shell .course-index-app .course-route-list > li > a.has-route-visual,
+.demo-shell .course-home-app .course-chapter-list > ol > li > a.course-chapter-card {
+  border: 1px solid var(--border);
+  border-radius: var(--demo-radius, 22px);
+  background: var(--demo-card-bg, var(--bg));
+  box-shadow: var(--demo-shadow, 0 2px 10px rgb(0 0 0 / 0.035));
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.demo-shell .course-index-app .curriculum-route > summary,
+.demo-shell .course-index-app .course-route-list > li > a.has-route-visual {
+  min-height: 178px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  padding-left: 28px;
+}
+
+.demo-shell .course-index-app .curriculum-route > summary:hover,
+.demo-shell .course-index-app .course-route-list > li > a:hover,
+.demo-shell .course-home-app .course-chapter-list > ol > li > a:hover {
+  border-color: color-mix(in srgb, var(--brand) 28%, var(--border));
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.055);
+  transform: translateY(-2px);
+}
+
+.demo-shell .course-index-app .course-route-summary h2 {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 720;
+  letter-spacing: -0.025em;
+}
+
+.demo-shell .course-index-app .course-route-summary p {
+  margin-top: 10px;
+  line-height: 1.75;
+}
+
+.demo-shell .course-index-app .curriculum-level {
+  margin-bottom: 9px;
+  color: var(--demo-accent-text, var(--brand-hover));
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.demo-shell .course-index-app .course-route-meta {
+  flex-wrap: wrap;
+  gap: 7px 10px;
+  margin-top: 16px;
+  font-size: 12px;
+  white-space: normal;
+}
+
+.demo-shell .course-index-app .curriculum-expand {
+  font-weight: 650;
+}
+
+.demo-shell .course-index-app .curriculum-route[open] > summary {
+  border-color: color-mix(in srgb, var(--brand) 24%, var(--border));
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.035);
+}
+
+.demo-shell .course-index-app .curriculum-units {
+  margin: 0 14px;
+  padding: 4px 22px;
+  border-color: var(--border);
+  border-radius: 0 0 20px 20px;
+  background: var(--demo-card-bg, var(--bg));
+}
+
+.demo-shell .course-index-app .curriculum-units > li {
+  padding: 22px 0;
+}
+
+.demo-shell .course-index-app .curriculum-units strong {
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.demo-shell .course-index-app .curriculum-units li > a:first-child {
+  align-items: flex-start;
+  gap: 14px;
+  padding-block: 3px;
+}
+
+.demo-shell .course-index-app .learning-id,
+.demo-shell .learning-hub > .learning-path .learning-id {
+  min-width: 34px;
+  color: var(--demo-accent-text, var(--brand-hover));
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.demo-shell .course-index-app .curriculum-units small {
+  margin-top: 5px;
+  line-height: 1.6;
+}
+
+.demo-shell .course-index-app .curriculum-units li > p {
+  margin-top: 10px;
+  line-height: 1.75;
+}
+
+.demo-shell .course-reference-group {
+  margin-top: 52px;
+  padding-top: 36px;
+  border-top: 1px solid var(--border);
+}
+
+.demo-shell .course-reference-group > h2 {
+  font-size: 23px;
+  letter-spacing: -0.025em;
+}
+
+.demo-shell .course-reference-group > p {
+  margin-bottom: 28px;
+  color: var(--text-3);
+}
+
+/* Course and module overviews */
+.demo-shell .course-home-back,
+.demo-shell .learning-hub > .learning-hero > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: 20px;
+  color: var(--text-3);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.demo-shell .course-home-back:hover,
+.demo-shell .learning-hub > .learning-hero > a:hover {
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .course-home-actions {
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.demo-shell .course-home-app .course-chapter-list {
+  margin-top: 36px;
+}
+
+.demo-shell .course-home-app .course-chapter-list > ol > li > a.course-chapter-card {
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 26px;
+}
+
+.demo-shell .course-home-app .course-chapter-number {
+  color: var(--demo-accent-text, var(--brand-hover));
+  font-weight: 650;
+}
+
+.demo-shell .course-home-app .course-chapter-title-row h3 {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.demo-shell .course-home-app .course-status {
+  padding: 4px 9px;
+  background: var(--bg-soft);
+  color: var(--text-3);
+}
+
+.demo-shell .course-home-app .course-status.is-completed {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.demo-shell .course-home-app .course-status.is-in-progress {
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .course-home-app .course-status.is-review {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.demo-shell .learning-hub:has(> .learning-hero + .learning-path) {
+  max-width: 1120px;
+  padding-top: 48px;
+  padding-bottom: 88px;
+}
+
+.demo-shell .learning-hub > .learning-hero {
+  max-width: 800px;
+  margin-bottom: 32px;
+}
+
+.demo-shell .learning-hub > .learning-path {
+  padding: 8px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--demo-radius, 22px);
+  background: var(--demo-card-bg, var(--bg));
+  box-shadow: var(--demo-shadow, 0 2px 10px rgb(0 0 0 / 0.035));
+}
+
+.demo-shell .learning-hub > .learning-path > ol {
+  margin-top: 0;
+}
+
+.demo-shell .learning-hub > .learning-path li {
+  padding: 24px 0;
+}
+
+.demo-shell .learning-hub > .learning-path li:first-child {
+  border-top: 0;
+}
+
+.demo-shell .learning-hub > .learning-path strong {
+  font-size: 18px;
+  font-weight: 680;
+  letter-spacing: -0.015em;
+}
+
+.demo-shell .learning-hub > .learning-path small {
+  color: var(--text-3);
+  line-height: 1.6;
+}
+
+/* Reader chrome. Preserve the original grid and independently scrolling panes. */
+.demo-shell .course-reader-app,
+.demo-shell .course-reader-app .course-article {
+  background: var(--bg-soft);
+}
+
+.demo-shell .course-reader-app .course-article-inner {
+  margin: 24px 0 40px;
+  padding: 34px 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--demo-card-bg, var(--bg));
+  box-shadow: 0 2px 8px rgb(25 43 69 / 0.012);
+}
+
+.demo-shell .course-reader-app .course-article-side {
+  gap: 18px;
+}
+
+.demo-shell .course-reader-app .course-reader-back {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--demo-card-bg, var(--bg));
+  color: var(--text-2);
+}
+
+.demo-shell .course-reader-app .course-reader-back:hover {
+  border-color: color-mix(in srgb, var(--brand) 30%, var(--border));
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .course-reader-app .course-section-rail {
+  padding: 18px 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--demo-card-bg, var(--bg));
+}
+
+.demo-shell .course-reader-app .course-section-rail > strong {
+  margin-bottom: 12px;
+  padding-inline: 10px;
+  color: var(--text);
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.demo-shell .course-reader-app .course-section-rail a {
+  padding: 10px 12px;
+  border-radius: 9px;
+  color: var(--text-3);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.demo-shell .course-reader-app .course-nav-indicator {
+  border-radius: 10px;
+  background: var(--brand-light);
+}
+
+.demo-shell .course-reader-app .course-section-rail a.is-active,
+.demo-shell .course-reader-app .course-term-ref,
+.demo-shell .course-reader-app .course-term-ref:hover,
+.demo-shell .course-reader-app .course-term-ref[aria-expanded="true"] {
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .course-reader-app .course-section-eyebrow {
+  display: inline-flex;
+  margin-bottom: 15px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-3);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.demo-shell .course-reader-app .course-chapter-hero h1,
+.demo-shell .ai-course-lesson .ai-course-chapter-head h1 {
+  color: var(--text);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+}
+
+.demo-shell .course-reader-app .course-chapter-intro {
+  color: var(--text-3);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.demo-shell .course-reader-app .course-chapter-hero h1 {
+  font-size: clamp(28px, 3vw, 34px);
+  font-weight: 650;
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+.demo-shell .course-reader-app .course-lesson-section h2 {
+  margin-bottom: 16px;
+  color: var(--text);
+  font-size: 23px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+/* Teaching figures own their internal labels; only style the surrounding lesson prose. */
+.demo-shell .course-reader-app .course-lesson-section > p,
+.demo-shell .course-reader-app .course-lesson-section > :is(ul, ol) > li {
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.demo-shell .course-reader-app .course-inline-visual {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-soft);
+  box-shadow: none;
+}
+
+.demo-shell .course-reader-app .lesson-guide {
+  margin: 20px 0 32px;
+  padding: 24px;
+  border: 1px solid color-mix(in srgb, var(--brand) 14%, var(--border));
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--brand) 3%, var(--demo-card-bg, var(--bg)));
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.demo-shell .course-reader-app .lesson-guide .learning-eyebrow {
+  margin-bottom: 8px;
+  color: var(--demo-accent-text, var(--brand-hover));
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.demo-shell .course-reader-app .lesson-guide h2 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: 21px;
+  font-weight: 710;
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+
+.demo-shell .course-reader-app .lesson-guide .learning-action {
+  min-height: 42px;
+  margin-top: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.demo-shell .course-reader-app .lesson-guide .learning-action:hover {
+  background: color-mix(in srgb, var(--brand) 15%, var(--demo-card-bg, var(--bg)));
+  text-decoration: none;
+}
+
+.demo-shell .course-reader-app .lesson-guide .learning-muted {
+  margin-top: 14px;
+  color: var(--text-3);
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.demo-shell .course-reader-app .course-bottom-nav {
+  gap: 12px;
+  margin-top: 44px;
+  padding-top: 24px;
+  border-color: var(--border);
+}
+
+.demo-shell .course-reader-app .course-bottom-nav a {
+  flex: 1;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .course-reader-app .course-bottom-nav a:hover {
+  border-color: color-mix(in srgb, var(--brand) 25%, var(--border));
+  background: var(--brand-light);
+}
+
+.demo-shell .course-reader-app .course-bottom-nav a.is-next {
+  align-items: flex-end;
+  text-align: right;
+}
+
+.demo-shell .course-reader-app .course-bottom-nav strong {
+  max-width: 100%;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.demo-shell .course-reader-app .course-pane-splitter {
+  background: var(--bg-soft);
+}
+
+.demo-shell .course-reader-app .course-term-panel {
+  border-left: 1px solid var(--border);
+  background: var(--demo-card-bg, var(--bg));
+}
+
+.demo-shell .course-reader-app .course-term-toolbar {
+  border-color: var(--border);
+  background: var(--demo-card-bg, var(--bg));
+}
+
+.demo-shell .course-reader-app .course-term-actions a,
+.demo-shell .course-reader-app .course-term-actions button {
+  min-height: 34px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+  color: var(--text-2);
+}
+
+.demo-shell .course-reader-app .course-term-actions :is(a, button):hover {
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .course-reader-app .course-mobile-section-sheet {
+  border-color: var(--border);
+  border-radius: 16px;
+  background: var(--demo-card-bg, var(--bg));
+  box-shadow: 0 4px 18px rgb(0 0 0 / 0.06);
+}
+
+.demo-shell .course-reader-app .course-mobile-section-sheet summary {
+  min-height: 44px;
+  padding: 13px 16px;
+  color: var(--text);
+}
+
+.demo-shell .course-reader-app .course-mobile-section-sheet a {
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.demo-shell .course-reader-app .course-mobile-section-sheet a.is-active {
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+/* Legacy learning pages and existing assessment controls. These selectors do
+   not affect the buttons, inputs or animation inside teaching canvases. */
+.demo-shell .ai-learning-page {
+  --ai-learning-line: var(--border);
+  --ai-learning-soft: var(--bg-soft);
+  --ai-learning-muted: var(--text-3);
+  max-width: 52rem;
+  padding: 40px 24px 64px;
+  color: var(--text);
+}
+
+.demo-shell .ai-course-lesson {
+  --ai-learning-line: var(--border);
+  --ai-learning-soft: var(--bg-soft);
+  --ai-learning-muted: var(--text-3);
+}
+
+/* Supporting copy remains legible without changing teaching-figure labels. */
+.demo-shell p.learning-muted:not(:where(.ai-figure *, .lesson-figure *, .course-inline-visual *)),
+.demo-shell p.ai-learning-note:not(:where(.ai-figure *, .lesson-figure *, .course-inline-visual *)) {
+  font-size: 13px;
+}
+
+.demo-shell .ai-learning-header h1 {
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+}
+
+.demo-shell .ai-learning-lesson-card,
+.demo-shell .ai-learning-case-card,
+.demo-shell .ai-learning-assessment,
+.demo-shell .ai-learning-empty,
+.demo-shell .ai-learning-pager-link {
+  padding: 22px;
+  border-color: var(--border);
+  border-radius: 20px;
+  background: var(--demo-card-bg, var(--bg));
+}
+
+.demo-shell .ai-learning-lesson-card.is-planned,
+.demo-shell .ai-learning-empty {
+  background: var(--bg-soft);
+}
+
+.demo-shell .ai-learning-badge {
+  padding: 3px 9px;
+  border-color: var(--border);
+  background: var(--bg-soft);
+  color: var(--text-3);
+  font-size: 12px;
+}
+
+.demo-shell .ai-learning-badge.is-progress {
+  border-color: color-mix(in srgb, var(--brand) 20%, var(--border));
+  background: var(--brand-light);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .ai-learning-question {
+  padding: 18px;
+  border-color: var(--border);
+  border-radius: 16px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .ai-learning-option {
+  gap: 10px;
+  padding: 8px 0;
+  color: var(--text-2);
+}
+
+.demo-shell .ai-learning-option input {
+  accent-color: var(--brand);
+}
+
+.demo-shell .ai-learning-textarea {
+  padding: 12px 14px;
+  border-color: var(--border);
+  border-radius: 14px;
+  background: var(--demo-card-bg, var(--bg));
+  color: var(--text);
+}
+
+.demo-shell .ai-learning-button {
+  min-height: 42px;
+  padding: 9px 17px;
+  border-color: var(--border);
+  border-radius: 999px;
+  background: var(--demo-card-bg, var(--bg));
+  color: var(--text-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.demo-shell .ai-learning-button.is-primary {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand, #fff);
+}
+
+.demo-shell .ai-learning-button:not(:disabled):hover {
+  border-color: var(--brand);
+  color: var(--demo-accent-text, var(--brand-hover));
+}
+
+.demo-shell .ai-learning-button.is-primary:not(:disabled):hover {
+  background: var(--brand-hover);
+  color: var(--on-brand, #fff);
+}
+
+.demo-shell .ai-learning-result-list li {
+  padding: 12px 14px;
+  border-left-color: var(--brand);
+  border-radius: 0 12px 12px 0;
+  background: var(--bg-soft);
+}
+
+.demo-shell .ai-learning-warning {
+  border-radius: 14px;
+  color: var(--warning);
+}
+
+/* Keyboard and motion affordances stay limited to real site controls. */
+.demo-shell .course-index-app :is(a, summary):focus-visible,
+.demo-shell .course-home-app :is(a, button):focus-visible,
+.demo-shell .course-reader-app :is(.course-reader-back, .course-section-rail a, .course-bottom-nav a, .course-term-actions a, .course-term-actions button, .course-mobile-section-sheet summary, .course-mobile-section-sheet a):focus-visible,
+.demo-shell :is(.ai-learning-button, .ai-learning-textarea, .ai-learning-option input):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand) 65%, transparent);
+  outline-offset: 3px;
+}
+
+@media (min-width: 960px) {
+  .demo-shell .course-reader-app .course-workspace.has-term .course-article-inner {
+    padding-inline: 24px;
+  }
+}
+
+@media (max-width: 959px) {
+  .demo-shell .course-reader-app .course-article-inner {
+    margin-top: 0;
+    padding: 28px;
+  }
+
+  .demo-shell .course-reader-app .course-article-side {
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 700px) {
+  .demo-shell .course-index-main,
+  .demo-shell .course-home-main {
+    width: calc(100% - 32px);
+    padding-top: 28px;
+    padding-bottom: 56px;
+  }
+
+  .demo-shell .course-index-heading h1,
+  .demo-shell .course-home-intro h1,
+  .demo-shell .learning-hub > .learning-hero h1 {
+    font-size: 32px;
+  }
+
+  .demo-shell .learning-index-heading > p,
+  .demo-shell .course-home-lead,
+  .demo-shell .learning-hub > .learning-hero > p:not(.learning-eyebrow) {
+    font-size: 15px;
+  }
+
+  .demo-shell .learning-index .learning-actions {
+    gap: 12px 18px;
+  }
+
+  .demo-shell .course-index-app .course-route-list,
+  .demo-shell .course-home-app .course-chapter-list > ol {
+    gap: 18px;
+  }
+
+  .demo-shell .course-index-app .curriculum-route > summary,
+  .demo-shell .course-index-app .course-route-list > li > a.has-route-visual {
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 22px;
+  }
+
+  .demo-shell .course-index-app .course-route-summary h2 {
+    font-size: 21px;
+  }
+
+  .demo-shell .course-index-app .curriculum-units {
+    margin-inline: 8px;
+    padding-inline: 16px;
+  }
+
+  .demo-shell .course-index-app .curriculum-units > li {
+    padding-block: 18px;
+  }
+
+  .demo-shell .course-home-app .course-chapter-list > ol > li > a.course-chapter-card {
+    padding-top: 22px;
+    padding-bottom: 22px;
+    padding-left: 22px;
+  }
+
+  .demo-shell .learning-hub:has(> .learning-hero + .learning-path) {
+    padding: 28px 16px 56px;
+  }
+
+  .demo-shell .learning-hub > .learning-path {
+    padding-inline: 20px;
+  }
+
+  .demo-shell .course-reader-app .course-article-inner {
+    padding: 24px 20px 28px;
+    border-radius: 20px;
+  }
+
+  .demo-shell .course-reader-app .lesson-guide {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .demo-shell .course-reader-app .lesson-guide h2 {
+    font-size: 20px;
+  }
+
+  .demo-shell .course-reader-app .course-bottom-nav a {
+    padding: 12px;
+  }
+
+  .demo-shell .course-reader-app .course-bottom-nav strong {
+    font-size: 12px;
+    white-space: normal;
+  }
+
+  .demo-shell .course-reader-app .course-term-actions button {
+    width: 38px;
+    min-height: 38px;
+  }
+
+  .demo-shell .ai-learning-page {
+    padding: 28px 16px 48px;
+  }
+
+  .demo-shell .ai-learning-lesson-card,
+  .demo-shell .ai-learning-case-card,
+  .demo-shell .ai-learning-assessment,
+  .demo-shell .ai-learning-empty,
+  .demo-shell .ai-learning-pager-link {
+    padding: 18px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .demo-shell .course-index-app .curriculum-route > summary {
+    min-height: 0;
+    padding: 22px;
+  }
+}
+
+@media (max-width: 560px) {
+  .demo-shell .course-index-app .course-route-list > li > a.has-route-visual {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .demo-shell .course-home-app .course-chapter-list > ol > li > a.course-chapter-card {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-shell .course-index-app .curriculum-route > summary,
+  .demo-shell .course-index-app .course-route-list > li > a,
+  .demo-shell .course-home-app .course-chapter-list > ol > li > a {
+    transition: none;
+  }
+
+  .demo-shell .course-index-app .curriculum-route > summary:hover,
+  .demo-shell .course-index-app .course-route-list > li > a:hover,
+  .demo-shell .course-home-app .course-chapter-list > ol > li > a:hover {
+    transform: none;
+  }
+}

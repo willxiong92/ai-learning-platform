@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">d0 架构演进对比：从 17 个定制工具退回「文件系统 + Bash」</title>
+  <desc id="desc">左侧展示旧版架构包含 17 个专用工具、繁重提示词与手写检索，脆弱且缓慢；右侧展示新版架构仅保留 ExecuteCommand 和 ExecuteSQL 两个工具，让 Claude 在沙盒中用 Unix 命令直接读取语义层文件。</desc>
+  <defs>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#a2594e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#36765a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', sans-serif; }
+    .code { font-family: Menlo, Consolas, 'PingFang SC', monospace; }
+  </style>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1280" height="720" fill="#f8f7f4"/>
+  <text x="640" y="64" font-size="32" fill="#262724" font-weight="750" text-anchor="middle">架构做减法：砍掉 80% 定制工具，让模型直接读文件系统</text>
+  <rect x="32" y="100" width="1216" height="584" rx="20" fill="#ffffff" stroke="#e5e3dc" stroke-width="1.5"/>
+
+  <!-- Left Panel: v1 Old Architecture -->
+  <rect x="56" y="124" width="568" height="536" rx="16" fill="#fff0ee" stroke="#edc3bd" stroke-width="1.5"/>
+  <text x="80" y="166" font-size="25" fill="#a2594e" font-weight="750">旧版架构（v1）：替模型思考的繁复脚手架</text>
+  <text x="80" y="198" font-size="17" fill="#626762">预设模型会迷失在复杂表结构中，用层层护栏限制推理</text>
+
+  <!-- 3 Heavy Scaffolding Bars -->
+  <rect x="80" y="216" width="520" height="42" rx="8" fill="#ffffff" stroke="#edc3bd"/>
+  <text x="98" y="243" font-size="16" fill="#262724" font-weight="600">繁重提示词工程 + 人工预过滤上下文 + 手写 Schema 检索逻辑</text>
+
+  <!-- 17 Specialized Tools Grid -->
+  <rect x="80" y="270" width="520" height="270" rx="12" fill="#ffffff" stroke="#edc3bd" stroke-dasharray="5 5"/>
+  <text x="98" y="300" font-size="16" fill="#a2594e" font-weight="700">塞给模型的 17 个专用工具（每个工具都在替模型做选择）：</text>
+
+  <!-- Row 1 -->
+  <rect x="96" y="314" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="174" y="336" font-size="13" fill="#262724" text-anchor="middle" class="code">GetEntityJoins</text>
+  <rect x="262" y="314" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="340" y="336" font-size="13" fill="#262724" text-anchor="middle" class="code">LoadCatalog</text>
+  <rect x="428" y="314" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="506" y="336" font-size="13" fill="#262724" text-anchor="middle" class="code">RecallContext</text>
+
+  <!-- Row 2 -->
+  <rect x="96" y="356" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="174" y="378" font-size="13" fill="#262724" text-anchor="middle" class="code">LoadEntityDetails</text>
+  <rect x="262" y="356" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="340" y="378" font-size="13" fill="#262724" text-anchor="middle" class="code">SearchCatalog</text>
+  <rect x="428" y="356" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="506" y="378" font-size="13" fill="#262724" text-anchor="middle" class="code">ClarifyIntent</text>
+
+  <!-- Row 3 -->
+  <rect x="96" y="398" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="174" y="420" font-size="13" fill="#262724" text-anchor="middle" class="code">SearchSchema</text>
+  <rect x="262" y="398" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="340" y="420" font-size="12" fill="#262724" text-anchor="middle" class="code">GenerateAnalysisPlan</text>
+  <rect x="428" y="398" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="506" y="420" font-size="13" fill="#262724" text-anchor="middle" class="code">FinalizeQueryPlan</text>
+
+  <!-- Row 4 -->
+  <rect x="96" y="440" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="174" y="462" font-size="13" fill="#262724" text-anchor="middle" class="code">FinalizeNoData</text>
+  <rect x="262" y="440" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="340" y="462" font-size="13" fill="#262724" text-anchor="middle" class="code">JoinPathFinder</text>
+  <rect x="428" y="440" width="156" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="506" y="462" font-size="13" fill="#262724" text-anchor="middle" class="code">SyntaxValidator</text>
+
+  <!-- Row 5 -->
+  <rect x="96" y="482" width="116" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="154" y="504" font-size="12" fill="#262724" text-anchor="middle" class="code">FinalizeBuild</text>
+  <rect x="220" y="482" width="116" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="278" y="504" font-size="12" fill="#262724" text-anchor="middle" class="code">FormatResults</text>
+  <rect x="344" y="482" width="116" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="402" y="504" font-size="12" fill="#262724" text-anchor="middle" class="code">VisualizeData</text>
+  <rect x="468" y="482" width="116" height="34" rx="6" fill="#fff7f5" stroke="#edc3bd"/>
+  <text x="526" y="504" font-size="12" fill="#262724" text-anchor="middle" class="code">ExplainResults</text>
+
+  <!-- Left Summary Box -->
+  <rect x="80" y="556" width="520" height="84" rx="12" fill="#ffffff" stroke="#edc3bd"/>
+  <text x="100" y="588" font-size="18" fill="#a2594e" font-weight="700">痛点：脆弱、缓慢、维护成本高昂</text>
+  <text x="100" y="618" font-size="16" fill="#525652">每次遇到边缘情况都要打补丁，每次模型升级都要重新校准约束</text>
+
+  <!-- Right Panel: v2 File System Agent -->
+  <rect x="656" y="124" width="568" height="536" rx="16" fill="#eaf6ef" stroke="#b8d9c6" stroke-width="1.5"/>
+  <text x="680" y="166" font-size="25" fill="#36765a" font-weight="750">新版架构（v2）：文件系统即 Agent</text>
+  <text x="680" y="198" font-size="17" fill="#626762">把语义层目录直接交给 Claude Opus 4.5，仅保留 2 个核心工具</text>
+
+  <!-- Agent Core Box -->
+  <rect x="680" y="216" width="520" height="68" rx="10" fill="#ffffff" stroke="#b8d9c6" stroke-width="1.5"/>
+  <text x="702" y="246" font-size="18" fill="#262724" font-weight="700">模型与路由层：Claude Opus 4.5 (AI SDK) + Vercel Gateway</text>
+  <text x="702" y="271" font-size="15" fill="#525652">Next.js API Route (Vercel Slack Bolt) 接收请求并驱动 ToolLoopAgent</text>
+
+  <!-- Two Clean Tools -->
+  <rect x="680" y="304" width="248" height="110" rx="12" fill="#ffffff" stroke="#36765a" stroke-width="2"/>
+  <text x="700" y="336" font-size="18" fill="#36765a" font-weight="750" class="code">1. ExecuteCommand</text>
+  <text x="700" y="364" font-size="15" fill="#262724">在 Vercel Sandbox 中执行</text>
+  <text x="700" y="392" font-size="15" fill="#36765a" font-weight="650" class="code">grep / cat / find / ls</text>
+
+  <rect x="952" y="304" width="248" height="110" rx="12" fill="#ffffff" stroke="#36765a" stroke-width="2"/>
+  <text x="972" y="336" font-size="18" fill="#36765a" font-weight="750" class="code">2. ExecuteSQL</text>
+  <text x="972" y="364" font-size="15" fill="#262724">构建心智模型后直接向</text>
+  <text x="972" y="392" font-size="15" fill="#262724">分析数据库执行 SQL 查询</text>
+
+  <!-- Arrows down to Semantic Layer -->
+  <path d="M804 414v24" fill="none" stroke="#36765a" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+  <path d="M1076 414v24" fill="none" stroke="#36765a" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- Semantic Layer Files Box -->
+  <rect x="680" y="444" width="520" height="96" rx="12" fill="#ffffff" stroke="#b8d9c6" stroke-width="1.5"/>
+  <text x="702" y="476" font-size="18" fill="#262724" font-weight="700">底层基石：结构清晰的 Cube 语义层文件目录</text>
+  <rect x="702" y="490" width="152" height="34" rx="6" fill="#f3faf6" stroke="#b8d9c6"/>
+  <text x="778" y="512" font-size="14" fill="#36765a" font-weight="600" text-anchor="middle" class="code">YAML 维度与指标</text>
+  <rect x="866" y="490" width="152" height="34" rx="6" fill="#f3faf6" stroke="#b8d9c6"/>
+  <text x="942" y="512" font-size="14" fill="#36765a" font-weight="600" text-anchor="middle" class="code">Markdown 业务文档</text>
+  <rect x="1030" y="490" width="152" height="34" rx="6" fill="#f3faf6" stroke="#b8d9c6"/>
+  <text x="1106" y="512" font-size="14" fill="#36765a" font-weight="600" text-anchor="middle" class="code">JSON 表关联定义</text>
+
+  <!-- Right Summary Box -->
+  <rect x="680" y="556" width="520" height="84" rx="12" fill="#ffffff" stroke="#b8d9c6"/>
+  <text x="700" y="588" font-size="18" fill="#36765a" font-weight="700">收益：像人类分析师一样直接阅读原始定义</text>
+  <text x="700" y="618" font-size="16" fill="#525652">自己搜索模式、理清关联并推理边界情况，架构极简且准确率 100%</text>
+</svg>

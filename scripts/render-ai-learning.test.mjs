@@ -495,7 +495,7 @@ describe('真实教材 l01 已拆分', { skip: hasGenerated ? false : '缺少 ge
     assert.ok(!l01.sections.some(s => s.id === 'terms' || s.id === 'practice'))
     for (const cls of ['ai-learning-term', 'ai-learning-practice', 'ai-learning-status']) assert.ok(!l01.html.includes(cls), `l01 残留 ${cls}`)
     assert.equal((l01.html.match(/class="course-term-ref"/g) ?? []).length, 10)
-    assert.ok(l01.html.includes('href="/practice"'))
+    assert.ok(l01.html.includes('href="/practice/questions/l01"'))
     assert.ok(l01.html.includes('跟进表'))
     assert.ok(!l01.html.includes('给新客户做一次背调'))
     assert.ok(!l01.html.includes('做本章的 6 道情境判断题'))

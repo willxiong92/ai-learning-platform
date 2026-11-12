@@ -369,7 +369,7 @@ export function assertSafeHtml(html, where) {
     for (const { name: attr, value } of parseAttrs(rawAttrs, where)) {
       if (/^on/i.test(attr)) fail(where, `输出里出现事件属性 ${attr}`)
       if (!OUTPUT_ATTRS.has(attr)) fail(where, `<${name}> 带了不允许的属性 ${attr}`)
-      if (attr === 'href' && !/^(#|https:\/\/|\/courses(\/|#|$)|\/learning(\/|#|$)|\/practice(\?scope=[a-z-]+)?$|\/[a-z0-9-]+$)/.test(value)) fail(where, `链接地址不允许：${value}`)
+      if (attr === 'href' && !/^(#|https:\/\/|\/courses(\/|#|$)|\/learning(\/|#|$)|\/practice(\?scope=[a-z-]+)?$|\/practice\/questions\/l0[1-4]$|\/[a-z0-9-]+$)/.test(value)) fail(where, `链接地址不允许：${value}`)
       if (attr === 'type' && (name !== 'button' || value !== 'button')) fail(where, `type 只用于术语按钮：<${name} type="${value}">`)
       if (attr === 'target' && value !== '_blank') fail(where, `target 不允许：${value}`)
       if (attr === 'style' && !/^text-align:\s*(left|center|right);?$/.test(value)) fail(where, `style 不允许：${value}`)

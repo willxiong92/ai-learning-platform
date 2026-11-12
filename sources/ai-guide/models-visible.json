@@ -1,0 +1,60 @@
+{
+  "source": "https://book.oiloil.org/",
+  "captureMethod": "public model button clicks and rendered dossier text via browser",
+  "rows": [
+    {
+      "name": "Claude Opus 5.5",
+      "strengths": "交流感好，产品设计、规划、做视频和写代码都很强，综合水准目前第一。",
+      "limitations": "使用门槛高，API 价格较贵。",
+      "scenarios": "日常主力沟通、产品设计与规划、视频制作、复杂代码编写与工程重构。"
+    },
+    {
+      "name": "Kimi K3.1 Pro",
+      "strengths": "国产模型里交流感最强，适合作为主 Agent 负责沟通与调度。",
+      "limitations": "设计效果不如 Kimi K3；订阅价格比较贵，建议搭配执行类 Agent 协同。",
+      "scenarios": "作为主 Agent 与人对齐想法，并调度 Codex 或 GLM 执行。"
+    },
+    {
+      "name": "Gemini 4 Argon",
+      "strengths": "目前写文案最好，适合作为主 Agent 负责跟人对话，中转站使用价格不错。",
+      "limitations": "官方需 Gemini Ultra 订阅且价格贵、额度少；审美和前端设计能力差，不如 Gemini 3.1 Pro。",
+      "scenarios": "文章、脚本与产品文案撰写，以及作为主 Agent 与人对话。"
+    },
+    {
+      "name": "GPT-6.1 Sol",
+      "strengths": "在 Codex 订阅内性价比高，适合大多数明确的执行类任务。",
+      "limitations": "交流感弱，直接和它沟通会比较费劲。",
+      "scenarios": "Codex 订阅下的日常代码执行与自动化修改。"
+    },
+    {
+      "name": "DeepSeek V4.1 Flash",
+      "strengths": "API 价格极便宜、响应快，适合接入 Codex 或作为子 Agent 承接边界清楚的代码与文本执行任务。",
+      "limitations": "纯文本模型，原生不支持直接读取图片或截图（需搭配主 Agent 或视觉工具）。",
+      "scenarios": "代码探索、批量修改、文本处理与高性价比子 Agent 协同执行。"
+    },
+    {
+      "name": "Claude Fable 5.1",
+      "strengths": "前端设计能力比 Opus 5.5 强很多，复杂 Bug 定位也比 Opus 5.5 更强。",
+      "limitations": "价格比较贵（可在 Claude 订阅中使用）。",
+      "scenarios": "前端界面设计与复杂疑难 Bug 排查。"
+    },
+    {
+      "name": "Kimi K3",
+      "strengths": "国产模型里审美最强，前端设计能力好。",
+      "limitations": "文案 AI 味重，交流感一般。",
+      "scenarios": "网页与产品的视觉方向探索、前端页面设计。"
+    },
+    {
+      "name": "GPT-6 Astra",
+      "strengths": "复杂算法实现、复杂系统的 Bug 定位、特定建模场景。",
+      "limitations": "价格贵，交流感弱，不适合日常普通沟通。",
+      "scenarios": "复杂算法实现、复杂系统疑难 Bug 定位与特定 3D/参数化建模。"
+    },
+    {
+      "name": "GPT Image 2.5 Flare",
+      "strengths": "目前生图效果最好、文字准确，比 Sunburst 更便宜且生成速度快，Medium 质量性价比最高。",
+      "limitations": "高画质档位成本会相应增加，日常使用选 Medium 质量性价比最高。",
+      "scenarios": "文章封面与配图、信息图、带准确中英文文字排版的插画生成。"
+    }
+  ]
+}

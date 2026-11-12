@@ -190,9 +190,8 @@ html .lesson-guide > h2 { font-size: 19px; font-weight: 700; line-height: 1.5; }
   box-shadow: none;
 }
 
-/* 更新页的筛选分段按钮：胶囊改小圆角，滑块去阴影 */
+/* 更新页的筛选分段按钮沿用小圆角。 */
 .changelog-filter-group { border-radius: 8px; }
-.changelog-filter-indicator { border-radius: 6px; box-shadow: none; }
 .changelog-filter-btn { border-radius: 6px; }
 
 @media (prefers-reduced-motion: reduce) {

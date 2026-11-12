@@ -1,0 +1,22 @@
+{
+  "release": "2026-10-10-changelog-fix",
+  "features": [
+    "ai-collab-handbook",
+    "inquiry-four-steps",
+    "l01-l04-question-bank",
+    "crm-ai-six-lessons"
+  ],
+  "crm_ready": [
+    "c01",
+    "c02",
+    "c03"
+  ],
+  "crm_planned": [
+    "c04",
+    "c05",
+    "c06"
+  ],
+  "human_accepted": false,
+  "business_validated": false,
+  "changelog_updated": "2026-10-10"
+}

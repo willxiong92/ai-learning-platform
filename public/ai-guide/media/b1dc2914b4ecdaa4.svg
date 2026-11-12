@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="740" viewBox="0 0 1280 740" role="img" aria-labelledby="title desc">
+<title id="title">多轮修图防漂移公式：只改一处 + 显式锁死保留项</title>
+<desc id="desc">左侧展示开放式模糊修图导致多轮后人脸、光影与文字全面漂移；右侧展示手术刀式修图三步公式与跨轮次迭代闭环。</desc>
+<defs>
+  <marker id="arrow-bad" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <path d="M1 1l7 4-7 4" fill="none" stroke="#be123c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+<style>
+  text { font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, sans-serif; }
+  .code { font-family: Menlo, Consolas, 'PingFang SC', monospace; }
+</style>
+<rect width="1280" height="740" rx="16" fill="#fcfbf7"/>
+<text x="640" y="54" font-size="30" font-weight="750" fill="#18181b" text-anchor="middle">多轮修图防漂移公式：明确唯一改项 + 显式锁死保留项</text>
+<text x="640" y="86" font-size="18" fill="#52525b" text-anchor="middle">图像编辑最怕“改了 A 却坏了 B”，必须把要改的变量与必须冻结的不变量彻底拆开</text>
+
+<!-- Left Card: Drift Anti-pattern -->
+<rect x="40" y="114" width="530" height="588" rx="16" fill="#fff1f2" stroke="#fda4af" stroke-width="1.5"/>
+<text x="68" y="156" font-size="23" font-weight="700" fill="#9f1239">反例：只说改什么，不锁保留项</text>
+<text x="68" y="186" font-size="16" fill="#be123c">多轮叠加后细节逐轮劣化，画面彻底“面目全非”</text>
+
+<rect x="68" y="212" width="474" height="92" rx="12" fill="#ffffff" stroke="#fecdd3" stroke-width="1.5"/>
+<text x="88" y="244" font-size="17" font-weight="700" fill="#881337">第 1 轮：模糊指令 + 一次塞入五六个改动</text>
+<text x="88" y="272" font-size="15" fill="#9f1239" class="code">"给照片里的人换身衣服，顺便把背景调亮、加个标题"</text>
+<text x="88" y="294" font-size="14.5" fill="#e11d48">→ 人物脸型与肤色微变，衣服像硬贴上去的贴纸</text>
+
+<path d="M305 308v26" fill="none" stroke="#be123c" stroke-width="2" marker-end="url(#arrow-bad)"/>
+
+<rect x="68" y="340" width="474" height="92" rx="12" fill="#ffffff" stroke="#fecdd3" stroke-width="1.5"/>
+<text x="88" y="372" font-size="17" font-weight="700" fill="#881337">第 2 轮：未重申保留约束，直接追加修改</text>
+<text x="88" y="400" font-size="15" fill="#9f1239" class="code">"把旁边的白椅子换成木椅子"</text>
+<text x="88" y="422" font-size="14.5" fill="#e11d48">→ 房间机位角度偏移，地板阴影消失，桌面物品被重绘</text>
+
+<path d="M305 436v26" fill="none" stroke="#be123c" stroke-width="2" marker-end="url(#arrow-bad)"/>
+
+<rect x="68" y="468" width="474" height="92" rx="12" fill="#ffffff" stroke="#fecdd3" stroke-width="1.5"/>
+<text x="88" y="500" font-size="17" font-weight="700" fill="#881337">第 3 轮：透明底素材继续编辑</text>
+<text x="88" y="528" font-size="15" fill="#9f1239" class="code">"把瓶子标语改成西班牙语"</text>
+<text x="88" y="550" font-size="14.5" fill="#e11d48">→ 丢失 Alpha 透明通道，或画出一层灰白假棋盘格背景</text>
+
+<rect x="68" y="584" width="474" height="92" rx="12" fill="#ffe4e6" stroke="#fda4af" stroke-width="1.5"/>
+<text x="88" y="618" font-size="18" font-weight="700" fill="#881337">失控原因：模型默认重绘未受约束的区域</text>
+<text x="88" y="648" font-size="15.5" fill="#9f1239">无法判断是哪条指令起效，历史漂移随轮次指数级放大</text>
+
+<!-- Right Card: Surgical Edit Formula -->
+<rect x="598" y="114" width="642" height="588" rx="16" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="626" y="156" font-size="23" font-weight="700" fill="#14532d">正例：手术刀式修图三段式公式 + 单步迭代</text>
+<text x="626" y="186" font-size="16" fill="#15803d">每轮只改一个变量，显式列出所有必须保持不变的视觉锚点</text>
+
+<!-- Step 1 -->
+<rect x="626" y="212" width="586" height="106" rx="12" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5"/>
+<rect x="644" y="230" width="160" height="32" rx="6" fill="#16a34a"/>
+<text x="724" y="252" font-size="15.5" font-weight="700" fill="#ffffff" text-anchor="middle">1. 明确唯一改项</text>
+<text x="820" y="252" font-size="16" font-weight="700" fill="#14532d" class="code">Change ONLY [目标对象]</text>
+<text x="644" y="282" font-size="15" fill="#3f3f46">• 每次只提一项具体改动：如“仅将白色餐椅替换为木质餐椅”</text>
+<text x="644" y="304" font-size="15" fill="#3f3f46">• 多参考图按编号指定角色：图 1 为场景底图，图 2 为要迁入的小狗</text>
+
+<!-- Step 2 -->
+<rect x="626" y="334" width="586" height="118" rx="12" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5"/>
+<rect x="644" y="352" width="160" height="32" rx="6" fill="#0284c7"/>
+<text x="724" y="374" font-size="15.5" font-weight="700" fill="#ffffff" text-anchor="middle">2. 显式锁死保留项</text>
+<text x="820" y="374" font-size="16" font-weight="700" fill="#0c4a6e" class="code">Preserve EXACT [不变量清单]</text>
+<text x="644" y="404" font-size="15" fill="#3f3f46">• 人像/商品：锁死五官、肤色、身形比例、姿势、商品几何轮廓与标签</text>
+<text x="644" y="426" font-size="15" fill="#3f3f46">• 空间/排版：锁死机位角度、主光方向、地面接触阴影、色温与排版</text>
+<text x="644" y="444" font-size="13.5" fill="#0369a1" class="code">"Do not change her face, pose, camera angle, lighting, or shadows."</text>
+
+<!-- Step 3 -->
+<rect x="626" y="468" width="586" height="92" rx="12" fill="#ffffff" stroke="#bbf7d0" stroke-width="1.5"/>
+<rect x="644" y="484" width="160" height="32" rx="6" fill="#7c3aed"/>
+<text x="724" y="506" font-size="15.5" font-weight="700" fill="#ffffff" text-anchor="middle">3. 声明负向排除</text>
+<text x="820" y="506" font-size="16" font-weight="700" fill="#4c1d95" class="code">Do NOT add / Do NOT restyle</text>
+<text x="644" y="538" font-size="15" fill="#3f3f46">• 严禁擅自重绘风格、严禁新增饰品/文字/水印；透明素材重申保留 Alpha</text>
+
+<!-- Bottom workflow loop -->
+<rect x="626" y="584" width="586" height="92" rx="12" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="646" y="616" font-size="17" font-weight="700" fill="#14532d">跨轮次精修闭环：上一轮满意输出 → 作为下一轮输入 → 每次只改一处</text>
+<text x="646" y="644" font-size="15" fill="#166534">若出现轻微漂移，在下一轮提示词中再次重申核心保留约束；</text>
+<text x="646" y="666" font-size="15" font-weight="650" fill="#14532d">要求 100% 像素级不变的区域 → 直接把局部修图结果用图层合成回原图</text>
+</svg>

@@ -1,17 +1,17 @@
 {
-  "name": "ai-website-clone-template",
+  "name": "okki-ai-learning",
   "version": "0.4.0",
   "private": true,
-  "description": "Clone any website into a clean, modern Next.js codebase using AI coding agents",
+  "description": "OKKI team AI learning platform: courses, terminology and article library",
   "author": "JCodesMore",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JCodesMore/ai-website-cloner-template.git"
+    "url": "https://github.com/willxiong92/ai-learning-platform.git"
   },
-  "homepage": "https://github.com/JCodesMore/ai-website-cloner-template",
+  "homepage": "https://okki-team-ai-learning.willxiong92.chatgpt.site",
   "bugs": {
-    "url": "https://github.com/JCodesMore/ai-website-cloner-template/issues"
+    "url": "https://github.com/willxiong92/ai-learning-platform/issues"
   },
   "keywords": [
     "claude-code",
@@ -28,15 +28,15 @@
   },
   "scripts": {
     "content:ai": "node scripts/generate-ai-learning.mjs && node scripts/render-ai-learning.mjs",
-    "predev": "npm run content:ai",
+    "content:collab": "node scripts/sync-collab-handbook.mjs",
     "dev": "next dev",
-    "prebuild": "npm run content:ai",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "precheck": "npm run content:ai",
-    "check": "npm run lint && npm run typecheck && npm run build"
+    "check": "npm run lint && npm run typecheck && npm run build",
+    "content:guide": "python3 scripts/import-ai-guide.py --generate-only && python3 scripts/prepare-guide-reading.py",
+    "test:guide": "node --test scripts/ai-guide.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

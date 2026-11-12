@@ -1,0 +1,688 @@
+/* Demo presentation layer. Keep v9 practice, handbook, and timeline behavior intact. */
+
+/* Page headings stay compact so the lesson content remains the main focus. */
+.demo-shell :is(.collab-page, .practice-pilot, .pilot-entry, .crm-page, .practice-task) {
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+.demo-shell :is(.collab-page, .practice-pilot, .pilot-entry, .crm-page) {
+  padding-top: 40px;
+  padding-bottom: 72px;
+}
+
+.demo-shell :is(.collab-page h1, .practice-pilot h1, .pilot-entry h1, .crm-page h1, .practice-task .learning-hero h1) {
+  font-size: clamp(29px, 3.3vw, 40px);
+  font-weight: 700;
+  letter-spacing: -.035em;
+  line-height: 1.3;
+  color: var(--text);
+}
+
+.demo-shell :is(.collab-page:not(.collab-detail) h1, .changelog-title) {
+  font-size: clamp(28px, 3vw, 36px);
+}
+
+.demo-shell :is(.collab-lead, .pilot-lead, .crm-page .crm-lead) {
+  color: var(--text-2);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.demo-shell :is(.collab-kicker, .pilot-kicker, .crm-page .crm-kicker, .own-skill-label) {
+  width: fit-content;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 8%, var(--demo-card-bg));
+  color: var(--demo-accent-text, var(--brand));
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: .01em;
+}
+
+.demo-shell :is(.collab-back, .pilot-back, .crm-page .crm-back) {
+  color: var(--text-3);
+  font-size: 14px;
+}
+
+.demo-shell :is(.collab-back, .pilot-back, .crm-page .crm-back):hover {
+  color: var(--brand);
+}
+
+.demo-shell :is(.collab-badge, .collab-lead-label, .pp-todo, .pp-step-flow span, .crm-page .crm-status) {
+  padding-inline: 9px;
+  border-radius: 999px;
+}
+
+.demo-shell :is(.collab-trial-note, .pilot-note, .crm-page .crm-plan-note) {
+  line-height: 1.85;
+}
+
+.demo-shell .collab-trial-note > a {
+  display: inline-block;
+  padding-block: 5px;
+  color: var(--brand);
+  text-underline-offset: 4px;
+}
+
+/* Practice route cards and handbook cards share the selected rounded white surface. */
+.demo-shell :is(.pp-steps a, .collab-topic-card, .practice-case-card, .pilot-route-card, .crm-page .crm-course-card) {
+  border: 1px solid var(--border);
+  border-radius: var(--demo-radius, 22px);
+  background: var(--demo-card-bg);
+  box-shadow: var(--demo-shadow);
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.demo-shell :is(.collab-topic-card, .practice-case-card, .crm-page .crm-course-card) {
+  padding: 25px;
+}
+
+.demo-shell :is(.pp-steps a, .collab-topic-card, .practice-case-card, .pilot-route-card, .crm-page .crm-course-card):hover {
+  border-color: color-mix(in srgb, var(--brand) 32%, var(--border));
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--text) 7%, transparent);
+}
+
+.demo-shell .collab-topic-card.is-pending {
+  background: var(--bg-soft);
+  box-shadow: none;
+}
+
+.demo-shell .collab-topic-card .card-title-group h3 {
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -.02em;
+}
+
+.demo-shell .collab-topic-card .card-quote {
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.demo-shell .pp-steps a {
+  gap: 10px;
+  padding: 20px;
+}
+
+.demo-shell .pp-steps-name {
+  align-items: flex-start;
+  line-height: 1.6;
+}
+
+.demo-shell .pp-steps-name i {
+  width: 28px;
+  height: 28px;
+  font-size: 13px;
+}
+
+.demo-shell :is(.pp-steps-out, .pp-step-foot, .case-outcome, .collab-say) {
+  border-radius: 14px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .pp-steps-out {
+  padding: 10px 12px;
+  border-left: 0;
+  font-size: 14px;
+}
+
+.demo-shell .pp-step-flow {
+  gap: 6px 10px;
+  font-size: 15px;
+}
+
+.demo-shell .pp-step-flow span,
+.demo-shell .collab-page .collab-say-label,
+.demo-shell .collab-topic-card .card-head h3 span {
+  color: var(--demo-accent-text, var(--brand));
+}
+
+.demo-shell .pp-step-foot {
+  padding: 18px 20px;
+}
+
+.demo-shell .collab-say {
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+}
+
+.demo-shell .case-points li {
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+
+.demo-shell :is(.practice-case-card > p, .pilot-body p, .pilot-body li) {
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+/* Preserve the established document layout and sticky section navigation. */
+.demo-shell :is(.collab-index, .pilot-index, .crm-page .crm-toc) {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--demo-card-bg);
+}
+
+.demo-shell :is(.collab-index li a, .pilot-index li a, .crm-page .crm-toc a) {
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 10px;
+  color: var(--text-2);
+  font-size: 14px;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+.demo-shell :is(.collab-index li a, .pilot-index li a, .crm-page .crm-toc a):hover {
+  background: color-mix(in srgb, var(--brand) 7%, var(--demo-card-bg));
+  color: var(--brand);
+}
+
+.demo-shell :is(.collab-hero-say, .cb-figure, .pilot-setup, .pilot-outcomes, .practice-task .task-material, .crm-page .crm-material, .crm-page .crm-prompt, .crm-page .crm-quiz) {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--demo-card-bg);
+}
+
+.demo-shell .collab-page .collab-hero-say {
+  background: color-mix(in srgb, var(--brand) 6%, var(--demo-card-bg));
+}
+
+.demo-shell :is(.cb-strip, .cb-versus section, .cb-grid li, .cb-steps li, .cb-paradigm section, .cb-principle, .cb-diff p, .cb-quiz > div, .pp-exercise-do > div, .pp-exercise-check > div) {
+  border-radius: 14px;
+}
+
+.demo-shell :is(.cb-strip.is-takeaway, .pilot-deliverable, .practice-task .task-deliverable, .crm-page .crm-output-box) {
+  border-left: 0;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--brand) 7%, var(--demo-card-bg));
+}
+
+.demo-shell :is(.cb-details, .cb-quiz details, .pp-exercise details, .pp-material-list details, .practice-task .task-reference, .practice-pilot details, .crm-page .crm-reference) {
+  border-color: var(--border);
+  border-radius: 14px;
+  background: var(--demo-card-bg);
+}
+
+.demo-shell :is(.cb-details > summary, .cb-quiz summary, .pp-exercise summary, .pp-material-list summary, .practice-task .task-reference > summary, .practice-pilot summary, .crm-page .crm-reference > summary) {
+  min-height: 46px;
+  border-radius: 13px;
+  line-height: 1.75;
+}
+
+.demo-shell :is(.cb-details > summary, .cb-quiz summary, .pp-exercise summary, .pp-material-list summary, .practice-task .task-reference > summary, .practice-pilot summary, .crm-page .crm-reference > summary):hover {
+  color: var(--brand);
+  background: color-mix(in srgb, var(--brand) 4%, var(--demo-card-bg));
+}
+
+.demo-shell :is(.pp-reference pre, .pp-materials pre, .crm-page .crm-code) {
+  border-radius: 12px;
+  background: var(--bg-soft);
+}
+
+.demo-shell :is(.pp-pager a, .crm-page .crm-pager a) {
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--demo-card-bg);
+}
+
+/* Only named page actions are styled; teaching demos keep their own controls. */
+.demo-shell :is(.pilot-primary, .pilot-secondary, .collab-copy, .practice-primary-action, .practice-secondary-action),
+.demo-shell .crm-page .crm-button {
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.demo-shell :is(.pilot-primary, .practice-primary-action),
+.demo-shell .crm-page .crm-button.is-primary {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: var(--on-brand, #fff);
+}
+
+.demo-shell :is(.pilot-primary, .practice-primary-action):hover,
+.demo-shell .crm-page .crm-button.is-primary:hover {
+  background: color-mix(in srgb, var(--brand) 88%, #000);
+  color: var(--on-brand, #fff);
+}
+
+.demo-shell :is(.pilot-secondary, .collab-copy, .practice-secondary-action),
+.demo-shell .crm-page .crm-button:not(.is-primary) {
+  border: 1px solid var(--border);
+  background: var(--demo-card-bg);
+  color: var(--text-2);
+}
+
+.demo-shell :is(.pilot-secondary, .collab-copy, .practice-secondary-action):hover,
+.demo-shell .crm-page .crm-button:not(.is-primary):hover {
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--border));
+  background: color-mix(in srgb, var(--brand) 5%, var(--demo-card-bg));
+  color: var(--brand);
+}
+
+.demo-shell .collab-copy {
+  min-height: 34px;
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+.demo-shell .crm-page .collab-copy {
+  min-height: 44px;
+  font-size: 14px;
+}
+
+.demo-shell .crm-page :is(.crm-preview, .crm-future) {
+  border-radius: 16px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .crm-page .crm-case {
+  padding: 24px;
+  border-left: 0;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--brand) 6%, var(--demo-card-bg));
+}
+
+.demo-shell .crm-page .crm-number {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 8%, var(--demo-card-bg));
+}
+
+.demo-shell .crm-page .crm-catalog-links a {
+  padding: 9px 15px;
+  border-radius: 999px;
+  background: var(--demo-card-bg);
+  font-size: 14px;
+}
+
+.demo-shell .crm-page .crm-catalog-links a[aria-current="page"] {
+  background: color-mix(in srgb, var(--brand) 8%, var(--demo-card-bg));
+}
+
+.demo-shell .crm-page :is(.crm-option, .crm-feedback) {
+  border-radius: 12px;
+}
+
+.demo-shell .crm-page .crm-option {
+  background: var(--bg-soft);
+}
+
+.demo-shell .crm-page .crm-option[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--brand) 9%, var(--demo-card-bg));
+}
+
+/* The question panel retains answer states, scope selection, and reveal behavior. */
+.demo-shell .practice-page.practice-question {
+  width: min(1440px, calc(100% - 48px));
+}
+
+.demo-shell .practice-answer-panel {
+  margin-block: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--demo-radius, 22px);
+  background: var(--demo-card-bg);
+}
+
+.demo-shell .practice-answer-panel > h1 {
+  font-size: clamp(23px, 2.2vw, 30px);
+  line-height: 1.5;
+  letter-spacing: -.02em;
+}
+
+.demo-shell .practice-option {
+  border: 1px solid transparent;
+  border-radius: 15px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .practice-option > b {
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.demo-shell .practice-option:hover:not(:disabled):not(.is-correct):not(.is-incorrect) {
+  border-color: color-mix(in srgb, var(--brand) 24%, var(--border));
+  background: color-mix(in srgb, var(--brand) 6%, var(--demo-card-bg));
+}
+
+.demo-shell .practice-option.is-correct {
+  border-color: color-mix(in srgb, var(--green) 24%, transparent);
+  background: color-mix(in srgb, var(--green) 9%, var(--demo-card-bg));
+}
+
+.demo-shell .practice-option.is-incorrect {
+  border-color: color-mix(in srgb, var(--red) 24%, transparent);
+  background: color-mix(in srgb, var(--red) 8%, var(--demo-card-bg));
+}
+
+.demo-shell :is(.practice-feedback, .practice-write-input, .practice-scope-menu) {
+  border-radius: 15px;
+}
+
+.demo-shell .practice-write-input {
+  border-color: var(--border);
+  background: var(--bg-soft);
+  font-size: 16px;
+}
+
+.demo-shell .practice-scope-trigger {
+  min-height: 40px;
+  border-radius: 999px;
+  background: var(--demo-card-bg);
+  font-size: 13px;
+}
+
+.demo-shell .practice-scope-menu {
+  padding: 6px;
+  background: var(--demo-card-bg);
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--text) 12%, transparent);
+}
+
+.demo-shell .practice-scope-option {
+  min-height: 40px;
+  border-radius: 10px;
+}
+
+.demo-shell .practice-term-panel {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .practice-detail-lock {
+  border-radius: 14px;
+  background: var(--bg-soft);
+  color: var(--text-3);
+}
+
+/* Updates remain a timeline with working filters and month anchors. */
+.demo-shell .changelog-page {
+  padding-top: 40px;
+  background: transparent;
+}
+
+.demo-shell :is(.changelog-sidebar-section, .changelog-sidebar-stats) {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--demo-card-bg);
+}
+
+.demo-shell .changelog-sidebar-heading {
+  padding-left: 0;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.demo-shell .changelog-sidebar-link {
+  min-height: 40px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.demo-shell .changelog-header {
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.demo-shell .changelog-subtitle {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.demo-shell .changelog-filter-group {
+  gap: 4px;
+  padding: 5px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .changelog-filter-btn {
+  min-height: 36px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.demo-shell .changelog-filter-btn.is-active {
+  background: var(--brand);
+  color: var(--on-brand, #fff);
+  box-shadow: 0 2px 6px color-mix(in srgb, var(--brand) 15%, transparent);
+}
+
+.demo-shell .changelog-timeline {
+  gap: 30px;
+}
+
+.demo-shell .changelog-track-node {
+  border-color: var(--brand);
+  background: var(--demo-card-bg);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.demo-shell .changelog-entry-body {
+  padding: 22px 24px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--demo-card-bg);
+  box-shadow: var(--demo-shadow);
+}
+
+.demo-shell .changelog-entry:last-child .changelog-entry-body {
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.demo-shell .changelog-milestone-title {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.demo-shell .changelog-item {
+  gap: 12px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.demo-shell .changelog-item-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 8px;
+}
+
+.demo-shell .changelog-term-pill {
+  flex-wrap: wrap;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--bg-soft);
+}
+
+.demo-shell .changelog-term-cn {
+  font-size: 14px;
+}
+
+.demo-shell .changelog-term-en {
+  color: var(--text-2);
+  font-size: 12px;
+}
+
+.demo-shell .changelog-terms-label {
+  color: var(--text-2);
+}
+
+.demo-shell .changelog-term-cat {
+  border-radius: 999px;
+  background: var(--demo-card-bg);
+  color: var(--text-2);
+}
+
+/* Keep the real Skill empty state; there are no fabricated assets in this demo. */
+.demo-shell .skill-page {
+  background: transparent;
+}
+
+.demo-shell .skill-page::before {
+  background-image: none;
+}
+
+.demo-shell .skill-detail {
+  width: min(1120px, calc(100% - 56px));
+  padding-top: 28px;
+}
+
+.demo-shell .own-skill-intro {
+  max-width: 760px;
+  margin-top: 32px;
+  margin-bottom: 30px;
+}
+
+.demo-shell .own-skill-intro h1 {
+  font-size: clamp(29px, 3.3vw, 40px);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -.035em;
+}
+
+.demo-shell .own-skill-empty {
+  max-width: 760px;
+  padding: 32px;
+  border: 1px solid var(--border);
+  border-radius: var(--demo-radius, 22px);
+  background: var(--demo-card-bg);
+  box-shadow: var(--demo-shadow);
+}
+
+.demo-shell .own-skill-empty > i {
+  display: inline-grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--brand) 8%, var(--demo-card-bg));
+}
+
+.demo-shell .own-skill-empty h2 {
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.demo-shell .own-skill-empty p {
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.demo-shell .own-skill-links {
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.demo-shell .own-skill-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--demo-accent-text, var(--brand));
+  background: var(--bg-soft);
+  line-height: 1.6;
+}
+
+.demo-shell .own-skill-links a:hover {
+  border-color: color-mix(in srgb, var(--brand) 36%, var(--border));
+  background: color-mix(in srgb, var(--brand) 6%, var(--demo-card-bg));
+}
+
+.demo-shell :is(.pp-steps a, .pilot-primary, .pilot-secondary, .collab-copy, .practice-primary-action, .practice-secondary-action, .practice-scope-trigger, .practice-option, .changelog-sidebar-link, .changelog-filter-btn, .changelog-term-pill, .own-skill-links a, .crm-page .crm-button):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  outline-offset: 3px;
+}
+
+html[data-color-mode="dark"] .demo-shell :is(.collab-topic-card, .practice-case-card, .pilot-route-card, .crm-page .crm-course-card):hover {
+  box-shadow: 0 8px 28px rgb(0 0 0 / 18%);
+}
+
+@media (max-width: 960px) {
+  .demo-shell :is(.collab-index, .pilot-index, .crm-page .crm-toc) {
+    padding: 16px;
+  }
+
+  .demo-shell .changelog-sidebar-section {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .demo-shell :is(.collab-page, .practice-pilot, .pilot-entry, .crm-page) {
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  .demo-shell :is(.collab-topic-card, .practice-case-card, .crm-page .crm-course-card, .own-skill-empty) {
+    padding: 22px;
+  }
+
+  .demo-shell .pp-steps a {
+    padding: 18px;
+  }
+
+  .demo-shell .practice-page.practice-question {
+    width: calc(100% - 32px);
+  }
+
+  .demo-shell .practice-answer-panel {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    padding: 26px 20px;
+  }
+
+  .demo-shell .practice-option {
+    gap: 9px;
+    padding: 13px 12px;
+  }
+
+  .demo-shell .practice-option > b {
+    font-size: 14px;
+  }
+
+  .demo-shell .changelog-page {
+    padding-top: 28px;
+  }
+
+  .demo-shell .changelog-entry-body {
+    padding: 18px;
+  }
+
+  .demo-shell .changelog-entry:last-child .changelog-entry-body {
+    padding-bottom: 18px;
+  }
+
+  .demo-shell .changelog-filter-btn {
+    padding-inline: 12px;
+    font-size: 13px;
+  }
+
+  .demo-shell .skill-detail {
+    width: calc(100% - 32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-shell :is(.pp-steps a, .collab-topic-card, .practice-case-card, .pilot-route-card, .crm-page .crm-course-card, .collab-index li a, .pilot-index li a, .crm-page .crm-toc a, .pilot-primary, .pilot-secondary, .collab-copy, .practice-primary-action, .practice-secondary-action, .crm-page .crm-button) {
+    transition: none;
+  }
+}

@@ -9,8 +9,9 @@ import { ThemeControls } from "./theme-controls";
 const NAV_ITEMS = [
   { href: "/", label: "术语" },
   { href: "/courses", label: "课程" },
+  { href: "/ai-guide", label: "实践指南" },
   { href: "/practice", label: "实践" },
-  { href: "/anti-ai-flavor", label: "防止 AI 味儿" },
+  { href: "/ai-collab", label: "AI 协作手册" },
   { href: "/changelog", label: "更新" },
 ] as const;
 
@@ -27,20 +28,9 @@ export function SiteHeader() {
   return (
     <nav className="nav">
       <div className="nav-left">
-        <Link className="vh-logo" href="/" aria-label="AI 学习站">
-          <img
-            className="vh-logo-mark"
-            src="/brand/ai-learning-mark.svg"
-            alt=""
-            width={20}
-            height={20}
-          />
-          <span className="vh-logo-stage" aria-hidden="true">
-            <span className="vh-word vh-word-brand">
-              AI<b>学习站</b>
-            </span>
-            <span className="vh-word vh-word-tagline">团队 AI 实战通道</span>
-          </span>
+        <Link className="vh-logo" href="/" aria-label="OKKI 团队 AI 学习网站">
+          <span className="okki-wordmark" aria-hidden="true" />
+          <span className="okki-site-name" aria-hidden="true">团队 AI 学习站</span>
         </Link>
         <div className="nav-primary">
           {NAV_ITEMS.map((item) => {
@@ -88,8 +78,9 @@ export function SiteHeader() {
         <div className="nav-mobile-menu">
           <Link href="/" onClick={() => setMenuOpen(false)}>术语</Link>
           <Link href="/courses" onClick={() => setMenuOpen(false)}>课程</Link>
+          <Link href="/ai-guide" onClick={() => setMenuOpen(false)}>实践指南</Link>
           <Link href="/practice" onClick={() => setMenuOpen(false)}>实践</Link>
-          <Link href="/anti-ai-flavor" onClick={() => setMenuOpen(false)}>防止 AI 味儿</Link>
+          <Link href="/ai-collab" onClick={() => setMenuOpen(false)}>AI 协作手册</Link>
           <Link href="/changelog" onClick={() => setMenuOpen(false)}>更新</Link>
           <Link href="/skill" onClick={() => setMenuOpen(false)}>Skill</Link>
           <Link href="/favorites" onClick={() => setMenuOpen(false)}>收藏</Link>

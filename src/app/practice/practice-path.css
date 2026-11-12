@@ -1,0 +1,135 @@
+/* 实践四步主线（框架 v0 骨架）。版式全部沿用 ai-collab.css，这里只补实践独有的几样：
+   四步入口条、每步的「拿到 → 留下」、待填充标记、四格练习、上一课/下一课。颜色全用站点变量，深色模式自动跟随。 */
+
+/* 待填充：虚线小签，一眼能看出这里还没写 */
+.pp-todo {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 0 7px;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  color: var(--text-3);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  vertical-align: 1px;
+}
+.pp-todo-line { color: var(--text-3); font-size: 14px; line-height: 1.75; }
+
+/* ---------- 入口页：四步入口条 ---------- */
+.pp-steps { margin-top: 36px; }
+.pp-steps ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.pp-steps li { position: relative; }
+.pp-steps li + li::before { content: "→"; position: absolute; top: 18px; left: -11px; color: var(--text-3); font-size: 13px; }
+.pp-steps a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  border-radius: 10px;
+  background: var(--bg-soft);
+  transition: border-color var(--hb-dur, .32s) ease;
+}
+.pp-steps a:hover { border-color: color-mix(in srgb, var(--brand) 40%, var(--border)); }
+.pp-steps p { margin: 0; }
+.pp-steps-name { display: flex; align-items: center; gap: 8px; font-size: 15.5px; font-weight: 700; }
+.pp-steps-name i { display: grid; flex: none; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 12px; font-style: normal; }
+.pp-steps-plain { color: var(--text-3); font-size: 13px; }
+.pp-steps-out { margin-top: auto !important; padding: 8px 10px; border-left: 2px solid var(--brand); border-radius: 2px 6px 6px 2px; background: var(--bg); font-size: 13.5px; line-height: 1.6; }
+.pp-steps-out small { display: block; color: var(--text-3); font-size: 11.5px; }
+
+/* 每一步：标题下一行「拿到 → 留下」，卡片下面是补课和收编 */
+.pp-step { margin-top: 48px; scroll-margin-top: 92px; }
+.pp-step-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin: -4px 0 18px; color: var(--text-2); font-size: 14.5px; line-height: 1.7; }
+.pp-step-flow span { padding: 0 6px; border-radius: 4px; background: var(--brand-light); color: var(--brand); font-size: 12px; font-weight: 650; line-height: 20px; }
+.pp-step-flow i { color: var(--text-3); font-style: normal; }
+.pp-step-flow b { color: var(--text); font-weight: 650; }
+.pp-lesson-card .card-quote:has(.pp-todo) { color: var(--text-3); }
+
+.pp-step-foot { display: grid; gap: 8px; margin-top: 16px; padding: 14px 16px; border-radius: 8px; background: var(--bg-soft); font-size: 13.5px; line-height: 1.8; }
+.pp-step-foot p { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0; }
+.pp-step-foot b { flex: none; width: 7em; color: var(--text-3); font-size: 12.5px; font-weight: 650; }
+.pp-step-foot a { color: var(--text-2); }
+.pp-step-foot a:hover { color: var(--brand); }
+
+/* ---------- 详情页 ---------- */
+.pp-hero-flow { padding-bottom: 18px; }
+.pp-hero-flow dl { display: grid; gap: 10px; margin: 0; }
+.pp-hero-flow dl > div { display: grid; grid-template-columns: 3em minmax(0, 1fr); gap: 8px; font-size: 14.5px; line-height: 1.7; }
+.pp-hero-flow dt { color: var(--text-3); font-size: 12.5px; line-height: 1.95; }
+.pp-hero-flow dd { margin: 0; font-weight: 600; }
+
+/* 四格练习：左「材料 + 动手做」，右「怎样算做好 + 折起来的参照」 */
+.pp-exercise-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+.pp-exercise-do,
+.pp-exercise-check { display: grid; gap: 10px; }
+.pp-exercise-do > div { padding: 14px 16px; border-radius: 8px; background: var(--brand-light); }
+.pp-exercise-check > div { padding: 14px 16px; border-radius: 8px; background: var(--bg-soft); }
+.pp-exercise small { display: block; margin-bottom: 6px; color: var(--brand); font-size: 12px; font-weight: 650; }
+.pp-exercise-check > div small { color: var(--text-3); }
+.pp-exercise details { border: 1px dashed var(--border); border-radius: 8px; }
+.pp-exercise summary { padding: 10px 16px; color: var(--text-2); font-size: 14px; cursor: pointer; }
+.pp-exercise summary:hover { color: var(--brand); }
+.pp-exercise details .pp-todo-line { padding: 0 16px 14px; }
+.pp-exercise figcaption .pp-todo { margin-right: 0; }
+
+/* 练习格子里的列表和材料编号 */
+.pp-exercise ol,
+.pp-exercise ul { display: grid; gap: 4px; margin: 0; padding-left: 1.3em; font-size: 14.5px; line-height: 1.75; }
+.pp-exercise-check ul { padding-left: 0; list-style: none; }
+.pp-exercise-check ul li { position: relative; padding-left: 1.4em; }
+.pp-exercise-check ul li::before { content: "✓"; position: absolute; left: 0; color: var(--brand); font-weight: 700; }
+.pp-material-refs { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-size: 14.5px; line-height: 1.75; }
+.pp-material-refs a { padding: 0 7px; border-radius: 4px; background: var(--bg); color: var(--brand); font-size: 12.5px; font-weight: 700; line-height: 22px; }
+.pp-reference { display: grid; gap: 10px; padding: 0 16px 14px; }
+.pp-reference pre,
+.pp-materials pre { margin: 0; padding: 12px 14px; border-radius: 6px; background: var(--bg-soft); font-family: var(--font-mono, ui-monospace, monospace); font-size: 13.5px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.pp-reference pre.is-text { font-family: inherit; font-size: 14.5px; }
+/* 手册里复制按钮是绝对定位贴在框角；这里改回正常排在参照文字下面，否则会飘到页面别处 */
+.pp-reference .collab-copy { position: static; justify-self: start; }
+
+/* 本步材料包：每份材料折起来，点开看全文 */
+.pp-material-list { display: grid; gap: 8px; }
+.pp-material-list details { border: 1px solid var(--border-light); border-radius: 8px; scroll-margin-top: 92px; }
+.pp-material-list summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; padding: 10px 14px; font-size: 14.5px; font-weight: 600; cursor: pointer; }
+.pp-material-list summary b { color: var(--brand); font-size: 12.5px; }
+.pp-material-list summary small { color: var(--text-3); font-size: 13px; font-weight: 400; }
+.pp-material-list details[open] summary { border-bottom: 1px solid var(--border-light); }
+.pp-material-list pre { margin: 12px 14px 14px; }
+
+/* 出处 */
+.pp-sources { display: grid; gap: 6px; margin: 0 0 12px; padding-left: 1.4em; font-size: 14px; line-height: 1.7; }
+.pp-sources a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.pp-sources a:hover { color: var(--brand); }
+.pp-sources small { margin-left: 8px; color: var(--text-3); font-size: 12px; }
+
+.cb-check-title a { color: var(--text); }
+.cb-check-title a:hover { color: var(--brand); }
+
+/* 上一课 / 下一课 */
+.pp-pager { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border-light); }
+.pp-pager a { display: grid; gap: 2px; padding: 12px 16px; border: 1px solid var(--border-light); border-radius: 8px; font-size: 14.5px; font-weight: 600; }
+.pp-pager a:hover { border-color: var(--brand); color: var(--brand); }
+.pp-pager a.is-next { text-align: right; }
+.pp-pager small { color: var(--text-3); font-size: 12px; font-weight: 400; }
+
+.pp-page :is(a, button, summary):focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pp-steps a { transition: none; }
+}
+@media (max-width: 900px) {
+  .pp-steps ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pp-steps li:nth-child(3)::before { content: none; }
+}
+@media (max-width: 600px) {
+  .pp-steps ol { grid-template-columns: 1fr; }
+  .pp-steps li + li::before { content: "↓"; top: -15px; left: 16px; }
+  .pp-steps li:nth-child(3)::before { content: "↓"; }
+  .pp-step-foot b { width: 100%; }
+}
+@container (max-width: 640px) {
+  .pp-exercise-grid, .pp-pager { grid-template-columns: 1fr; }
+}

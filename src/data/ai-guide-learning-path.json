@@ -1,0 +1,102 @@
+{
+  "confirmedDirection": "A",
+  "classificationBasis": "learning topics; foundations before applications, no mandatory sequence",
+  "phases": [
+    {
+      "id": "understand",
+      "name": "AI 基础",
+      "groups": [
+        {
+          "name": "",
+          "slugs": [
+            "how-i-use-llms",
+            "ai-agent-common-operations",
+            "ai-and-dev-core-concepts",
+            "deep-dive-into-llms",
+            "llm-attention-and-kv-cache"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choose",
+      "name": "模型与工具",
+      "groups": [
+        {
+          "name": "",
+          "slugs": [
+            "ai-agent-principles-and-ecosystem",
+            "ai-agent-selection-and-proxy",
+            "deepseek-super-agent-architecture"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "name": "方法与协作",
+      "groups": [
+        {
+          "name": "",
+          "slugs": [
+            "ai-efficiency-habits",
+            "skill-guide",
+            "skill-dev-guide",
+            "agent-skills-best-practices",
+            "effective-context-engineering-for-ai-agents",
+            "manus-context-engineering",
+            "agent-browser-automation",
+            "subagent-workflow",
+            "dont-build-multi-agents"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "apply",
+      "name": "设计与开发",
+      "groups": [
+        {
+          "name": "界面与图像",
+          "slugs": [
+            "ai-ui-design",
+            "gpt-image-prompting-guide",
+            "recraft-prompt-engineering-guide",
+            "transparent-image-assets-cookbook"
+          ]
+        },
+        {
+          "name": "编程与 Agent 工程",
+          "slugs": [
+            "git-from-scratch",
+            "vibe-coding-website-from-scratch",
+            "building-effective-agents",
+            "writing-tools-for-agents",
+            "we-removed-80-percent-of-our-agents-tools",
+            "unrolling-the-codex-agent-loop",
+            "effective-harnesses-for-long-running-agents",
+            "harness-design-long-running-apps",
+            "harness-engineering",
+            "claude-code-review",
+            "redesigning-source-control"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reflect",
+      "name": "产品与创作",
+      "groups": [
+        {
+          "name": "",
+          "slugs": [
+            "become-ai-product-manager",
+            "commercial-paid-skill",
+            "indie-dev-stripe-payment",
+            "how-to-start-self-media"
+          ]
+        }
+      ]
+    }
+  ]
+}

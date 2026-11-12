@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">d0 让团队成员在 Slack 中用自然语言提问即可获取数据支持</title>
+  <desc id="desc">左侧展示团队成员在 Slack 中向 @d0 提问业务数据的真实交互；右侧展示 d0 将自然语言转化为 SQL 并直接返回结果，无需等待数据团队排期。</desc>
+  <defs>
+    <marker id="arrow-dark" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#262724" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M1 1l7 4-7 4" fill="none" stroke="#36765a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', sans-serif; }
+    .code { font-family: Menlo, Consolas, 'PingFang SC', monospace; }
+  </style>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1280" height="720" fill="#f8f7f4"/>
+  <text x="640" y="64" font-size="32" fill="#262724" font-weight="750" text-anchor="middle">d0：在 Slack 中用自然语言提问，直接驱动数据决策</text>
+  <rect x="32" y="100" width="1216" height="584" rx="20" fill="#ffffff" stroke="#e5e3dc" stroke-width="1.5"/>
+
+  <!-- Left Column: Slack Card (Authentic reproduction of original Slack dialog in Chinese) -->
+  <rect x="60" y="132" width="680" height="520" rx="16" fill="#fcfbf9" stroke="#dcd9d0" stroke-width="1.5"/>
+  <!-- Window Header -->
+  <rect x="60" y="132" width="680" height="52" rx="16" fill="#f1efe9"/>
+  <rect x="60" y="168" width="680" height="16" fill="#f1efe9"/>
+  <circle cx="92" cy="158" r="7" fill="#e5a199"/>
+  <circle cx="114" cy="158" r="7" fill="#edd297"/>
+  <circle cx="136" cy="158" r="7" fill="#b8d9c6"/>
+  <text x="166" y="164" font-size="18" fill="#525652" font-weight="650"># ask-data · Slack 频道实时提问</text>
+
+  <!-- Message 1 -->
+  <rect x="88" y="210" width="624" height="196" rx="14" fill="#ffffff" stroke="#e5e3dc" stroke-width="1.2"/>
+  <circle cx="126" cy="248" r="20" fill="#262724"/>
+  <text x="126" y="255" font-size="16" fill="#ffffff" font-weight="700" text-anchor="middle">AQ</text>
+  <text x="158" y="246" font-size="19" fill="#262724" font-weight="700">Andrew Qu ✈️</text>
+  <text x="298" y="246" font-size="15" fill="#7a7e7a">17:18</text>
+  
+  <rect x="158" y="262" width="52" height="28" rx="6" fill="#e8f3ff"/>
+  <text x="184" y="282" font-size="17" fill="#1d63b8" font-weight="700" text-anchor="middle" class="code">@d0</text>
+  <text x="220" y="282" font-size="18" fill="#262724">一周前我们内部有多少个 Vercel 团队项目受</text>
+  <text x="158" y="312" font-size="18" fill="#262724">react2shell 漏洞影响（Next.js &lt;16.0.10 且 &lt;15.5.7）？</text>
+
+  <!-- Reaction & Thread Reply 1 -->
+  <rect x="158" y="330" width="64" height="28" rx="14" fill="#f3f2ee" stroke="#e5e3dc"/>
+  <text x="190" y="349" font-size="15" fill="#262724" text-anchor="middle">📈 1</text>
+  <rect x="158" y="366" width="32" height="28" rx="6" fill="#141413"/>
+  <text x="174" y="385" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle" class="code">d0</text>
+  <text x="200" y="385" font-size="16" fill="#1d63b8" font-weight="650">2 条回复</text>
+  <text x="278" y="385" font-size="15" fill="#7a7e7a">已自动生成 SQL 并返回统计结果</text>
+
+  <!-- Message 2 -->
+  <rect x="88" y="426" width="624" height="196" rx="14" fill="#ffffff" stroke="#e5e3dc" stroke-width="1.2"/>
+  <circle cx="126" cy="464" r="20" fill="#262724"/>
+  <text x="126" y="471" font-size="16" fill="#ffffff" font-weight="700" text-anchor="middle">AQ</text>
+  <text x="158" y="462" font-size="19" fill="#262724" font-weight="700">Andrew Qu ✈️</text>
+  <text x="298" y="462" font-size="15" fill="#7a7e7a">17:20</text>
+
+  <rect x="158" y="478" width="52" height="28" rx="6" fill="#e8f3ff"/>
+  <text x="184" y="498" font-size="17" fill="#1d63b8" font-weight="700" text-anchor="middle" class="code">@d0</text>
+  <text x="220" y="498" font-size="18" fill="#262724">有多少客户使用了 Vercel Agent 自动升级修复</text>
+  <text x="158" y="528" font-size="18" fill="#262724">react2shell 漏洞？</text>
+
+  <!-- Reaction & Thread Reply 2 -->
+  <rect x="158" y="546" width="64" height="28" rx="14" fill="#f3f2ee" stroke="#e5e3dc"/>
+  <text x="190" y="565" font-size="15" fill="#262724" text-anchor="middle">📈 1</text>
+  <rect x="158" y="582" width="32" height="28" rx="6" fill="#141413"/>
+  <text x="174" y="601" font-size="14" fill="#ffffff" font-weight="700" text-anchor="middle" class="code">d0</text>
+  <text x="200" y="601" font-size="16" fill="#1d63b8" font-weight="650">2 条回复</text>
+  <text x="278" y="601" font-size="15" fill="#7a7e7a">最新回复于今日 08:43</text>
+
+  <!-- Right Column: Value comparison & positioning -->
+  <rect x="772" y="132" width="448" height="244" rx="16" fill="#eaf6ef" stroke="#b8d9c6" stroke-width="1.5"/>
+  <text x="800" y="174" font-size="23" fill="#36765a" font-weight="750">v0 负责构建 UI，d0 负责理解数据</text>
+  <text x="800" y="214" font-size="18" fill="#262724">• 自然语言直接转成分析库 SQL 查询</text>
+  <text x="800" y="250" font-size="18" fill="#262724">• 任何团队成员随时提问，无需手写代码</text>
+  <text x="800" y="286" font-size="18" fill="#262724">• 无需排队等待数据团队人工查表</text>
+  <rect x="800" y="312" width="392" height="44" rx="10" fill="#ffffff" stroke="#b8d9c6"/>
+  <text x="996" y="340" font-size="17" fill="#36765a" font-weight="650" text-anchor="middle">正常运转时：全公司普及自助数据访问</text>
+
+  <rect x="772" y="404" width="448" height="248" rx="16" fill="#fff0ee" stroke="#edc3bd" stroke-width="1.5"/>
+  <text x="800" y="446" font-size="23" fill="#a2594e" font-weight="750">为什么 d0 必须既快又准？</text>
+  <text x="800" y="486" font-size="18" fill="#262724">• 一旦查询报错或胡编表名，同事就会失去信任</text>
+  <text x="800" y="522" font-size="18" fill="#262724">• 大家会退回老办法：在 Slack 里 @ 数据分析师</text>
+  <text x="800" y="558" font-size="18" fill="#262724">• 响应速度、准确率与稳定性直接决定生死</text>
+  <rect x="800" y="588" width="392" height="44" rx="10" fill="#ffffff" stroke="#edc3bd"/>
+  <text x="996" y="616" font-size="17" fill="#a2594e" font-weight="650" text-anchor="middle">核心要求：快速响应 · 查询准确 · 稳定可靠</text>
+</svg>

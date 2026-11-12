@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">5 个代表性查询基准评测：速度提升 3.5 倍，Token 减少 37%，成功率 100%</title>
+  <desc id="desc">对比旧版复杂工具架构与新版文件系统架构在平均耗时、成功率、Token 消耗、执行步数及最坏复杂查询下的实测表现。</desc>
+  <style>
+    text { font-family: 'PingFang SC', 'Hiragino Sans GB', 'STHeiti', 'Microsoft YaHei', sans-serif; }
+    .code { font-family: Menlo, Consolas, 'PingFang SC', monospace; }
+  </style>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="1280" height="720" fill="#f8f7f4"/>
+  <text x="640" y="64" font-size="32" fill="#262724" font-weight="750" text-anchor="middle">实测基准对比：做减法后全面胜出（5 个代表性查询）</text>
+  <rect x="32" y="100" width="1216" height="584" rx="20" fill="#ffffff" stroke="#e5e3dc" stroke-width="1.5"/>
+
+  <!-- 4 Metric Cards Across Top -->
+  <!-- Card 1: Execution Time -->
+  <rect x="56" y="128" width="276" height="310" rx="16" fill="#fcfbf9" stroke="#e5e3dc" stroke-width="1.5"/>
+  <text x="80" y="168" font-size="20" fill="#525652" font-weight="650">平均执行耗时</text>
+  <rect x="80" y="186" width="126" height="34" rx="17" fill="#eaf6ef" stroke="#b8d9c6"/>
+  <text x="143" y="209" font-size="16" fill="#36765a" font-weight="750" text-anchor="middle">快了 3.5 倍</text>
+  <!-- Old bar -->
+  <text x="80" y="256" font-size="15" fill="#7a7e7a">旧版架构（v1）</text>
+  <rect x="80" y="266" width="228" height="28" rx="6" fill="#edc3bd"/>
+  <text x="92" y="286" font-size="16" fill="#7d3c33" font-weight="700" class="code">274.8 秒</text>
+  <!-- New bar -->
+  <text x="80" y="330" font-size="15" fill="#36765a" font-weight="650">文件系统架构（v2）</text>
+  <rect x="80" y="340" width="66" height="28" rx="6" fill="#36765a"/>
+  <text x="158" y="360" font-size="18" fill="#36765a" font-weight="750" class="code">77.4 秒</text>
+  <text x="80" y="408" font-size="14" fill="#626762">省去繁琐中间工具往返调用</text>
+
+  <!-- Card 2: Success Rate -->
+  <rect x="352" y="128" width="276" height="310" rx="16" fill="#fcfbf9" stroke="#e5e3dc" stroke-width="1.5"/>
+  <text x="376" y="168" font-size="20" fill="#525652" font-weight="650">查询成功率</text>
+  <rect x="376" y="186" width="126" height="34" rx="17" fill="#eaf6ef" stroke="#b8d9c6"/>
+  <text x="439" y="209" font-size="16" fill="#36765a" font-weight="750" text-anchor="middle">提升 +20%</text>
+  <!-- Old bar -->
+  <text x="376" y="256" font-size="15" fill="#7a7e7a">旧版架构（v1）</text>
+  <rect x="376" y="266" width="182" height="28" rx="6" fill="#edc3bd"/>
+  <text x="388" y="286" font-size="16" fill="#7d3c33" font-weight="700" class="code">4/5 (80%)</text>
+  <!-- New bar -->
+  <text x="376" y="330" font-size="15" fill="#36765a" font-weight="650">文件系统架构（v2）</text>
+  <rect x="376" y="340" width="228" height="28" rx="6" fill="#36765a"/>
+  <text x="388" y="360" font-size="16" fill="#ffffff" font-weight="750" class="code">5/5 (100%)</text>
+  <text x="376" y="408" font-size="14" fill="#626762">自主捕捉未预设的边缘情况</text>
+
+  <!-- Card 3: Avg Token Usage -->
+  <rect x="648" y="128" width="276" height="310" rx="16" fill="#fcfbf9" stroke="#e5e3dc" stroke-width="1.5"/>
+  <text x="672" y="168" font-size="20" fill="#525652" font-weight="650">平均 Token 消耗</text>
+  <rect x="672" y="186" width="126" height="34" rx="17" fill="#eaf6ef" stroke="#b8d9c6"/>
+  <text x="735" y="209" font-size="16" fill="#36765a" font-weight="750" text-anchor="middle">减少 37%</text>
+  <!-- Old bar -->
+  <text x="672" y="256" font-size="15" fill="#7a7e7a">旧版架构（v1）</text>
+  <rect x="672" y="266" width="228" height="28" rx="6" fill="#edc3bd"/>
+  <text x="684" y="286" font-size="16" fill="#7d3c33" font-weight="700" class="code">~102k Tokens</text>
+  <!-- New bar -->
+  <text x="672" y="330" font-size="15" fill="#36765a" font-weight="650">文件系统架构（v2）</text>
+  <rect x="672" y="340" width="136" height="28" rx="6" fill="#36765a"/>
+  <text x="684" y="360" font-size="16" fill="#ffffff" font-weight="750" class="code">~61k Tokens</text>
+  <text x="672" y="408" font-size="14" fill="#626762">按需 grep 精确读取所需定义</text>
+
+  <!-- Card 4: Avg Steps -->
+  <rect x="944" y="128" width="280" height="310" rx="16" fill="#fcfbf9" stroke="#e5e3dc" stroke-width="1.5"/>
+  <text x="968" y="168" font-size="20" fill="#525652" font-weight="650">平均执行步数</text>
+  <rect x="968" y="186" width="126" height="34" rx="17" fill="#eaf6ef" stroke="#b8d9c6"/>
+  <text x="1031" y="209" font-size="16" fill="#36765a" font-weight="750" text-anchor="middle">减少 42%</text>
+  <!-- Old bar -->
+  <text x="968" y="256" font-size="15" fill="#7a7e7a">旧版架构（v1）</text>
+  <rect x="968" y="266" width="228" height="28" rx="6" fill="#edc3bd"/>
+  <text x="980" y="286" font-size="16" fill="#7d3c33" font-weight="700" class="code">~12 步</text>
+  <!-- New bar -->
+  <text x="968" y="330" font-size="15" fill="#36765a" font-weight="650">文件系统架构（v2）</text>
+  <rect x="968" y="340" width="133" height="28" rx="6" fill="#36765a"/>
+  <text x="980" y="360" font-size="16" fill="#ffffff" font-weight="750" class="code">~7 步</text>
+  <text x="968" y="408" font-size="14" fill="#626762">推理路径直接，不再原地打转</text>
+
+  <!-- Bottom Section: Worst-Case Query Head-to-Head -->
+  <rect x="56" y="462" width="1168" height="196" rx="16" fill="#f8f7f4" stroke="#dcd9d0" stroke-width="1.5"/>
+  <text x="84" y="502" font-size="22" fill="#262724" font-weight="750">极端复杂查询（Worst-Case）同题实测对比：</text>
+
+  <!-- Old Worst Case -->
+  <rect x="84" y="522" width="540" height="112" rx="12" fill="#fff0ee" stroke="#edc3bd" stroke-width="1.5"/>
+  <text x="108" y="556" font-size="19" fill="#a2594e" font-weight="750">旧版多工具架构：苦熬 12 分钟后彻底失败</text>
+  <text x="108" y="590" font-size="17" fill="#262724" class="code">耗时 724 秒  |  执行 100 步  |  消耗 145,463 Tokens</text>
+  <text x="108" y="618" font-size="15" fill="#a2594e" font-weight="600">× 被预设工具链限制死，耗尽步数仍未跑通查询</text>
+
+  <!-- New Worst Case -->
+  <rect x="656" y="522" width="540" height="112" rx="12" fill="#eaf6ef" stroke="#b8d9c6" stroke-width="1.5"/>
+  <text x="680" y="556" font-size="19" fill="#36765a" font-weight="750">新版文件系统 Agent：2 分多钟一次成功</text>
+  <text x="680" y="590" font-size="17" fill="#262724" class="code">耗时 141 秒  |  仅用 19 步   |  消耗 67,483 Tokens</text>
+  <text x="680" y="618" font-size="15" fill="#36765a" font-weight="600">✓ 自由查阅语义层 YAML 定义，清晰解释推理过程并给出准确结果</text>
+</svg>

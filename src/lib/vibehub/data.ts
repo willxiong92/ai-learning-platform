@@ -1,6 +1,5 @@
 import termsData from "./terms.json";
 import topicsData from "./topics.json";
-import aifData from "./aif-data.json";
 import changelogData from "./changelog-data.json";
 import practiceData from "./practice-data.json";
 import coursesData from "./courses-data.json";
@@ -9,7 +8,7 @@ import courseLessonsData from "./course-lessons-data.json";
 import aiSiteCatalog from "../ai-learning/site-catalog.json";
 // 术语详情页的长篇讲解（教材 sources/terms/，npm run content:ai 渲染成 HTML，不要手改）
 import aiTermArticles from "../ai-learning/term-articles.json";
-import type { Term, Topic, TopicSection, AifSection, ChangelogData, PracticeQuestion, Course, CourseLesson } from "./types";
+import type { Term, Topic, TopicSection, ChangelogData, PracticeQuestion, Course, CourseLesson } from "./types";
 
 const aiCatalog = aiSiteCatalog as unknown as {
   terms: Term[];
@@ -161,7 +160,6 @@ export function getRouteForQuestion(q: PracticeQuestion): string | undefined {
   return (lesson && routeByLesson.get(lesson)) || routeByTerm.get(q.termId);
 }
 
-export const AIF_SECTIONS = aifData as unknown as AifSection[];
 // 更新日志：左侧的月份数量和统计数字按条目现算，新增一条记录只改 changelog-data.json 的 entries。
 const changelogRaw = changelogData as unknown as ChangelogData;
 export const CHANGELOG: ChangelogData = {

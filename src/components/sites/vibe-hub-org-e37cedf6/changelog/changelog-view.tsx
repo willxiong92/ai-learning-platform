@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import type { ChangelogData, ChangelogEntry } from "@/lib/vibehub/types";
 
@@ -27,31 +27,28 @@ function filterEntry(entry: ChangelogEntry, filter: Filter) {
 
 export function ChangelogView({ data }: { data: ChangelogData }) {
   const [filter, setFilter] = useState<Filter>("全部");
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [indicator, setIndicator] = useState<{ x: number; w: number } | null>(null);
-
-  const monthKeys = useMemo(() => {
-    const seen = new Set<string>();
-    const keys: string[] = [];
-    for (const e of data.entries) {
-      const k = monthKey(e.datetime);
-      if (k && !seen.has(k)) {
-        seen.add(k);
-        keys.push(k);
-      }
-    }
-    return keys;
-  }, [data.entries]);
 
   const visibleEntries = useMemo(
     () => data.entries.map((e) => filterEntry(e, filter)).filter((e): e is ChangelogEntry => !!e),
     [data.entries, filter]
   );
 
+  const visibleMonths = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const entry of visibleEntries) {
+      const key = monthKey(entry.datetime);
+      if (key) counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    return Array.from(counts, ([key, count]) => {
+      const [year, month] = key.split("-");
+      return { key, count, label: `${year} 年 ${Number(month)} 月` };
+    });
+  }, [visibleEntries]);
+
   const monthAnchorDatetimes = useMemo(() => {
     const seen = new Set<string>();
     const anchors = new Set<string>();
-    for (const e of data.entries) {
+    for (const e of visibleEntries) {
       const k = monthKey(e.datetime);
       if (k && !seen.has(k) && e.datetime) {
         seen.add(k);
@@ -59,13 +56,7 @@ export function ChangelogView({ data }: { data: ChangelogData }) {
       }
     }
     return anchors;
-  }, [data.entries]);
-
-  function selectFilter(i: number) {
-    setFilter(FILTERS[i]);
-    const btn = tabRefs.current[i];
-    if (btn) setIndicator({ x: btn.offsetLeft, w: btn.offsetWidth });
-  }
+  }, [visibleEntries]);
 
   return (
     <div className="changelog-page">
@@ -78,12 +69,12 @@ export function ChangelogView({ data }: { data: ChangelogData }) {
                 <span>时间定位</span>
               </div>
               <nav className="changelog-sidebar-nav" aria-label="按月份快速定位">
-                {data.months.map((m, i) => (
+                {visibleMonths.map((m) => (
                   <button
-                    key={m.label}
+                    key={m.key}
                     type="button"
                     className="changelog-sidebar-link"
-                    onClick={() => monthKeys[i] && scrollToMonth(monthKeys[i])}
+                    onClick={() => scrollToMonth(m.key)}
                   >
                     <span>{m.label}</span>
                     <span className="changelog-sidebar-count">{m.count}</span>
@@ -118,26 +109,14 @@ export function ChangelogView({ data }: { data: ChangelogData }) {
               <p className="changelog-subtitle">{data.subtitle}</p>
             </div>
             <div className="changelog-filter-group" role="tablist" aria-label="Filter timeline">
-              <div
-                className="changelog-filter-indicator"
-                aria-hidden="true"
-                style={
-                  indicator
-                    ? { transform: `translateX(${indicator.x}px)`, width: indicator.w, opacity: 1 }
-                    : undefined
-                }
-              />
-              {FILTERS.map((f, i) => (
+              {FILTERS.map((f) => (
                 <button
                   key={f}
                   type="button"
                   role="tab"
-                  ref={(el) => {
-                    tabRefs.current[i] = el;
-                  }}
                   aria-selected={filter === f}
                   className={`changelog-filter-btn${filter === f ? " is-active" : ""}`}
-                  onClick={() => selectFilter(i)}
+                  onClick={() => setFilter(f)}
                 >
                   {f}
                 </button>

@@ -13,10 +13,10 @@ export interface ThemeDef {
   darkBrand: string;
 }
 
-// 界面升级样稿（2026-09-26，docs/REDESIGN.md §2.3）：原站 8 色换成本站自有 4 色，默认墨蓝。
+// 界面升级样稿（2026-09-26，docs/REDESIGN.md §2.3）：原站 8 色换成本站自有 4 色，默认明亮蓝。
 // 浏览器里存着旧 id（klein、violet…）的用户查不到时自动回到默认色，不需要迁移。
 export const THEMES: ThemeDef[] = [
-  { id: "ink", label: "墨蓝", brand: "#1f4e8c", brandHover: "#183f72", darkBrand: "#8fb0e0" },
+  { id: "ink", label: "明亮蓝", brand: "#0066ff", brandHover: "#0057e0", darkBrand: "#8fb8ff" },
   { id: "pine", label: "松绿", brand: "#2f6b52", brandHover: "#255641", darkBrand: "#86c7a6" },
   { id: "clay", label: "陶土", brand: "#a4502f", brandHover: "#864026", darkBrand: "#e4a07f" },
   { id: "graphite", label: "石墨", brand: "#4a4f57", brandHover: "#3a3e45", darkBrand: "#b9bec6" },

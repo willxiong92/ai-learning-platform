@@ -53,3 +53,10 @@ temp/
 
 # Turbopack cache snapshots kept for debugging; rebuildable, never commit
 work/*turbopack-cache*/
+
+# Local dependency reuse is not source.
+/node_modules
+
+# Local review logs and captured browser artifacts are not application source.
+/work/
+**/__pycache__/

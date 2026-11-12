@@ -1,6 +1,7 @@
 "use client";
 
-import type { AifSection } from "@/lib/vibehub/types";
+import type sections from "@/lib/vibehub/aif-data.json";
+type AifSection = (typeof sections)[number];
 
 function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
