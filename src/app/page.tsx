@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { HOME_TOPIC_SLUG } from "@/lib/vibehub/data";
 import { StaticCatalog } from "@/components/ai-learning/static-catalog";
-import { HomeIntro } from "@/components/home/home-intro";
 // 首屏样式只在首页加载，避免影响课程页等其他页面
 import "@/app/home.css";
 
@@ -10,7 +9,7 @@ import "@/app/home.css";
 export default function Home() {
   return (
     <Suspense fallback={<p>正在加载术语图鉴…</p>}>
-      <StaticCatalog slug={HOME_TOPIC_SLUG} intro={<HomeIntro />} />
+      <StaticCatalog slug={HOME_TOPIC_SLUG} />
     </Suspense>
   );
 }

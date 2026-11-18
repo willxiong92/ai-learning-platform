@@ -8,14 +8,13 @@ import { ThemeControls } from "./theme-controls";
 
 const NAV_ITEMS = [
   { href: "/", label: "术语" },
-  { href: "/courses", label: "课程" },
-  { href: "/ai-guide", label: "实践指南" },
+  { href: "/ai-guide", label: "课程" },
   { href: "/practice", label: "实践" },
-  { href: "/ai-collab", label: "AI 协作手册" },
   { href: "/changelog", label: "更新" },
 ] as const;
 
 function isNavItemCurrent(pathname: string, href: string) {
+  if (href === "/practice" && pathname.startsWith("/ai-collab")) return true;
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);
 }
@@ -77,10 +76,8 @@ export function SiteHeader() {
       {menuOpen && (
         <div className="nav-mobile-menu">
           <Link href="/" onClick={() => setMenuOpen(false)}>术语</Link>
-          <Link href="/courses" onClick={() => setMenuOpen(false)}>课程</Link>
-          <Link href="/ai-guide" onClick={() => setMenuOpen(false)}>实践指南</Link>
+          <Link href="/ai-guide" onClick={() => setMenuOpen(false)}>课程</Link>
           <Link href="/practice" onClick={() => setMenuOpen(false)}>实践</Link>
-          <Link href="/ai-collab" onClick={() => setMenuOpen(false)}>AI 协作手册</Link>
           <Link href="/changelog" onClick={() => setMenuOpen(false)}>更新</Link>
           <Link href="/skill" onClick={() => setMenuOpen(false)}>Skill</Link>
           <Link href="/favorites" onClick={() => setMenuOpen(false)}>收藏</Link>

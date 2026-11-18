@@ -137,7 +137,7 @@ export const ROUTE_TOPICS: Topic[] = aiCatalog.path.map((m, i) => {
       title: m.title,
       // 模块里一课都没开放，就是“课程编写中”
       writing: m.lessons.every((l) => l.status !== "available"),
-      courseHref: `/courses/ai-${m.id}`,
+      courseHref: "/ai-guide/",
       lessonRange: orders.length ? `第 ${pad2(Math.min(...orders))}–${pad2(Math.max(...orders))} 课` : "",
       lessonIds: m.lessons.map((l) => l.id),
     },

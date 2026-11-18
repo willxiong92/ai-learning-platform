@@ -1,41 +1,38 @@
 import Link from "next/link";
+import skills from "@/data/local-skills.json";
 
-// Skill 页的新起点：原克隆站的 VibeHub Skill 介绍已移除（2026-09-19 Will 定），
-// 这里以后放 will 自己整理的 Skill。还没有内容时只显示说明和学习入口，不放示例 Skill。
 export function SkillView() {
   return (
     <div className="skill-page">
       <div className="skill-detail">
         <nav className="detail-breadcrumb skill-breadcrumb" aria-label="面包屑">
-          <Link className="breadcrumb-link" href="/">
-            术语图鉴
-          </Link>
-          <span className="breadcrumb-separator" aria-hidden="true">
-            ›
-          </span>
-          <span className="breadcrumb-current" aria-current="page">
-            Skill
-          </span>
+          <Link className="breadcrumb-link" href="/">术语图鉴</Link>
+          <span aria-hidden="true"> › </span><span aria-current="page">Skill</span>
         </nav>
-
         <section className="own-skill-intro">
-          <div className="own-skill-label">Skill</div>
-          <h1>团队精选 Skill</h1>
-          <p>
-            这里精选部门沉淀的成熟 Skill，提供适用场景、使用说明、来源、版本与已验证范围。使用前仍需核对自己的客户配置和权限。
-          </p>
+          <div className="own-skill-label">本机精选 · 第一轮</div>
+          <h1>把常用方法带走</h1>
+          <p>从 Will 本机 Codex 已安装的 Skill 中精选。先了解用途与依赖，再下载到自己的环境试用。</p>
         </section>
-
-        <section className="own-skill-empty" aria-label="Skill 列表">
-          <i className="ti ti-sparkles" aria-hidden="true" />
-          <h2>精选资产待核验上架</h2>
-          <p>本栏目不复制部门全部资产，也不把教学样例当成熟成果。练习制作 Skill，请进入实践任务。</p>
-          <div className="own-skill-links">
-            <Link href="/courses/ai-m4">先看课程：从工作方法到 Skill</Link>
-            <Link href="/topics/m4">相关术语</Link>
-            <Link href="/practice/l14">查看 Skill 实践框架</Link>
-          </div>
+        <section className="skill-install-note" aria-labelledby="skill-install-title">
+          <h2 id="skill-install-title">如何使用</h2>
+          <p>下载 ZIP 并解压，保留完整技能文件夹。请让你的 Codex 读取其中的 SKILL.md，检查依赖后安装到自己的技能目录，再开启新对话调用。</p>
+          <p>这些是本机版本快照。已核对文件与下载包，尚未完成新设备安装及业务试用；网页下载不会自动安装或运行。</p>
         </section>
+        <section className="local-skill-grid" aria-label="首批 Skill">
+          {skills.map((skill) => (
+            <article className="local-skill-card" key={skill.id}>
+              <p className="own-skill-label">{skill.id}</p>
+              <h2>{skill.title}</h2>
+              <p>{skill.description}</p>
+              <dl><dt>使用条件</dt><dd>{skill.requirements}</dd><dt>来源与版本</dt><dd>{skill.source}<br />{skill.version}</dd></dl>
+              <div className="skill-example"><strong>这样开始</strong><p>{skill.prompt}</p></div>
+              <a className="skill-download" href={skill.download} download>下载 {skill.id} · ZIP</a>
+              <details><summary>文件清单与 SHA-256 校验</summary><ul>{skill.files.map((file) => <li key={file}><code>{file}</code></li>)}</ul><code className="skill-hash">{skill.sha256}</code></details>
+            </article>
+          ))}
+        </section>
+        <p className="skill-learn-more">想把自己的工作方法做成 Skill？<Link href="/ai-guide/articles/skill-guide/">查看 Skill 课程 →</Link></p>
       </div>
     </div>
   );

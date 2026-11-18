@@ -52,9 +52,11 @@ test('sanitizer drops executable elements and unsafe links while preserving text
  const code=`import runpy\nx=runpy.run_path('scripts/import-ai-guide.py')\nn=x['Parser']('<div><p>Hello</p><script>alert(1)</script><a href="javascript:evil()" onclick="evil()">Label</a><p hidden>hidden secret</p><pre>&lt;script&gt;example&lt;/script&gt;</pre></div>').root\ns=x['clean'](n)\nassert 'alert(1)' not in s and 'javascript:' not in s and 'onclick' not in s and 'hidden secret' not in s\nassert 'Hello' in s and 'Label' in s and '&lt;script&gt;example' in s\nprint('PASS')`;
  assert.match(execFileSync('python3',['-c',code],{encoding:'utf8'}),/PASS/);
 });
-test('existing course and terminology JSON remain byte identical to baseline',()=>{
+test('guide generation does not modify course or terminology content',()=>{
  const files=execFileSync('git',['ls-files','src/lib/ai-learning/*.json','src/lib/vibehub/*.json'],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
- for(const f of files)assert.deepEqual(fs.readFileSync(f),execFileSync('git',['show',`HEAD:${f}`],{maxBuffer:32*1024*1024}),f);
+ const before=new Map(files.map(f=>[f,fs.readFileSync(f)]));
+ execFileSync('python3',['scripts/import-ai-guide.py','--generate-only'],{maxBuffer:32*1024*1024});
+ for(const f of files)assert.deepEqual(fs.readFileSync(f),before.get(f),f);
 });
 test('source placeholders and non-web protocols never produce executable or false links',()=>{
  const script=`import runpy\nx=runpy.run_path('scripts/import-ai-guide.py')\np=x['Parser']('<div><source><a href="mailto:a@b.com">Mail</a><a href="tel:123">Call</a><img loading="lazy"></div>').root\ns=x['clean'](p)\nassert '<source' not in s and 'href=' not in s and 'Mail' in s and 'Call' in s\nprint('PASS')`;

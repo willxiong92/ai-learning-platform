@@ -100,7 +100,7 @@ export function getPracticeLesson(id: string) {
 
 /** 补课链接：课程 ID 换成课程标题和地址；站内路径原样用 */
 export function practiceRef(ref: string) {
-  if (ref === "/ai-collab") return { id: "手册", title: "AI 协作手册", href: ref };
+  if (ref === "/ai-collab") return { id: "方法", title: "协作案例", href: "/practice/#collaboration" };
   const lesson = curriculum.lessons.find((l) => l.id === ref);
   return { id: ref, title: lesson?.title ?? ref, href: curriculumLessonHref(ref) };
 }

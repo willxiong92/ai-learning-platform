@@ -2,7 +2,7 @@
   {
     "slug": "",
     "label": "前端",
-    "count": 140,
+    "count": 146,
     "sections": [
       {
         "cat": "网页基础",
@@ -22,6 +22,17 @@
           "undo",
           "accessibility",
           "semantic-html"
+        ]
+      },
+      {
+        "cat": "小程序",
+        "ids": [
+          "mini-program",
+          "wxml",
+          "wxss",
+          "rpx",
+          "page-lifecycle",
+          "subpackage"
         ]
       },
       {

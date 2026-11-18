@@ -31,7 +31,7 @@ export function ArticleLibrary({ articles }: { articles: ShelfArticle[] }) {
   function toggle(id: string) { setExpanded(previous => { const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next; }); }
   return <div className="guide-library">
     <header className="guide-library-heading">
-      <div><h1>实践指南</h1><span>{articles.length} 篇文章</span></div>
+      <div><h1>课程</h1><span>{articles.length} 篇文章</span></div>
       <label><span className="sr-only">搜索文章</span><input type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="标题或关键词" /></label>
     </header>
     <nav className="guide-library-nav" aria-label="文章分类">{phases.map(phase => <a key={phase.id} href={`#path-${phase.id}`} aria-current={active === phase.id ? "true" : undefined}>{phase.name}</a>)}</nav>

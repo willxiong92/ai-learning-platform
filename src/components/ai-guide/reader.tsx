@@ -120,7 +120,7 @@ export function GuideReader({ article, html, category, sources, authorIcon, prev
 
   return <div className="guide-reading-page" data-reader-font={font} data-reader-size={size}>
     <div className="reader-shell">
-      <nav className="guide-reader-breadcrumbs" aria-label="页面位置"><Link href="/ai-guide/">实践指南</Link><span>/</span><Link href={shelfHref}>{category.name}</Link></nav>
+      <nav className="guide-reader-breadcrumbs" aria-label="页面位置"><Link href="/ai-guide/">课程</Link><span>/</span><Link href={shelfHref}>{category.name}</Link></nav>
       <div className="reader-layout">
         <div className="reading-above">
           <Link className="portal-back" href={shelfHref}>← {category.name}</Link>

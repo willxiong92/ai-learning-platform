@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PRACTICE_STEPS, practiceLessonHref, practiceRef, type PracticeStep } from "@/lib/practice-path";
+import { PRACTICE_STEPS, practiceLessonHref, type PracticeStep } from "@/lib/practice-path";
 import { PRACTICE_CONTENT } from "@/lib/practice-path/content";
 import "../ai-collab/ai-collab.css";
 import "./practice-path.css";
+import "../ai-guide/guide.css";
+import "./practice-merged.css";
+import { ModelDesk } from "@/components/ai-guide/model-desk";
+import { getGuide } from "@/lib/ai-guide";
+import { getPublishedCollabTopics } from "@/lib/collab-handbook";
+import { CollabTopicCard } from "@/components/ai-learning/collab-topic-card";
+import { PracticeOutline } from "@/components/ai-learning/practice-outline";
 
 export const metadata: Metadata = {
   title: "实践｜AI 学习站",
@@ -55,18 +62,12 @@ function StepSection({ step }: { step: PracticeStep }) {
       <div className="pp-step-foot">
         <p>
           <b>回课程补课</b>
-          {step.refs.map((ref) => {
-            const r = practiceRef(ref);
-            return (
-              <Link key={ref} href={r.href}>
-                {r.id} {r.title}
-              </Link>
-            );
-          })}
+          <Link href="/ai-guide/">浏览课程</Link>
+          {step.refs.includes("/ai-collab") && <a href="#collaboration">协作案例</a>}
         </p>
         {step.absorb.length > 0 && (
           <p>
-            <b>收编到这一步</b>
+            <b>相关练习</b>
             {step.absorb.map((a) => (
               <Link key={a.href} href={a.href}>
                 {a.label}
@@ -82,20 +83,28 @@ function StepSection({ step }: { step: PracticeStep }) {
 export default function PracticePage() {
   return (
     <div className="collab-page pp-page">
+      <section className="collab-section" id="models" aria-labelledby="models-title">
+        <h2 className="cat-title" id="models-title">模型参考</h2>
+        <p className="collab-trial-note practice-case-note">Will 使用的个人 Agent，以及 Oil Book 作者的模型使用体验。</p>
+        <ModelDesk models={getGuide().models} />
+      </section>
       <header className="collab-hero">
-        <p className="collab-kicker">实践 · 四步主线</p>
+        <p className="collab-kicker">实践 · 动手练习与协作案例</p>
         <h1>一封询盘，走完四步</h1>
         <p className="collab-lead">
-          四步跟着同一封询盘走，上一步的成果是下一步的材料：先跟 AI 一起读懂并回复它，再把这套做法固化成 Skill，再让 Agent 去背调发询盘的买家，最后把这些结果汇到一个询盘跟进看板上。课程用来补知识，实践用来把事做成。
+          从读懂、回复一封询盘开始，逐步把方法固化成 Skill、Agent 和网页。遇到协作问题时，参考下方案例。
         </p>
         <p className="collab-trial-note">
           <span className="collab-badge">试学版</span>
-          第 1 步四课已有正文和练习，可开始试学；第 2–4 步仍为待填充框架。练习按「材料 / 动手做 / 怎样算做好 / 做完再看参照」展开，整批内容仍待人工试学验收。
+          第 1 步四课可试学；第 2–4 步仅大纲。
         </p>
       </header>
 
-      <p className="collab-trial-note"><Link href="/practice/questions/l01">基础课题库 · L01–L04 共 24 道情境题及动手任务 →</Link></p>
-      <p className="collab-trial-note"><Link href="/practice/crm-ai">CRM 客户成功六课实践 · 前 3 课试学，后 3 课大纲 →</Link></p>
+      <nav className="practice-shortcuts" aria-label="页内导航">
+        <a href="#step-1">动手练习 ↓</a><a href="#collaboration">协作案例 ↓</a><span />
+        <Link href="/practice/questions/l01">基础课题库 →</Link>
+        <Link href="/practice/crm-ai">CRM 客户成功实践 →</Link>
+      </nav>
 
       {/* 四步入口：横向步骤条，点一步跳到这一步的课卡 */}
       <nav className="pp-steps" aria-label="四步入口">
@@ -118,9 +127,15 @@ export default function PracticePage() {
         </ol>
       </nav>
 
-      {PRACTICE_STEPS.map((step) => (
-        <StepSection step={step} key={step.n} />
-      ))}
+      <StepSection step={PRACTICE_STEPS[0]} />
+      <section className="collab-section" id="collaboration" aria-labelledby="collaboration-title">
+        <h2 className="cat-title" id="collaboration-title">协作案例<span>{getPublishedCollabTopics().length} 个已开放</span></h2>
+        <p className="collab-trial-note practice-case-note">从真实协作经历中，看看哪里容易出问题、下次怎样跟 AI 说。</p>
+        <div className="grid">{getPublishedCollabTopics().map(topic => <CollabTopicCard key={topic.slug} topic={topic} />)}</div>
+      </section>
+      <PracticeOutline>
+        {PRACTICE_STEPS.slice(1).map(step => <StepSection step={step} key={step.n} />)}
+      </PracticeOutline>
     </div>
   );
 }

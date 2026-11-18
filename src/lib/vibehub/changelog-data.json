@@ -7,6 +7,75 @@
   "entries": [
     {
       "id": null,
+      "datetime": "2026-11-12",
+      "dateLabel": "2026 年 11 月 12 日",
+      "milestoneTitle": "补齐小程序术语与首批本机 Skill",
+      "groups": [
+        {
+          "type": "updates",
+          "items": [
+            {
+              "icon": "ti-book-2",
+              "text": "对照 VibeHub 当前目录，补齐 6 个小程序术语；既有课程和术语保持原内容。"
+            },
+            {
+              "icon": "ti-sparkles",
+              "text": "新增 VibeHub、ELI5、代码质量审查 3 个本机 Codex Skill 快照，提供使用说明、下载和文件校验；新设备安装与业务效果尚未验证。"
+            }
+          ]
+        },
+        {
+          "type": "terms",
+          "label": "新增术语（6）",
+          "terms": [
+            {
+              "href": "/mini-program",
+              "title": "在宿主应用中打开的轻量应用",
+              "cn": "小程序",
+              "en": "Mini Program",
+              "cat": "小程序"
+            },
+            {
+              "href": "/wxml",
+              "title": "定义微信小程序页面的结构",
+              "cn": "WXML",
+              "en": "WXML",
+              "cat": "小程序"
+            },
+            {
+              "href": "/wxss",
+              "title": "控制微信小程序页面的样式",
+              "cn": "WXSS",
+              "en": "WXSS",
+              "cat": "小程序"
+            },
+            {
+              "href": "/rpx",
+              "title": "以页面宽度为基准的尺寸单位",
+              "cn": "rpx",
+              "en": "rpx",
+              "cat": "小程序"
+            },
+            {
+              "href": "/page-lifecycle",
+              "title": "页面不同阶段触发的回调",
+              "cn": "页面生命周期",
+              "en": "Page Lifecycle",
+              "cat": "小程序"
+            },
+            {
+              "href": "/subpackage",
+              "title": "按需要加载不同部分的小程序代码",
+              "cn": "分包加载",
+              "en": "Subpackage Loading",
+              "cat": "小程序"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": null,
       "datetime": "2026-10-10",
       "dateLabel": "2026 年 10 月 10 日",
       "milestoneTitle": "实践试学、CRM 六课与 AI 协作手册上线",

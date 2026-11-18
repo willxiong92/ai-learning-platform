@@ -31,8 +31,8 @@ export default async function CollabTopicPage({ params }: { params: Promise<{ sl
 
   return (
     <article className="collab-page collab-detail">
-      <Link className="collab-back" href="/ai-collab">
-        ← 返回 AI 协作手册
+      <Link className="collab-back" href="/practice/#collaboration">
+        ← 返回实践 · 协作案例
       </Link>
       {/* 标题区左右两栏：左边是这件事，右边是看完要带走的那句话 */}
       <header className="collab-hero collab-detail-hero">

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "vibehub",
+    "title": "技术术语与需求澄清",
+    "description": "看不懂技术词，或需要把需求说准确时使用。",
+    "requirements": "Node.js；查询词条时需要联网。",
+    "prompt": "使用 $vibehub 解释 Tooltip 和 Popover 的区别。",
+    "version": "本机快照 · 2026-11-12",
+    "source": "本机 Codex 已安装版本",
+    "verification": "已核对文件与依赖、校验下载包；未在新设备完成安装与业务试用。",
+    "download": "/skills/vibehub-20261112.zip",
+    "sha256": "72f49ab982491fd1d90867b2a52ae76c28f5e10ae2bcebe1647b0283606c325e",
+    "files": [
+      "SKILL.md",
+      "vibehub.config.json",
+      "scripts/vibehub.mjs",
+      "agents/openai.yaml"
+    ]
+  },
+  {
+    "id": "eli5",
+    "title": "用图解讲清概念",
+    "description": "把陌生概念讲给零基础同事，生成图多字少的 HTML。",
+    "requirements": "支持生成 HTML 文件的 AI 工具。",
+    "prompt": "使用 $eli5 给零基础同事解释 API。",
+    "version": "本机快照 · 2026-11-12",
+    "source": "本机 Codex 已安装版本",
+    "verification": "已核对文件与依赖、校验下载包；未在新设备完成安装与业务试用。",
+    "download": "/skills/eli5-20261112.zip",
+    "sha256": "a6c6261cc7cf7e52e096854758b2dabc8662975b565f8cbcc17a645598725a76",
+    "files": [
+      "SKILL.md"
+    ]
+  },
+  {
+    "id": "code-review",
+    "title": "代码质量审查",
+    "description": "检查复杂条件、重复逻辑、文件膨胀与抽象边界。",
+    "requirements": "需要提供代码仓库或变更；不替代运行测试。",
+    "prompt": "使用 $code-review 只审查当前改动，给出位置、影响和修复建议，不修改代码。",
+    "version": "本机快照 · 2026-11-12",
+    "source": "本机 Codex 已安装版本",
+    "verification": "已核对文件与依赖、校验下载包；未在新设备完成安装与业务试用。",
+    "download": "/skills/code-review-20261112.zip",
+    "sha256": "4ff31070ddeb7eaed69c0c2b10775b105c558cd512934ecc23f21ef7657fb7c5",
+    "files": [
+      "SKILL.md"
+    ]
+  }
+]
